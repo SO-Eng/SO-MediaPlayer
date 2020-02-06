@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -22,7 +23,7 @@ namespace Mediaplayer_ILS
         bool playing = false;
 
         // Timer (Ticker) um aktuelle Zeit wiederzuegeben an Label
-        DispatcherTimer timer = new DispatcherTimer();
+        readonly DispatcherTimer timer = new DispatcherTimer();
 
 
         public MainWindow()
@@ -40,21 +41,26 @@ namespace Mediaplayer_ILS
             openDialog.FileName = string.Empty;
             if (openDialog.ShowDialog() == true)
             {
-                mediaPlayer.Source = new Uri(openDialog.FileName);
+                MediaPlayer.Source = new Uri(openDialog.FileName);
                 ImagePlay();
-                mediaPlayer.Stop();
+                MediaPlayer.Stop();
                 playing = false;
-                buttonPlayPause.IsEnabled = true;
-                buttonBackwards.IsEnabled = true;
-                buttonForwards.IsEnabled = true;
-                imagePlay.Opacity = 1;
-                imageBackward.Opacity = 1;
-                imageForward.Opacity = 1;
-                labelFileName.Content = openDialog.FileName;
+                ButtonPlayPause.IsEnabled = true;
+                ButtonBackwards.IsEnabled = true;
+                ButtonForwards.IsEnabled = true;
+                ImagePlayPic.Opacity = 0.85;
+                ImageBackwardPic.Opacity = 0.85;
+                ImageForwardPic.Opacity = 0.85;
+                LabelFileName.Content = openDialog.FileName;
                 // Timer (Ticker) starten
                 timer.Tick += TimerTick;
                 timer.Start();
             }
+        }
+
+        private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
+        {
+            //FolderBrowserDialog test
         }
 
 
@@ -63,16 +69,21 @@ namespace Mediaplayer_ILS
         {
             try
             {
-                labelMaxTime.Content = mediaPlayer.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
-                if (mediaPlayer.HasVideo)
+                LabelMaxTime.Content = MediaPlayer.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
+                if (MediaPlayer.HasVideo)
                 {
-                    imageAudio.Source = null;
+                    ImageAudio.Source = null;
+                    playing = false;
+                    ButtonPlayPause_Click(sender, e);
                     return;
                 }
-                if (mediaPlayer.HasAudio)
+                if (MediaPlayer.HasAudio)
                 {
                     // Photo by Marcela Laskoski(https://unsplash.com/@marcelalaskoski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on Unsplash(https://unsplash.com)
-                    imageAudio.Source = new BitmapImage(new Uri("icons/audio.jpg", UriKind.Relative));
+                    ImageAudio.Source = new BitmapImage(new Uri("musicBackground/audio.jpg", UriKind.Relative));
+                    playing = false;
+                    ButtonPlayPause_Click(sender, e);
+                    MediaPlayer.Play();
                 }
             }
             catch
@@ -85,16 +96,16 @@ namespace Mediaplayer_ILS
         // Aktuelle Spieldauer an Label uebergeben mit Hilfe des Tick Timers
         private void TimerTick(object sender, EventArgs e)
         {
-            if (mediaPlayer != null)
+            if (MediaPlayer != null)
             {
-                if (mediaPlayer.NaturalDuration.HasTimeSpan)
+                if (MediaPlayer.NaturalDuration.HasTimeSpan)
                 {
-                    labelCurrentTime.Content = mediaPlayer.Position.ToString(@"hh\:mm\:ss");
+                    LabelCurrentTime.Content = MediaPlayer.Position.ToString(@"hh\:mm\:ss");
                 }
             }
             else
             {
-                labelCurrentTime.Content = "00:00:00";
+                LabelCurrentTime.Content = "00:00:00";
             }
         }
 
@@ -104,28 +115,28 @@ namespace Mediaplayer_ILS
         {
             if (!playing)
             {
-                mediaPlayer.Play();
+                MediaPlayer.Play();
                 ImagePause();
                 playing = true;
             }
             else
             {
-                mediaPlayer.Pause();
+                MediaPlayer.Pause();
                 ImagePlay();
                 playing = false;
             }
             // Button Stoppen aktivieren
-            buttonStop.IsEnabled = true;
-            imageStop.Opacity = 1;
+            ButtonStop.IsEnabled = true;
+            ImageStopPic.Opacity = 0.85;
         }
 
         // Mediendatei stoppen
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
             ImagePlay();
-            mediaPlayer.Stop();
-            imageStop.Opacity = 0.5;
-            buttonStop.IsEnabled = false;
+            MediaPlayer.Stop();
+            ImageStopPic.Opacity = 0.5;
+            ButtonStop.IsEnabled = false;
             playing = false;
         }
 
@@ -133,14 +144,14 @@ namespace Mediaplayer_ILS
         // Bilder tauschen (Play || Pause)
         void ImagePlay()
         {
-            imagePlay.Source = new BitmapImage(new Uri("icons/play.png", UriKind.Relative));
-            buttonPlayPause.ToolTip = "Wiedergeben";
+            ImagePlayPic.Source = new BitmapImage(new Uri("icons/play.png", UriKind.Relative));
+            ButtonPlayPause.ToolTip = "Wiedergeben";
         }
 
         void ImagePause()
         {
-            imagePlay.Source = new BitmapImage(new Uri("icons/pause.png", UriKind.Relative));
-            buttonPlayPause.ToolTip = "Pausieren";
+            ImagePlayPic.Source = new BitmapImage(new Uri("icons/pause.png", UriKind.Relative));
+            ButtonPlayPause.ToolTip = "Pausieren";
         }
 
 
@@ -169,15 +180,36 @@ namespace Mediaplayer_ILS
             if (e.Delta > 0)
             {
                 // Nach vorne erhöhen wir die Lautstärke
-                mediaPlayer.Volume = mediaPlayer.Volume + 0.1;
+                ProgressVolume.Value += 0.05;
+                SoundBoxVolume();
             }
             else
             {
                 // Nach hinten reduziert
-                mediaPlayer.Volume = mediaPlayer.Volume - 0.1;
+                ProgressVolume.Value -= 0.05;
+                SoundBoxVolume();
             }
         }
 
+        private void SoundBoxVolume()
+        {
+            if (MediaPlayer.Volume <= 0)
+            {
+                SoundBoxPic.Source = new BitmapImage(new Uri("soundVol/audio-volume-muted.png", UriKind.Relative));
+            }
+            else if (MediaPlayer.Volume > 0 && MediaPlayer.Volume <= 0.33)
+            {
+                SoundBoxPic.Source = new BitmapImage(new Uri("soundVol/audio-volume-low.png", UriKind.Relative));
+            }
+            else if (MediaPlayer.Volume > 0.33 && MediaPlayer.Volume <= 0.66)
+            {
+                SoundBoxPic.Source = new BitmapImage(new Uri("soundVol/audio-volume-medium.png", UriKind.Relative));
+            }
+            else
+            {
+                SoundBoxPic.Source = new BitmapImage(new Uri("soundVol/audio-volume-high.png", UriKind.Relative));
+            }
+        }
 
         // 10 Sekunden vorwaerts springen
         private void ButtonForwards_Click(object sender, RoutedEventArgs e)
@@ -186,14 +218,14 @@ namespace Mediaplayer_ILS
             {
                 return;
             }
-            if ((mediaPlayer.NaturalDuration.TimeSpan - mediaPlayer.Position) <= TimeSpan.FromSeconds(10))
+            if ((MediaPlayer.NaturalDuration.TimeSpan - MediaPlayer.Position) <= TimeSpan.FromSeconds(10))
             {
-                mediaPlayer.Position = mediaPlayer.NaturalDuration.TimeSpan;
+                MediaPlayer.Position = MediaPlayer.NaturalDuration.TimeSpan;
                 ButtonStop_Click(sender, e);
             }
             else
             {
-                mediaPlayer.Position += TimeSpan.FromSeconds(10);
+                MediaPlayer.Position += TimeSpan.FromSeconds(10);
             }
         }
 
@@ -204,13 +236,13 @@ namespace Mediaplayer_ILS
             {
                 return;
             }
-            if (mediaPlayer.NaturalDuration.TimeSpan <= TimeSpan.FromSeconds(10))
+            if (MediaPlayer.NaturalDuration.TimeSpan <= TimeSpan.FromSeconds(10))
             {
-                mediaPlayer.Position = TimeSpan.Zero;
+                MediaPlayer.Position = TimeSpan.Zero;
             }
             else
             {
-                mediaPlayer.Position -= TimeSpan.FromSeconds(10);
+                MediaPlayer.Position -= TimeSpan.FromSeconds(10);
             }
         }
 
@@ -218,15 +250,38 @@ namespace Mediaplayer_ILS
         // ProgressBar auf MousLeftButtonDown reagieren lassen und an geklickte stelle den Value setzen.
         private void ProgressVolume_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            double mousePosition = e.GetPosition(progressVolume).X;
-            progressVolume.Value = SetProgressBarValue(mousePosition);
+            double mousePosition = e.GetPosition(ProgressVolume).X;
+            ProgressVolume.Value = SetProgressBarValue(mousePosition);
         }
 
         private double SetProgressBarValue(double mP)
         {
-            double ratio = mP / progressVolume.ActualWidth;
-            double progressBarValue = ratio * progressVolume.Maximum;
+            double ratio = mP / ProgressVolume.ActualWidth;
+            double progressBarValue = ratio * ProgressVolume.Maximum;
             return progressBarValue;
+        }
+
+        // Check ob Internetconnection vorhanden
+        private bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (client.OpenRead("http://google.com/generate_204"))
+                    return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void WindowMediaPLayer_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (CheckForInternetConnection() == true)
+            {
+                InternetConPic.Source = new BitmapImage(new Uri("internetCon/network-connect-3.png", UriKind.Relative));
+            }
         }
     }
 }

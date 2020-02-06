@@ -35,11 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons\headphones.ico</ApplicationIcon>
+    <ApplicationIcon>ico\headphones.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -98,18 +99,34 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\oeffnen.png" />
+    <Resource Include="musicBackground\audio.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ico\headphones.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="icons\pause.png" />
     <Resource Include="icons\play.png" />
     <Resource Include="icons\stop.png" />
-    <Resource Include="icons\vor.png" />
-    <Resource Include="icons\zurueck.png" />
+    <Resource Include="icons\backward.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\audio.jpg" />
+    <Resource Include="icons\forward.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\headphones.ico" />
+    <Resource Include="internetCon\network-connect-3.png" />
+    <Resource Include="internetCon\network-disconnect-3.png" />
+    <Resource Include="soundVol\audio-volume-high.png" />
+    <Resource Include="soundVol\audio-volume-low.png" />
+    <Resource Include="soundVol\audio-volume-medium.png" />
+    <Resource Include="soundVol\audio-volume-muted.png" />
+    <Resource Include="icons\folder-tar.png" />
+    <Resource Include="icons\folder-music.png" />
+    <Resource Include="icons\folder-html.png" />
+    <Content Include="icons\openFile.png" />
+    <Resource Include="icons\openFolder.png" />
+    <Resource Include="icons\openWeb.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,42 +1,73 @@
-﻿<Window x:Name="windowMediaPLayer" x:Class="Mediaplayer_ILS.MainWindow"
+﻿<Window x:Name="WindowMediaPLayer" x:Class="Mediaplayer_ILS.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Mediaplayer_ILS"
         mc:Ignorable="d"
-        Title="Mediaplayer" Height="451.16" Width="620.656" KeyDown="WindowMediaPLayer_KeyDown" MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="icons/headphones.ico" WindowState="Maximized">
+        Title="Mediaplayer" Height="451.16" Width="620.656" KeyDown="WindowMediaPLayer_KeyDown" MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="ico/headphones.ico" Loaded="WindowMediaPLayer_Loaded">
     <Grid>
         <ToolBarTray>
-            <ToolBar>
-                <Button x:Name="buttonOpen" Height="38" Width="38" ToolTip="Öffnen" Click="ButtonOpen_Click">
-                    <Image x:Name="imageOpen" Source="icons/oeffnen.png"/>
+            <ToolBar MinWidth="140">
+                <Button x:Name="ButtonOpen" Height="38" Width="38" ToolTip="Datei öffnen" Click="ButtonOpen_Click">
+                    <Image x:Name="ImageOpenPic" Source="icons/folder-music.png"/>
                 </Button>
-                <Button x:Name="buttonStop" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
-                    <Image x:Name="imageStop" Source="icons/stop.png" Opacity="0.5"/>
+                <Button x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="Ordner öffnen" Click="ButtonOpenFolder_Click">
+                    <Image x:Name="ImageOpenFolderPic" Source="icons/folder-tar.png"/>
                 </Button>
-                <Button x:Name="buttonPlayPause" Height="38" Width="38" ToolTip="Wiedergeben" IsEnabled="False" Click="ButtonPlayPause_Click">
-                    <Image x:Name="imagePlay" Source="icons/play.png" Opacity="0.5"/>
+                <Button x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="Webstation öffnen">
+                    <Image x:Name="ImageOpenWebPic" Source="icons/folder-html.png"/>
                 </Button>
-                <Button x:Name="buttonBackwards" Height="38" Width="38" ToolTip="10sek Zurück" IsEnabled="False" Click="ButtonBackwards_Click">
-                    <Image x:Name="imageBackward" Source="icons/zurueck.png" Opacity="0.5"/>
+            </ToolBar>
+            <ToolBar MinWidth="180">
+                <Button x:Name="ButtonStop" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
+                    <Image x:Name="ImageStopPic" Source="icons/stop.png" Opacity="0.5"/>
                 </Button>
-                <Button x:Name="buttonForwards" Height="38" Width="38" ToolTip="10sek Vorwärts" IsEnabled="False" Click="ButtonForwards_Click">
-                    <Image x:Name="imageForward" Source="icons/vor.png" Opacity="0.5"/>
+                <Button x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="Wiedergeben" IsEnabled="False" Click="ButtonPlayPause_Click">
+                    <Image x:Name="ImagePlayPic" Source="icons/play.png" Opacity="0.5"/>
+                </Button>
+                <Button x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="10sek Zurück" IsEnabled="False" Click="ButtonBackwards_Click">
+                    <Image x:Name="ImageBackwardPic" Source="icons/backward.png" Opacity="0.5"/>
+                </Button>
+                <Button x:Name="ButtonForwards" Height="38" Width="38" ToolTip="10sek Vorwärts" IsEnabled="False" Click="ButtonForwards_Click">
+                    <Image x:Name="ImageForwardPic" Source="icons/forward.png" Opacity="0.5"/>
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <MediaElement x:Name="mediaPlayer" Margin="0,45,0,50" Source="C:\Users\iPhr3ak\Desktop\SoftwOrt\Logo\Final\final\1500x1500_logo_bildschirm.jpg" LoadedBehavior="Manual" MediaOpened="MediaPlayer_MediaOpened"/>
-        <!-- If Audiofile is loaded, show music picture -->
-        <Image x:Name="imageAudio"  Margin="0,45,0,0"/>
-        
-        <Grid x:Name="statusBarBottom" Height="50" VerticalAlignment="Bottom" Background="#FFF1EDED">
+        <!--Mediabereich-->
+        <Grid Margin="0,45,0,50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MinWidth="150" />
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <ListBox></ListBox>
+            <!--Der Splitter-->
+            <GridSplitter Grid.Column="1" Width="1" Background="LightGray" ResizeBehavior="PreviousAndNext"/>
+            <MediaElement x:Name="MediaPlayer" Source="C:\Users\iPhr3ak\Desktop\SoftwOrt\Logo\Final\final\1500x1500_logo_bildschirm.jpg" 
+                          MediaOpened="MediaPlayer_MediaOpened" LoadedBehavior="Manual" 
+                          Volume="{Binding ElementName=ProgressVolume, Path=Value}" Grid.Column="2"/>
+            <!-- If Audiofile is loaded, show music picture -->
+            <Image x:Name="ImageAudio" Grid.Column="2" />
+        </Grid>
+        <!--Statusleiste unten-->
+        <Grid x:Name="StatusBarBottom" Height="50" VerticalAlignment="Bottom" Background="#FFF1EDED">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="205"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <!-- Start ProgrssBar Volume -->
-            <Grid x:Name="volumeBarGrid" Width="240" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <ProgressBar 
-                    x:Name="progressVolume" HorizontalAlignment="Left" Height="18" Margin="20,0,20,0" 
-                    VerticalAlignment="Center" Width="200" Value="{Binding ElementName=mediaPlayer, Path=Volume}" 
-                    MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" Maximum="1" Background="#FF60AEDA" 
+            <Grid x:Name="VolumeBarGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Column="1" Row="0">
+                <ProgressBar
+                    x:Name="ProgressVolume" HorizontalAlignment="Left" Height="18" 
+                    VerticalAlignment="Center" Width="200" Value="0.5" 
+                    MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" Maximum="1" Background="#FF60AEDA"
                     >
                     <ProgressBar.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -45,25 +76,31 @@
                         </LinearGradientBrush>
                     </ProgressBar.Foreground>
                 </ProgressBar>
-                <TextBlock  
-                    Text="{Binding ElementName=progressVolume, Path=Value, StringFormat=Vol. {0:0%}}" 
+                <TextBlock
+                    Text="{Binding ElementName=ProgressVolume, Path=Value, StringFormat=Vol. {0:0%}}" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" UseLayoutRounding="False"
                     />
             </Grid>
-            <!--End ProgressBar Volume-->
-            <Grid x:Name="fileNameGrid" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="Auto" Margin="0,0,0,-4">
-                <Label x:Name="labelFileName" HorizontalContentAlignment="Center" Opacity="0.6" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+            <Grid Column="0" Row="0">
+                <Image x:Name="SoundBoxPic" Source="soundVol/audio-volume-medium.png" Margin="3,0,3,0" Height="20"/>
             </Grid>
-            <Grid x:Name="timeStampGrid" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <!--End ProgressBar Volume-->
+            <Grid x:Name="TimeStampGrid" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Column="3" Row="0" ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="15"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="labelCurrentTime" MinWidth="30" Content="00:00:00" Grid.Column="0" HorizontalContentAlignment="Right"/>
-                <Label x:Name="labelTimeDivider" MinWidth="30" Content="/" Grid.Column="1"/>
-                <Label x:Name="labelMaxTime" MinWidth="30" Content="00:00:00" Grid.Column="2"/>
+                <Label x:Name="LabelCurrentTime" MinWidth="30" Content="00:00:00" Grid.Column="0" HorizontalContentAlignment="Right"/>
+                <Label x:Name="LabelTimeDivider" MinWidth="30" Content="/" Grid.Column="1"/>
+                <Label x:Name="LabelMaxTime" MinWidth="30" Content="00:00:00" Grid.Column="2"/>
             </Grid>
+
+            <!-- Row 1 -->
+            <Grid x:Name="FileNameGrid" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="Auto" Margin="0,0,0,-4" Column="0" Row="1" ColumnSpan="4">
+                <Label x:Name="LabelFileName" HorizontalContentAlignment="Center" Opacity="0.6" HorizontalAlignment="Center"/>
+            </Grid>
+            <Image x:Name="InternetConPic" Grid.Row="1" Grid.Column="4" Source="internetCon/network-disconnect-3.png" MouseDown="WindowMediaPLayer_Loaded"/>
         </Grid>
     </Grid>
 </Window>
