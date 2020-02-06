@@ -37,12 +37,12 @@
         <Grid Margin="0,45,0,50">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" MinWidth="150" />
-                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="3" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
-            <ListBox></ListBox>
+            <ListBox x:Name="ListSelection" SelectionChanged="ListSelection_SelectionChanged" Focusable="False" />
             <!--Der Splitter-->
-            <GridSplitter Grid.Column="1" Width="1" Background="LightGray" ResizeBehavior="PreviousAndNext"/>
+            <GridSplitter Grid.Column="1" Width="3" Background="#9B9B9B" ResizeBehavior="PreviousAndNext"/>
             <MediaElement x:Name="MediaPlayer" Source="C:\Users\iPhr3ak\Desktop\SoftwOrt\Logo\Final\final\1500x1500_logo_bildschirm.jpg" 
                           MediaOpened="MediaPlayer_MediaOpened" LoadedBehavior="Manual" 
                           Volume="{Binding ElementName=ProgressVolume, Path=Value}" Grid.Column="2"/>

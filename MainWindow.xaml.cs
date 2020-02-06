@@ -5,6 +5,9 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using System.Windows.Threading;
+using WinForms = System.Windows.Forms;
+using System.IO;
+using System.Text;
 
 /// <summary>
 /// Icon graphic is free comercial use of license and has to be announced:
@@ -21,6 +24,7 @@ namespace Mediaplayer_ILS
 
         // Fields
         bool playing = false;
+        private string sPath = string.Empty;
 
         // Timer (Ticker) um aktuelle Zeit wiederzuegeben an Label
         readonly DispatcherTimer timer = new DispatcherTimer();
@@ -45,22 +49,48 @@ namespace Mediaplayer_ILS
                 ImagePlay();
                 MediaPlayer.Stop();
                 playing = false;
-                ButtonPlayPause.IsEnabled = true;
-                ButtonBackwards.IsEnabled = true;
-                ButtonForwards.IsEnabled = true;
-                ImagePlayPic.Opacity = 0.85;
-                ImageBackwardPic.Opacity = 0.85;
-                ImageForwardPic.Opacity = 0.85;
+                PlayRoutine();
                 LabelFileName.Content = openDialog.FileName;
-                // Timer (Ticker) starten
-                timer.Tick += TimerTick;
-                timer.Start();
             }
         }
 
+        private void PlayRoutine()
+        {
+            ButtonPlayPause.IsEnabled = true;
+            ButtonBackwards.IsEnabled = true;
+            ButtonForwards.IsEnabled = true;
+            ImagePlayPic.Opacity = 0.85;
+            ImageBackwardPic.Opacity = 0.85;
+            ImageForwardPic.Opacity = 0.85;
+            // Timer (Ticker) starten
+            timer.Tick += TimerTick;
+            timer.Start();
+        }
+
+        // Open Folder Dialog
         private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
         {
-            //FolderBrowserDialog test
+            WinForms.FolderBrowserDialog folderDialog = new WinForms.FolderBrowserDialog();
+            folderDialog.ShowNewFolderButton = false;
+            folderDialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            WinForms.DialogResult result = folderDialog.ShowDialog();
+
+            if (result == WinForms.DialogResult.OK)
+            {
+                sPath = folderDialog.SelectedPath;
+                
+                DirectoryInfo folder = new DirectoryInfo(sPath);
+
+                if (folder.Exists)
+                {
+                    ListSelection.Items.Clear();
+
+                    foreach (var fileInfo in folder.GetFiles())
+                    {
+                        ListSelection.Items.Add(fileInfo);
+                    }
+                }
+            }
         }
 
 
@@ -283,5 +313,26 @@ namespace Mediaplayer_ILS
                 InternetConPic.Source = new BitmapImage(new Uri("internetCon/network-connect-3.png", UriKind.Relative));
             }
         }
+
+        private void ListSelection_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ListSelection.SelectedItem == null)
+            {
+                return;
+            }
+            else
+            {
+                string selection = ListSelection.SelectedItem.ToString();
+                StringBuilder sB = new StringBuilder(sPath);
+                sB.Append(@"\");
+                sB.Append(selection);
+                MediaPlayer.Source = new Uri(sB.ToString());
+                PlayRoutine();
+                playing = false;
+                ButtonPlayPause_Click(sender, e);
+                ListSelection.SelectedItem = null;
+            }
+        }
+
     }
 }
