@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Mediaplayer" Height="451.16" Width="620.656" KeyDown="WindowMediaPLayer_KeyDown" MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="ico/headphones.ico" Loaded="WindowMediaPLayer_Loaded">
+        Title="Mediaplayer" Height="451.16" Width="620.656" KeyDown="WindowMediaPLayer_KeyDown" 
+        MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="ico/headphones.ico" 
+        Loaded="WindowMediaPLayer_Loaded">
     <Grid>
         <ToolBarTray>
             <ToolBar MinWidth="140">
@@ -40,9 +42,21 @@
                 <ColumnDefinition Width="3" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="ListSelection" SelectionChanged="ListSelection_SelectionChanged" Focusable="False" />
+            <!-- Listbox Ready!!! -->
+            <!--<ListBox x:Name="ListSelection" SelectionChanged="ListSelection_SelectionChanged" PreviewKeyDown="ListSelection_PreviewKeyDown" />-->
+
+            <ListView Grid.Column="0" x:Name="ListSelection">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="No." Width="25" DisplayMemberBinding="{Binding No}" />
+                        <GridViewColumn Header="FileName" Width="auto" DisplayMemberBinding="{Binding FileName}"/>
+                        <GridViewColumn Header="Playtime" DisplayMemberBinding="{Binding PlayTime}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
             <!--Der Splitter-->
-            <GridSplitter Grid.Column="1" Width="3" Background="#9B9B9B" ResizeBehavior="PreviousAndNext"/>
+            <GridSplitter Grid.Column="1" Width="3" Background="#9B9B9B" ResizeBehavior="PreviousAndNext" PreviewKeyDown="GridSplitter_PreviewKeyDown"/>
             <MediaElement x:Name="MediaPlayer" Source="C:\Users\iPhr3ak\Desktop\SoftwOrt\Logo\Final\final\1500x1500_logo_bildschirm.jpg" 
                           MediaOpened="MediaPlayer_MediaOpened" LoadedBehavior="Manual" 
                           Volume="{Binding ElementName=ProgressVolume, Path=Value}" Grid.Column="2"/>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
@@ -8,6 +9,7 @@ using System.Windows.Threading;
 using WinForms = System.Windows.Forms;
 using System.IO;
 using System.Text;
+using System.Windows.Controls;
 
 /// <summary>
 /// Icon graphic is free comercial use of license and has to be announced:
@@ -24,7 +26,10 @@ namespace Mediaplayer_ILS
 
         // Fields
         bool playing = false;
+        private bool fileLoaded = false;
         private string sPath = string.Empty;
+
+        private GridView gridView;
 
         // Timer (Ticker) um aktuelle Zeit wiederzuegeben an Label
         readonly DispatcherTimer timer = new DispatcherTimer();
@@ -33,6 +38,8 @@ namespace Mediaplayer_ILS
         public MainWindow()
         {
             InitializeComponent();
+
+            gridView = new GridView();
 
             // Timerintervall setzen
             timer.Interval = TimeSpan.FromMilliseconds(250);
@@ -62,6 +69,7 @@ namespace Mediaplayer_ILS
             ImagePlayPic.Opacity = 0.85;
             ImageBackwardPic.Opacity = 0.85;
             ImageForwardPic.Opacity = 0.85;
+            fileLoaded = true;
             // Timer (Ticker) starten
             timer.Tick += TimerTick;
             timer.Start();
@@ -77,13 +85,22 @@ namespace Mediaplayer_ILS
 
             if (result == WinForms.DialogResult.OK)
             {
+                // GridView vorbereiten
+                this.ListSelection.View = gridView;
+
+                // Pfad uebergeben
                 sPath = folderDialog.SelectedPath;
-                
                 DirectoryInfo folder = new DirectoryInfo(sPath);
 
                 if (folder.Exists)
                 {
                     ListSelection.Items.Clear();
+
+                    //for (int i = 0; i < folder.GetFiles().Length; i++)
+                    //{
+                    //    ListSelection.Items.Add( new { No = i.ToString(), FileName = fileInfo, PlayTime = "00:00:00" });
+
+                    //}
 
                     foreach (var fileInfo in folder.GetFiles())
                     {
@@ -188,6 +205,10 @@ namespace Mediaplayer_ILS
         // Mediafile per Spacetaste und Pfeiltasten (abspielen && pausieren) || 10sek springen(vor || zurueck)
         private void WindowMediaPLayer_KeyDown(object sender, KeyEventArgs e)
         {
+            if (!fileLoaded)
+            {
+                return;
+            }
             if (e.Key == Key.Space)
             {
                 ButtonPlayPause_Click(sender, e);
@@ -330,8 +351,36 @@ namespace Mediaplayer_ILS
                 PlayRoutine();
                 playing = false;
                 ButtonPlayPause_Click(sender, e);
-                ListSelection.SelectedItem = null;
             }
+        }
+
+        // Hotkeys weiterleiten
+        private void ListSelection_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HotkeysForword(sender, e);
+        }
+
+        private void GridSplitter_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HotkeysForword(sender, e);
+        }
+
+        private void HotkeysForword(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Left:
+                case Key.Right:
+                //case Key.Up:
+                //case Key.Down:
+                case Key.Space:
+                    e.Handled = true;
+                    WindowMediaPLayer_KeyDown(sender, e);
+                    break;
+                default:
+                    break;
+            }
+
         }
 
     }
