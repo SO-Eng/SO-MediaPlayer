@@ -16,7 +16,7 @@
                 <Button x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="Ordner öffnen" Click="ButtonOpenFolder_Click">
                     <Image x:Name="ImageOpenFolderPic" Source="icons/folder-tar.png"/>
                 </Button>
-                <Button x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="Webstation öffnen">
+                <Button x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="Webstation öffnen" Click="ButtonOpenWeb_Click">
                     <Image x:Name="ImageOpenWebPic" Source="icons/folder-html.png"/>
                 </Button>
             </ToolBar>
@@ -45,12 +45,32 @@
             <!-- Listbox Ready!!! -->
             <!--<ListBox x:Name="ListSelection" SelectionChanged="ListSelection_SelectionChanged" PreviewKeyDown="ListSelection_PreviewKeyDown" />-->
 
-            <ListView Grid.Column="0" x:Name="ListSelection">
+            <ListView Grid.Column="0" x:Name="ListSelectionWeb" SelectionChanged="ListSelection_SelectionChanged" PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Collapsed">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                </ListView.Resources>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="No." Width="25" DisplayMemberBinding="{Binding No}" />
-                        <GridViewColumn Header="FileName" Width="auto" DisplayMemberBinding="{Binding FileName}"/>
-                        <GridViewColumn Header="Playtime" DisplayMemberBinding="{Binding PlayTime}"/>
+                        <GridViewColumn Header="No." Width="25" DisplayMemberBinding="{Binding StationNum}" />
+                        <GridViewColumn Header="Stations Name" DisplayMemberBinding="{Binding StationName}"/>
+                        <GridViewColumn Header="Web-URL" Width="auto" DisplayMemberBinding="{Binding StationUrl}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <ListView Grid.Column="0" x:Name="ListSelectionFolder" SelectionChanged="ListSelection_SelectionChanged" PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Visible">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="No." Width="25" DisplayMemberBinding="{Binding Number}" />
+                        <GridViewColumn Header="Filename" DisplayMemberBinding="{Binding FileName}"/>
+                        <GridViewColumn Header="Playtime" Width="auto" DisplayMemberBinding="{Binding PlayTime}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

@@ -1,15 +1,21 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Net;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using Microsoft.Win32;
-using System.Windows.Threading;
-using WinForms = System.Windows.Forms;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using Mediaplayer_ILS.Models;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using WinForms = System.Windows.Forms;
 
 /// <summary>
 /// Icon graphic is free comercial use of license and has to be announced:
@@ -28,21 +34,29 @@ namespace Mediaplayer_ILS
         bool playing = false;
         private bool fileLoaded = false;
         private string sPath = string.Empty;
+        private string webStationFile = String.Empty;
+        private bool folderSelectoin = false;
+        private string tempSelectionWeb;
+        private long count = 0;
+        DateTime startTime;
+        DateTime diff;
+        private string playtime;
 
-        private GridView gridView;
+        //private GridView gridView;
+        //List<WebStations> webStations = new List<WebStations>();
 
         // Timer (Ticker) um aktuelle Zeit wiederzuegeben an Label
         readonly DispatcherTimer timer = new DispatcherTimer();
+        readonly DispatcherTimer timerWeb = new DispatcherTimer();
 
 
         public MainWindow()
         {
             InitializeComponent();
 
-            gridView = new GridView();
-
             // Timerintervall setzen
             timer.Interval = TimeSpan.FromMilliseconds(250);
+            timerWeb.Interval = TimeSpan.FromSeconds(1);
         }
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
@@ -54,6 +68,7 @@ namespace Mediaplayer_ILS
             {
                 MediaPlayer.Source = new Uri(openDialog.FileName);
                 ImagePlay();
+                folderSelectoin = true;
                 MediaPlayer.Stop();
                 playing = false;
                 PlayRoutine();
@@ -61,6 +76,68 @@ namespace Mediaplayer_ILS
             }
         }
 
+        private void ButtonOpenWeb_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openWebDialog = new OpenFileDialog();
+            openWebDialog.FileName = String.Empty;
+            openWebDialog.Multiselect = false;
+            //openWebDialog.Filter = "";
+            if (openWebDialog.ShowDialog() == true)
+            {
+                ListSelectionFolder.Visibility = Visibility.Collapsed;
+                ListSelectionWeb.Visibility = Visibility.Visible;
+                webStationFile = openWebDialog.FileName;
+                ListSelectionWeb.Items.Clear();
+                folderSelectoin = false;
+                WebStationsStorage();
+            }
+        }
+
+        private void WebStationsStorage()
+        {
+            var webStations = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebStations>(webStationFile);
+
+            foreach (var webStation in webStations)
+            {
+                ListSelectionWeb.Items.Add(new WebStations { StationNum = webStation.StationNum, StationName = webStation.StationName, StationUrl = webStation.StationUrl});
+                //ListSelection.Items.Add($"{ webStation.StationNum } { webStation.StationUrl } { webStation.StationName }");
+            }
+        }
+
+        // Open Folder Dialog
+        private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
+        {
+            WinForms.FolderBrowserDialog folderDialog = new WinForms.FolderBrowserDialog();
+            folderDialog.ShowNewFolderButton = false;
+            folderDialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            WinForms.DialogResult result = folderDialog.ShowDialog();
+
+            if (result == WinForms.DialogResult.OK)
+            {
+                ListSelectionWeb.Visibility = Visibility.Collapsed;
+                ListSelectionFolder.Visibility = Visibility.Visible;
+                // GridView vorbereiten
+                //this.ListSelection.View = gridView;
+
+                // Pfad uebergeben
+                sPath = folderDialog.SelectedPath;
+                DirectoryInfo folder = new DirectoryInfo(sPath);
+                int i = 1;
+                if (folder.Exists)
+                {
+                    ListSelectionFolder.Items.Clear();
+                    folderSelectoin = true;
+                    foreach (var fileInfo in folder.GetFiles())
+                    {
+                        playtime = "00:00:00";
+                        ListSelectionFolder.Items.Add(new FolderPick { Number = i.ToString(), FileName = fileInfo.ToString(), PlayTime = playtime });
+                        i++;
+                    }
+                }
+            }
+        }
+
+        // Abspielroutine nach File oder Folder oeffnen
         private void PlayRoutine()
         {
             ButtonPlayPause.IsEnabled = true;
@@ -75,45 +152,31 @@ namespace Mediaplayer_ILS
             timer.Start();
         }
 
-        // Open Folder Dialog
-        private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
+        private void PlayRoutineWeb()
         {
-            WinForms.FolderBrowserDialog folderDialog = new WinForms.FolderBrowserDialog();
-            folderDialog.ShowNewFolderButton = false;
-            folderDialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            WinForms.DialogResult result = folderDialog.ShowDialog();
-
-            if (result == WinForms.DialogResult.OK)
-            {
-                // GridView vorbereiten
-                this.ListSelection.View = gridView;
-
-                // Pfad uebergeben
-                sPath = folderDialog.SelectedPath;
-                DirectoryInfo folder = new DirectoryInfo(sPath);
-
-                if (folder.Exists)
-                {
-                    ListSelection.Items.Clear();
-
-                    //for (int i = 0; i < folder.GetFiles().Length; i++)
-                    //{
-                    //    ListSelection.Items.Add( new { No = i.ToString(), FileName = fileInfo, PlayTime = "00:00:00" });
-
-                    //}
-
-                    foreach (var fileInfo in folder.GetFiles())
-                    {
-                        ListSelection.Items.Add(fileInfo);
-                    }
-                }
-            }
+            ButtonPlayPause.IsEnabled = true;
+            ImagePlayPic.Opacity = 0.85;
+            fileLoaded = true;
+            startTime = DateTime.Now;
+            LabelMaxTime.Content = "--:--:--";
+            // Timer (Ticker) starten
+            timerWeb.Tick += TimerWebTick;
+            timerWeb.Start();
         }
+
 
 
         // Wenn MediaFile geladen, Gesamtzeit anzeigen
         private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
         {
+            if (!folderSelectoin)
+            {
+                ImageAudio.Source = new BitmapImage(new Uri("musicBackground/audio.jpg", UriKind.Relative));
+                playing = false;
+                ButtonPlayPause_Click(sender, e);
+                MediaPlayer.Play();
+                return;
+            }
             try
             {
                 LabelMaxTime.Content = MediaPlayer.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
@@ -156,21 +219,49 @@ namespace Mediaplayer_ILS
             }
         }
 
+        private void TimerWebTick(object sender, EventArgs e)
+        {
+            diff = DateTime.Now;
+            string seconds = (diff - startTime).ToString(@"hh\:mm\:ss");
+            LabelCurrentTime.Content = seconds;
+        }
+
 
         // Mediendatei abspielen || pausieren
         private void ButtonPlayPause_Click(object sender, RoutedEventArgs e)
         {
             if (!playing)
             {
-                MediaPlayer.Play();
-                ImagePause();
-                playing = true;
+                if (folderSelectoin)
+                {
+                    MediaPlayer.Play();
+                    ImagePause();
+                    playing = true;
+                }
+                else // Webradio
+                {
+                    MediaPlayer.Source = new Uri(tempSelectionWeb);
+                    MediaPlayer.Play();
+                    ImagePause();
+                    playing = true;
+                    timerWeb.Start();
+                }
             }
             else
             {
-                MediaPlayer.Pause();
-                ImagePlay();
-                playing = false;
+                if (folderSelectoin)
+                {
+                    MediaPlayer.Pause();
+                    ImagePlay();
+                    playing = false;
+                }
+                else
+                {
+                    MediaPlayer.Pause();
+                    ImagePlay();
+                    playing = false;
+                    timerWeb.Stop();
+                }
             }
             // Button Stoppen aktivieren
             ButtonStop.IsEnabled = true;
@@ -180,11 +271,25 @@ namespace Mediaplayer_ILS
         // Mediendatei stoppen
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
-            ImagePlay();
-            MediaPlayer.Stop();
-            ImageStopPic.Opacity = 0.5;
-            ButtonStop.IsEnabled = false;
-            playing = false;
+            if (folderSelectoin)
+            {
+                ImagePlay();
+                MediaPlayer.Stop();
+                ImageStopPic.Opacity = 0.5;
+                ButtonStop.IsEnabled = false;
+                playing = false;
+            }
+            // WebRadio has to deload Source
+            else
+            {
+                ImagePlay();
+                MediaPlayer.Stop();
+                MediaPlayer.Source = null;
+                ImageStopPic.Opacity = 0.5;
+                ButtonStop.IsEnabled = false;
+                playing = false;
+                timerWeb.Stop();
+            }
         }
 
 
@@ -337,20 +442,45 @@ namespace Mediaplayer_ILS
 
         private void ListSelection_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (ListSelection.SelectedItem == null)
+            if ((ListSelectionWeb.Visibility == Visibility.Visible && ListSelectionWeb.SelectedItem == null) || (ListSelectionFolder.Visibility == Visibility.Visible && ListSelectionFolder.SelectedItem == null))
             {
                 return;
             }
             else
             {
-                string selection = ListSelection.SelectedItem.ToString();
-                StringBuilder sB = new StringBuilder(sPath);
-                sB.Append(@"\");
-                sB.Append(selection);
-                MediaPlayer.Source = new Uri(sB.ToString());
-                PlayRoutine();
-                playing = false;
-                ButtonPlayPause_Click(sender, e);
+                if (folderSelectoin)
+                {
+                    dynamic selectedItemFolder = ListSelectionFolder.SelectedItems[0];
+                    var selectionFolder = selectedItemFolder.FileName;
+
+                    //string selection = ListSelectionFolder.SelectedItem.ToString();
+                    StringBuilder sB = new StringBuilder(sPath);
+                    sB.Append(@"\");
+                    sB.Append(selectionFolder);
+                    MediaPlayer.Source = new Uri(sB.ToString());
+                    PlayRoutine();
+                    playing = false;
+                    ButtonPlayPause_Click(sender, e);
+                }
+                else if (!folderSelectoin)
+                {
+                    // String bauen
+                    dynamic selectedItemWeb = ListSelectionWeb.SelectedItems[0];
+                    var selectionWeb = selectedItemWeb.StationUrl;
+                    tempSelectionWeb = selectionWeb;
+                    try
+                    {
+                        MediaPlayer.Source = new Uri(selectionWeb);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Diese WebStation scheint leider nicht erreichbar zu sein...", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    PlayRoutineWeb();
+                    playing = false;
+                    ButtonPlayPause_Click(sender, e);
+                }
             }
         }
 
@@ -380,8 +510,6 @@ namespace Mediaplayer_ILS
                 default:
                     break;
             }
-
         }
-
     }
 }
