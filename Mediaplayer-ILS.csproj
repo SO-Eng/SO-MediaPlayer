@@ -97,6 +97,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="RadioStations\RadioStation-List.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -132,8 +133,6 @@
     <Resource Include="icons\openFolder.png" />
     <Resource Include="icons\openWeb.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RadioStations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

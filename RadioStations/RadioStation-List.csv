@@ -1,0 +1,127 @@
+StationName;BitRate;StationUrl;StationFav
+106.4 TOP FM;128;http://mp3.topfm.c.nmdn.net/ps-topfm/livestream.mp3;False
+14482 Babelsberg Hitradio;192;http://46.163.75.84:8000;False
+181.FM - Classic Hits 181;128;http://relay.181.fm:8132;False
+95.5 Charivari;128;http://rs5.stream24.net;False
+alster radio 106.8 rock 'n pop;96;http://live96.106acht.de;False
+Antenne Bayern;128;http://mp3.webradio.antenne.de:80;False
+Antenne Bayern - 80er Kulthits;96;http://channels.webradio.antenne.de/80er-kulthits;False
+Antenne Bayern - Black Beatz;96;http://channels.webradio.antenne.de/black-beatz;False
+Antenne Bayern - Chillout;96;http://channels.webradio.antenne.de/chillout;False
+Antenne Bayern - Classic Rock Live;96;http://channels.webradio.antenne.de/classic-rock-live;False
+Antenne Bayern - Hits fuer Kids;96;http://channels.webradio.antenne.de/hits-fuer-kids;False
+Antenne Bayern - Lovesongs;96;http://channels.webradio.antenne.de/lovesongs;False
+Antenne Bayern - Oldies;96;http://channels.webradio.antenne.de/oldies-but-goldies;False
+Antenne Bayern - Schlager;96;http://channels.webradio.antenne.de/das-schlager-karussell;False
+Antenne Bayern - Top 40;128;http://channels.webradio.antenne.de/top-40;False
+Antenne Muenster;128;http://stream.antennemuenster.de:8000/am128k;False
+Antenne Saar;128;http://asm.akacast.akamaistream.net/7/495/305516/v1/gnl.akacast.akamaistream.net/asm;False
+Ballermann Radio;128;http://media.ballermann-radio.com:8000;False
+BassLover;128;http://s7.relay-basslover.de:9000;False
+Bayern 1 Oberfranken;128;http://streams.br.de/bayern1_2.m3u;False
+Bayern 2 Nord;128;http://streams.br.de/bayern2_2.m3u;False
+Bayern 3;128;http://streams.br.de/bayern3_2.m3u;False
+Bayerwelle Suedost TS;128;http://icebwso2.srv.co.at:8000/bwchg_hi;False
+bigFM;128;http://streams.bigfm.de/bigfm-deutschland-128-aac?usid=0-0-H-A-D-30;False
+BigRig FM;128;http://radio.bigrig.fm;False
+BlackBeats.FM;128;http://stream.blackbeats.fm;False
+Blackmusic-radio;128;http://listen.bmradio.de;False
+Bremen Eins;128;http://rb-bremeneins-live.cast.addradio.de/rb/bremeneins/live/mp3/128/stream.mp3;False
+Bremen Vier;128;http://rb-bremenvier-live.cast.addradio.de/rb/bremenvier/live/mp3/128/stream.mp3;False
+Countrymusic24;96;http://countrymusic24.powerstream.de:9000;False
+Crosschannel;128;http://c14000-l.i.core.cdn.streamfarm.net/3095crosschannel_dsl.mp3;False
+DEFJAY.DE;128;http://sc1.netstreamer.net:8040;False
+Die Neue Welle;128;http://live.meine-neue-welle.de/dnw_128.mp3;False
+Eastcoast;128;http://staff.mp3streams.net/eastcoastgvl;False
+Energy Berlin;128;http://nrj.de/berlin;False
+Energy Bremen;128;http://nrj.de/bremen;False
+Energy Hamburg;128;http://nrj.de/hamburg;False
+Energy Muenchen;128;http://nrj.de/muenchen;False
+Energy Stuttgart;128;http://nrj.de/stuttgart;False
+eRadio One;192;http://stage-blue-high.eradio-one.de:62000;False
+ERF Radio;96;http://d85195728.i.tis.core005.cdn.streamfarm.net:80/3212erf_96_live.mp3;False
+FFH Hit Radio;128;http://streams.ffh.de/radioffh/aac/livestream.m3u;False
+HardBase FM;128;http://mp3.hb-stream.net;False
+HouseTime FM;128;http://mp3.ht-stream.net;False
+HR Info;128;http://metafiles.gl-systemhaus.de/hr/hrinfo_2.m3u;False
+HR1;128;http://metafiles.gl-systemhaus.de/hr/hr1_2.m3u;False
+HR2;128;http://metafiles.gl-systemhaus.de/hr/hr2_2.m3u;False
+HR3;128;http://metafiles.gl-systemhaus.de/hr/hr3_2.m3u;False
+HR4;128;http://metafiles.gl-systemhaus.de/hr/hr4_2.m3u;False
+JACK FM;128;http://tuner.jackfm.de;False
+jenny.fm;160;http://stream2.jenny.fm:9000;False
+laut.fm/herrmerktradio;128;http://stream.laut.fm/herrmerktradio;False
+laut.fm/travel-trends;128;http://stream.laut.fm/travel-trends;False
+LOUNGE GROOVES;128;http://de1.streamhosting.ch:8050;False
+Majesty Internet Radio-Sacred;128;http://primary.moodyradiostream.org/majesty.mp3;False
+MDR Jump;128;http://avw.mdr.de/streams/284320-0_mp3_high.m3u;False
+Metal-Only;128;http://metal-only.blitz-stream.de;False
+multicult fm (multicult2.0);128;http://stream.multicult.fm:8000/hifi;False
+NDR 1 Niedersachsen;128;http://www.ndr.de/resources/metadaten/audio/m3u/ndr1niedersachsen.m3u;False
+NDR 1 Radio MV;128;http://www.ndr.de/resources/metadaten/audio/m3u/ndr1radiomv.m3u;False
+NDR 1 Welle Nord;128;http://www.ndr.de/resources/metadaten/audio/m3u/ndr1wellenord.m3u;False
+NDR 2;128;http://www.ndr.de/resources/metadaten/audio/m3u/ndr2.m3u;False
+NDR 90,3;128;http://www.ndr.de/resources/metadaten/audio/m3u/ndr903.m3u;False
+NDR Info;128;http://www.ndr.de/resources/metadaten/audio/m3u/ndrinfo.m3u;False
+NDR Info Spezial;128;http://www.ndr.de/resources/metadaten/audio/m3u/ndrinfo_spezial.m3u;False
+NDR Kultur;128;http://www.ndr.de/resources/metadaten/audio/m3u/ndrkultur.m3u;False
+NIGHTLINE RADIO;128;http://radio1.nightline-radio.de:8000;False
+N-JOY;128;http://www.ndr.de/resources/metadaten/audio/m3u/n-joy.m3u;False
+Ohrfunk Radio;192;http://server1.digital-webstream.de:8000;False
+ORF FM4;156;http://mp3stream1.apasf.apa.at:8000;False
+ORF Hitradio OE3;128;http://mp3stream7.apasf.apa.at:8000/;False
+ORF Radio OE1;192;http://mp3stream3.apasf.apa.at:8000/;False
+ORF Radio Burgenland;192;http://194.232.200.146:8000/;False
+ORF Radio Kaernten;156;http://194.232.200.145:8000/;False
+ORF Radio Niederoesterreich;156;http://mp3stream8.apasf.apa.at:8000/;False
+ORF Radio Obeoesterreich;156;http://194.232.200.148:8000/;False
+ORF Radio Salzburg;156;http://194.232.200.147:8000/;False
+ORF Radio Steiermark;192;http://mp3stream9.apasf.apa.at:8000/;False
+ORF Radio Vorarlberg;128;http://194.232.200.149:8000/;False
+PsyRadio Chillout;128;http://komplex2.psyradio.org:8030;False
+PsyRadio Progressive;128;http://komplex2.psyradio.org:8010;False
+Radio BOB!;128;http://85.239.108.31/mp3-radiobob;False
+Radio F.R.E.I.;96;http://streaming.fueralle.org:8000/Radio-F.R.E.I;False
+Radio Flora;128;http://radioflora.de/stream/live.mp3;False
+RauteMusik #ChartHits-Top40;192;http://Christmas-high.RauteMusik.FM;False
+RauteMusik #MUSIK.BIGCITYBEATS;192;http://BCB-high.RauteMusik.FM;False
+RauteMusik #Musik.DeutschRap;192;http://Deutschrap-high.RauteMusik.FM;False
+RauteMusik #MUSIK.DRUMSTEP;192;http://DrumStep-high.RauteMusik.FM;False
+RauteMusik #MUSIK.HARDER;192;http://HardeR-high.RauteMusik.FM;False
+RauteMusik #MUSIK.HOUSE;192;http://House-high.RauteMusik.FM;False
+RauteMusik #MUSIK.ORIENTAL;192;http://Oriental-high.RauteMusik.FM;False
+RauteMusik #MUSIK.TECHHOUSE;192;http://Progressive-high.RauteMusik.FM;False
+RauteMusik #MUSIK.TRANCE;192;http://Trance-high.RauteMusik.FM;False
+Rheinwelle;128;http://s2.onlinestream.de:6640;False
+Rockantenne;128;http://mp3.webradio.rockantenne.de:80;False
+Rockland Radio;192;http://188.94.97.90/rockland.mp3;False
+RundFunk Meissner;128;http://s8.pop-stream.de:8650;False
+Russian Radio;128;http://play.russian-radio.de:8000;False
+Schwarzwaldradio;128;http://str31.creacast.com/hitradio_ohr_thema1;False
+SimLiveRadio;128;http://stream.laut.fm/simliveradio;False
+Simulator Radio;128;http://stream.simulatorradio.com:8002/stream.mp3;False
+simulatorONE;128;http://stream.laut.fm/simulator1;False
+SR 1 Live ;128;http://sr1m.akacast.akamaistream.net/7/725/142685/v1/gnl.akacast.akamaistream.net/sr1m;False
+SR 103.7 Unserding;128;http://udm.akacast.akamaistream.net/7/384/142688/v1/gnl.akacast.akamaistream.net/udm;False
+SR 2 Kulturradio;128;http://sr2m.akacast.akamaistream.net/7/375/142686/v1/gnl.akacast.akamaistream.net/sr2m;False
+SR 3 Saarlandwelle;128;http://sr3m.akacast.akamaistream.net/7/722/142687/v1/gnl.akacast.akamaistream.net/sr3m;False
+StadtRadio Goettingen;128;http://stream.stadtradio-goettingen.de:8000/stadtradio.mp3;False
+Sunshine Live 2000er;128;http://stream.sunshine-live.de/2000er/mp3-192/stream.sunshine-live.de/play.m3u;False
+Sunshine Live;128;http://stream.sunshine-live.de/live/mp3-192/stream.sunshine-live.de/play.m3u;False
+SWR1;128;http://mp3-live.swr.de/swr1rp_s.m3u;False
+SWR2;128;http://mp3-live.swr.de/swr2_s.m3u;False
+SWR2;128;http://mp3-live.swr.de/swr2_s.m3u;False
+SWR3;128;http://mp3-live.swr3.de/swr3_s.m3u;False
+SWR4;128;http://mp3-live.swr.de/swr4rp_s.m3u;False
+TechLiveRadio;128;http://stream.laut.fm/techliveradio;False
+TechnoBase.FM;192;http://dsl.tb-stream.net:80;False
+TranceBase.FM;192;http://mp3.trb-stream.net;False
+TruckersFM;128;http://radio.truckers.fm;False
+TruckSimFM;128;http://radio.trucksim.fm:8000/stream;False
+UZIC - Techno Minimal;128;http://stream.uzic.ch:9010;False
+WDR 1 Live;128;http://www.wdr.de/wdrlive/media/einslive.m3u;False
+WDR 2;128;http://www.wdr.de/wdrlive/media/wdr2.m3u;False
+WDR 3;128;http://www.wdr.de/wdrlive/media/wdr3.m3u;False
+WDR 4 Media;128;http://www.wdr.de/wdrlive/media/wdr4.m3u;False
+WDR 5;128;http://www.wdr.de/wdrlive/media/wdr5.m3u;False
+Wunschradio.fm;128;http://stream.wunschradio.de/wunschradio/livestream.mp3;False

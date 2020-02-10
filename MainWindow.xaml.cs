@@ -130,7 +130,7 @@ namespace Mediaplayer_ILS
                 ListSelectionWebFav.Visibility = Visibility.Visible;
                 GridSplitterWebLists.Visibility = Visibility.Visible;
                 StackPanelSearch.Visibility = Visibility.Visible;
-                webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List02.csv";
+                webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
                 ListSelectionWeb.Items.Clear();
                 ListSelectionWebFav.Items.Clear();
                 folderSelectoin = false;
