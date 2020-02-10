@@ -52,11 +52,19 @@
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
                       SelectionMode="Single" BorderBrush="{x:Null}" >
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="Favs." CanUserResize="False" Binding="{Binding Path=StationFav}">
+                    <!--<DataGridCheckBoxColumn Header="Favs." CanUserResize="False" Binding="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <DataGridCheckBoxColumn.ElementStyle>
                             <Style TargetType="CheckBox" />
                         </DataGridCheckBoxColumn.ElementStyle>
-                    </DataGridCheckBoxColumn>
+                    </DataGridCheckBoxColumn>-->
+                    <DataGridTemplateColumn CanUserSort="True">
+                        <DataGridTemplateColumn.Header>Favs.</DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                <CheckBox x:Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxFav_Click" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Sations Name" Binding="{Binding Path=StationName}" />
                     <DataGridTextColumn Header="Bitrate" CanUserResize="False" Binding="{Binding Path=BitRate}" />
                     <DataGridTextColumn Header="Web-URL" Binding="{Binding Path=StationUrl}" />

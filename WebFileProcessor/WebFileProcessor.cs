@@ -68,7 +68,8 @@ namespace Mediaplayer_ILS.WebFileProcessor
 
             if (data == null || data.Count == 0)
             {
-                throw new ArgumentNullException("data", "You must populate the data parameter with at least one value.");
+                //throw new ArgumentNullException("data", "You must populate the data parameter with at least one value.");
+                return;
             }
             var cols = data[0].GetType().GetProperties();
 

@@ -555,5 +555,20 @@ namespace Mediaplayer_ILS
             }
         }
 
+        private void CheckBoxFav_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic selectedItemWeb = ListSelectionWeb.SelectedItems[0];
+            var selectedName = selectedItemWeb.StationName;
+            var selectedFav = selectedItemWeb.StationFav;
+
+            if (selectedFav == false)
+            {
+                webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("False");
+            }
+            else
+            {
+                webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("True");
+            }
+        }
     }
 }
