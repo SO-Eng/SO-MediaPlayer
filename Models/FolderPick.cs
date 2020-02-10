@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mediaplayer_ILS.Models
+namespace SO_Mediaplayer.Models
 {
     class FolderPick
     {

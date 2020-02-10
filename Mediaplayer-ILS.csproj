@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{723512E2-2618-4D17-84C0-31DDC1E6A3AB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Mediaplayer_ILS</RootNamespace>
-    <AssemblyName>Mediaplayer-ILS</AssemblyName>
+    <RootNamespace>SO_Mediaplayer</RootNamespace>
+    <AssemblyName>SO_Mediaplayer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

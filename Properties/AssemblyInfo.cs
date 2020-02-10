@@ -7,11 +7,11 @@ using System.Windows;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("Mediaplayer-ILS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SO_Mediaplayer")]
+[assembly: AssemblyDescription("Multi Mediaplayer with internet radiostations feature")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Mediaplayer-ILS")]
+[assembly: AssemblyCompany("SoftwOrt-Engineering")]
+[assembly: AssemblyProduct("SO_Mediaplayer")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

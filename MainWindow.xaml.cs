@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Mediaplayer_ILS.Models;
+using SO_Mediaplayer.Models;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -21,7 +21,7 @@ using WinForms = System.Windows.Forms;
 /// "Icon made by UI Super Basic perfect from www.flaticon.com"
 /// https://www.flaticon.com/free-icon/headphone_1053254?term=headphones&page=2&position=51
 /// </summary>
-namespace Mediaplayer_ILS
+namespace SO_Mediaplayer
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
@@ -46,6 +46,7 @@ namespace Mediaplayer_ILS
         // Maximale Spielzeit der geladenen Dateien ----noch offen
         private string playtime;
 
+        // Hilfsattribute fuer die Listenauswahl (click)
         private dynamic selectedItemWeb;
         private dynamic selectionWeb;
 
@@ -61,6 +62,7 @@ namespace Mediaplayer_ILS
         readonly DispatcherTimer timer = new DispatcherTimer();
         readonly DispatcherTimer timerWeb = new DispatcherTimer();
 
+        // Liste fuer die Radiostaionen
         readonly List<WebStations> webStationList = new List<WebStations>();
         readonly List<WebFavs> webFavList = new List<WebFavs>();
 

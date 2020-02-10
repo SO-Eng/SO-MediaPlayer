@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mediaplayer_ILS.WebFileProcessor
+namespace SO_Mediaplayer.WebFileProcessor
 {
     public static class WebFileProcessor
     {

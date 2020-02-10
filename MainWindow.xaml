@@ -1,10 +1,10 @@
-﻿<Window x:Name="WindowMediaPLayer" x:Class="Mediaplayer_ILS.MainWindow"
+﻿<Window x:Name="SOMediaPlayer" x:Class="SO_Mediaplayer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Mediaplayer" Height="600" Width="970" KeyDown="WindowMediaPLayer_KeyDown" 
+        Title="SoftwOrt-Mediaplayer" Height="600" Width="970" KeyDown="WindowMediaPLayer_KeyDown" 
         MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="ico/headphones.ico" 
         Loaded="WindowMediaPLayer_Loaded" Closing="WindowMediaPLayer_Closing">
     <Grid>
@@ -225,14 +225,15 @@
             <!-- Reihe 1 -->
             <CheckBox x:Name="ChkBoxSaveOnExit" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" IsChecked="False"  IsEnabled="False"/>
             <TextBlock x:Name="TextBlockSaveOnExit" Text="Save Webstation-list at exit" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
+
+            <ProgressBar x:Name="ProgressPlayed" Grid.Row="1" Grid.Column="2" Height="12" Margin="20,0,20,0" VerticalAlignment="Center"></ProgressBar>
+
             <!-- Reihe 2 -->
             <!-- Start ProgrssBar Volume -->
-            <Grid x:Name="VolumeBarGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Column="1" Row="2">
-                <ProgressBar
-                    x:Name="ProgressVolume" HorizontalAlignment="Left" Height="18" 
-                    VerticalAlignment="Center" Width="200" Value="0.5" 
-                    MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" Maximum="1" Background="#FF60AEDA"
-                    >
+            <Grid x:Name="VolumeBarGrid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Column="1" Row="2">
+                <ProgressBar x:Name="ProgressVolume" HorizontalAlignment="Left" Height="18" VerticalAlignment="Center"
+                             Width="200" Value="0.5" MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" Maximum="1" 
+                             Background="#FF60AEDA" >
                     <ProgressBar.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF36AA00" Offset="1"/>
@@ -240,12 +241,11 @@
                         </LinearGradientBrush>
                     </ProgressBar.Foreground>
                 </ProgressBar>
-                <TextBlock
-                    Text="{Binding ElementName=ProgressVolume, Path=Value, StringFormat=Vol. {0:0%}}" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" UseLayoutRounding="False" />
+                <TextBlock Text="{Binding ElementName=ProgressVolume, Path=Value, StringFormat=Vol. {0:0%}}" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" UseLayoutRounding="False" />
             </Grid>
             <Grid Column="0" Row="2">
-                <Image x:Name="SoundBoxPic" Source="soundVol/audio-volume-medium.png" Margin="3,0,3,0" Height="20"/>
+                <Image x:Name="SoundBoxPic" Source="soundVol/audio-volume-medium.png" Margin="3,0,3,0" VerticalAlignment="Bottom" Height="20"/>
             </Grid>
             <!--End ProgressBar Volume-->
 
