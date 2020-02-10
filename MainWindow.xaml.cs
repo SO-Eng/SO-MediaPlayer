@@ -55,6 +55,7 @@ namespace Mediaplayer_ILS
         DateTime startTime;
         DateTime diff;
 
+        public bool AllowFiltering { get; set; }
         // StandardListe laden oder oeffnen
         private bool checkBox = true;
 
@@ -77,6 +78,7 @@ namespace Mediaplayer_ILS
             timerWeb.Interval = TimeSpan.FromSeconds(1);
         }
 
+        // einzelne Datei auswaehlen
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
             // den Dialog erzeugen
@@ -96,6 +98,7 @@ namespace Mediaplayer_ILS
             }
         }
 
+        // Radiostationen laden
         private void ButtonOpenWeb_Click(object sender, RoutedEventArgs e)
         {
             if (webStationList != null)
@@ -139,6 +142,7 @@ namespace Mediaplayer_ILS
 
         }
 
+        // Ausgewaehlte lokale Datei (Liste) in das Datagrid uebertragen
         private void WebStationsStorage()
         {
 
@@ -147,6 +151,7 @@ namespace Mediaplayer_ILS
 
             foreach (var webStation in newWebStationses)
             {
+                //ListSelectionWeb.ItemsSource = webStationList;
                 ListSelectionWeb.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl});
                 webStationList.Add( new WebStations { StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl, StationFav = webStation.StationFav } );
                 if (webStation.StationFav == true)
@@ -158,8 +163,11 @@ namespace Mediaplayer_ILS
             FavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
             ChkBoxSaveOnExit.IsEnabled = true;
             ChkBoxSaveOnExit.IsChecked = true;
+
+            
         }
 
+        // Liste aus Datagrid in Datei speichern, wenn gewuenscht
         private void WindowMediaPLayer_Closing(object sender, CancelEventArgs e)
         {
             if (CheckForInternetConnection())
@@ -418,6 +426,7 @@ namespace Mediaplayer_ILS
             }
         }
 
+        // Bild der SoundBox der jeweiligen Lautstaerke anpassen
         private void SoundBoxVolume()
         {
             if (MediaPlayer.Volume <= 0)
@@ -503,6 +512,7 @@ namespace Mediaplayer_ILS
             }
         }
 
+        // Wenn Internetverbindung vorhanden, Bild anpassen
         private void WindowMediaPLayer_Loaded(object sender, RoutedEventArgs e)
         {
             if (CheckForInternetConnection() == true)
@@ -511,7 +521,8 @@ namespace Mediaplayer_ILS
             }
         }
 
-
+        // Je nach Liste in die geklickt wurde die korrekte Adresse laden
+        // Ueberpruefung per Mouseover auf welcher Liste sich die Maus befindet
         private void ListIdentifier(object sender, SelectionChangedEventArgs e)
         {
             if (ListSelectionWebFav.IsMouseOver)
@@ -524,6 +535,7 @@ namespace Mediaplayer_ILS
             }
         }
 
+        // Auswahl aus der Liste in den Mediaplayer laden
         private void ListSelection_SelectionChanged(object sender, SelectionChangedEventArgs e, int identifier)
         {
             if (((ListSelectionWeb.Visibility == Visibility.Visible && ListSelectionWeb.SelectedItem == null) && (ListSelectionWebFav.Visibility == Visibility.Visible && ListSelectionWebFav.SelectedItem == null)) || (ListSelectionFolder.Visibility == Visibility.Visible && ListSelectionFolder.SelectedItem == null))
@@ -537,7 +549,6 @@ namespace Mediaplayer_ILS
                     dynamic selectedItemFolder = ListSelectionFolder.SelectedItems[0];
                     var selectionFolder = selectedItemFolder.FileName;
 
-                    //string selection = ListSelectionFolder.SelectedItem.ToString();
                     StringBuilder sB = new StringBuilder(sPath);
                     sB.Append(@"\");
                     sB.Append(selectionFolder);
@@ -557,7 +568,6 @@ namespace Mediaplayer_ILS
                     {
                         selectedItemWeb = ListSelectionWeb.SelectedItems[0];
                     }
-                    // String bauen
                     selectionWeb = selectedItemWeb.StationUrl;
                     tempSelectionWeb = selectionWeb;
                     try
@@ -605,6 +615,7 @@ namespace Mediaplayer_ILS
             }
         }
 
+        // Wenn Favorit an- oder abgewaehlt wurde, Listen aktualisieren und neu laden in GUI
         private void CheckBoxList_Click(object sender, RoutedEventArgs e)
         {
             dynamic selectedItemWeb = ListSelectionWeb.SelectedItems[0];
@@ -638,7 +649,7 @@ namespace Mediaplayer_ILS
             FavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
 
         }
-
+        // Wenn Favorit an- oder abgewaehlt wurde, Listen aktualisieren und neu laden in GUI
         private void CheckBoxFav_Click(object sender, RoutedEventArgs e)
         {
             dynamic selectedItemWeb = ListSelectionWebFav.SelectedItems[0];
@@ -648,6 +659,7 @@ namespace Mediaplayer_ILS
             if (selectedFav == false)
             {
                 webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("False");
+                //ListSelectionWeb.ItemsSource = webStationList;
                 ListSelectionWeb.Items.Clear();
                 foreach (var station in webStationList)
                 {
@@ -657,11 +669,35 @@ namespace Mediaplayer_ILS
             else
             {
                 webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("True");
+                //ListSelectionWeb.ItemsSource = webStationList;
                 ListSelectionWeb.Items.Clear();
                 foreach (var station in webStationList)
                 {
                     ListSelectionWeb.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
                 }
+            }
+        }
+
+
+        // Fokus auf Suche-Textbox bzw. Fukos verlieren
+        private void TextBoxSearch_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+            TextBoxSearch.Text = string.Empty;
+        }
+
+        private void TextBoxSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBoxSearch.Text = "Search";
+        }
+
+        // Liste durchsuchen per TextBox
+        private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            var filter = webStationList.Where(webStationList => webStationList.StationName.ToLower().Contains(TextBoxSearch.Text));
+            ListSelectionWeb.Items.Clear();
+            foreach (var station in filter)
+            {
+                ListSelectionWeb.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
             }
         }
     }

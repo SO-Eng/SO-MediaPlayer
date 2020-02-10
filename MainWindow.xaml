@@ -85,12 +85,13 @@
 
             <!-- Searchbox -->
             <StackPanel x:Name="StackPanelSearch" Grid.Row="2" Grid.Column="0" Background="White" >
-                <TextBox Height="20" Width="150" Margin="20,3,0,20" HorizontalAlignment="Left" Text="{Binding Path=dummyporp, FallbackValue=Search}" />
+                <TextBox x:Name="TextBoxSearch" Height="20" Width="150" Margin="20,3,0,20" HorizontalAlignment="Left" 
+                         Text="{Binding Path=dummyporp, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" LostFocus="TextBoxSearch_LostFocus" KeyUp="TextBoxSearch_KeyUp"  />
             </StackPanel>
 
             <!-- Webstation-Liste -->
             <DataGrid x:Name="ListSelectionWeb" Visibility="Visible" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False"
-                      CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier"
+                      CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
                       SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="3">
                 <DataGrid.Columns>
