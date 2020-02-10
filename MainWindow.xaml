@@ -43,27 +43,61 @@
                 <ColumnDefinition Width="3" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="125" MinHeight="62" MaxHeight="200"/>
+                <RowDefinition Height="3" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <!-- Listbox Ready!!! -->
-            <!--<ListBox x:Name="ListSelection" SelectionChanged="ListSelection_SelectionChanged" PreviewKeyDown="ListSelection_PreviewKeyDown" />-->
+            <TextBlock Grid.Row="0" Height="20" VerticalAlignment="Top" Background="White" Text="Favoriten-Liste" TextAlignment="Center" />
+
+            <!-- Favoriten-Liste -->
+            <DataGrid x:Name="ListSelectionWebFav" Visibility="Visible" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False"
+                      CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier"
+                      AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
+                      SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="0" Margin="0,20,0,0">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn x:Name="FavsSortFav" Header="Favs." CanUserSort="True" SortMemberPath="StationFav">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxFav_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Sations Name" Binding="{Binding Path=StationName}" />
+                    <DataGridTextColumn Header="Bitrate" CanUserResize="False" Binding="{Binding Path=BitRate}" />
+                    <DataGridTextColumn Header="Web-URL" Binding="{Binding Path=StationUrl}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Webstation-Liste -->
+            <GridSplitter Grid.Row="1" Grid.Column="0" 
+                          PreviewKeyDown="GridSplitter_PreviewKeyDown" Height="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows">
+                <GridSplitter.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FF212121" Offset="0"/>
+                        <GradientStop Color="#FFC1C1C1" Offset="0.521"/>
+                        <GradientStop Color="#FF212121" Offset="1"/>
+                    </LinearGradientBrush>
+                </GridSplitter.Background>
+            </GridSplitter>
+
+            <StackPanel Grid.Row="2" Grid.Column="0" Background="White" >
+                <TextBox Height="20" Width="150" Margin="20,3,0,20" HorizontalAlignment="Left" Text="{Binding Path=dummyporp, FallbackValue=Search}" />
+            </StackPanel>
 
             <DataGrid x:Name="ListSelectionWeb" Visibility="Visible" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False"
-                      CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListSelection_SelectionChanged"
+                      CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier"
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
-                      SelectionMode="Single" BorderBrush="{x:Null}" >
+                      SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="3">
                 <DataGrid.Columns>
-                    <!--<DataGridCheckBoxColumn Header="Favs." CanUserResize="False" Binding="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <DataGridCheckBoxColumn.ElementStyle>
-                            <Style TargetType="CheckBox" />
-                        </DataGridCheckBoxColumn.ElementStyle>
-                    </DataGridCheckBoxColumn>-->
-                    <DataGridTemplateColumn CanUserSort="True">
-                        <DataGridTemplateColumn.Header>Favs.</DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                <CheckBox x:Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxFav_Click" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn x:Name="FavsSort" Header="Favs." CanUserSort="True" SortMemberPath="StationFav">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxFav_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Sations Name" Binding="{Binding Path=StationName}" />
                     <DataGridTextColumn Header="Bitrate" CanUserResize="False" Binding="{Binding Path=BitRate}" />
@@ -79,7 +113,7 @@
                 </ListView.Resources>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Fav." Width="auto" DisplayMemberBinding="{Binding Favs}" />
+                        <GridViewColumn Header="Fav." Width="auto" DisplayMemberBinding="{BindingFavs}" />
                         <GridViewColumn Header="Stations Name" DisplayMemberBinding="{Binding StationName}" />
                         <GridViewColumn Header="BitRate" Width="auto" DisplayMemberBinding="{Binding BitRate}"/>
                         <GridViewColumn Header="Web-URL" DisplayMemberBinding="{Binding StationUrl}"/>
@@ -87,7 +121,9 @@
                 </ListView.View>
             </ListView>-->
 
-            <ListView Grid.Column="0" x:Name="ListSelectionFolder" SelectionChanged="ListSelection_SelectionChanged" PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Collapsed">
+            <ListView Grid.Column="0" x:Name="ListSelectionFolder" SelectionChanged="ListIdentifier" 
+                      PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Collapsed"
+                      Grid.Row="3">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
                         <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -103,15 +139,31 @@
             </ListView>
 
             <!--Der Splitter-->
-            <GridSplitter Grid.Column="1" Background="#9B9B9B" ResizeBehavior="PreviousAndNext" 
-                          PreviewKeyDown="GridSplitter_PreviewKeyDown" Width="3" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Column="1" ResizeBehavior="PreviousAndNext" Grid.RowSpan="4"
+                          PreviewKeyDown="GridSplitter_PreviewKeyDown" Width="3" HorizontalAlignment="Stretch">
+                <GridSplitter.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF212121"/>
+                        <GradientStop Color="#FF212121" Offset="1"/>
+                        <GradientStop Color="#FF898989" Offset="0.5"/>
+                    </LinearGradientBrush>
+                </GridSplitter.Background>
+            </GridSplitter>
 
             <!--Der Mediaplayer-->
             <MediaElement x:Name="MediaPlayer" Source="C:\Users\iPhr3ak\Desktop\SoftwOrt\Logo\Final\final\1500x1500_logo_bildschirm.jpg" 
                           MediaOpened="MediaPlayer_MediaOpened" LoadedBehavior="Manual" 
-                          Volume="{Binding ElementName=ProgressVolume, Path=Value}" Grid.Column="2"/>
+                          Volume="{Binding ElementName=ProgressVolume, Path=Value}" Grid.Column="2" Grid.RowSpan="4"/>
             <!-- If Audiofile is loaded, show music picture -->
-            <Image x:Name="ImageAudio" Grid.Column="2" />
+            <Image x:Name="ImageAudio" Grid.Column="2" Grid.RowSpan="4" />
         </Grid>
 
         <!--Statusleiste unten-->

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -43,8 +44,12 @@ namespace Mediaplayer_ILS
         // zwischenspeichern (Stop/Play)
         private string tempSelectionWeb;
 
+        private int favsExisting = 0;
         // Maximale Spielzeit der geladenen Dateien ----noch offen
         private string playtime;
+
+        private dynamic selectedItemWeb;
+        private dynamic selectionWeb;
 
         // Spielzeit fuer WebRadio
         DateTime startTime;
@@ -58,6 +63,7 @@ namespace Mediaplayer_ILS
         readonly DispatcherTimer timerWeb = new DispatcherTimer();
 
         readonly List<WebStations> webStationList = new List<WebStations>();
+        readonly List<WebFavs> webFavList = new List<WebFavs>();
 
 
         #endregion
@@ -114,6 +120,7 @@ namespace Mediaplayer_ILS
                 ListSelectionWeb.Visibility = Visibility.Visible;
                 webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List02.csv";
                 ListSelectionWeb.Items.Clear();
+                ListSelectionWebFav.Items.Clear();
                 folderSelectoin = false;
                 WebStationsStorage();
             }
@@ -122,12 +129,20 @@ namespace Mediaplayer_ILS
 
         private void WebStationsStorage()
         {
+
             var newWebStationses = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebStations>(webStationFile);
+            //var newWebStationsesFav = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebFavs>(webStationFile);
 
             foreach (var webStation in newWebStationses)
             {
                 ListSelectionWeb.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl});
                 webStationList.Add( new WebStations { StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl, StationFav = webStation.StationFav } );
+                if (webStation.StationFav == true)
+                {
+                    ListSelectionWebFav.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl });
+                    webFavList.Add(new WebFavs { StationNameFav = webStation.StationName, BitRateFav = webStation.BitRate, StationUrlFav = webStation.StationUrl, StationFavFav = webStation.StationFav });
+                }
+
             }
             ChkBoxSaveOnExit.IsEnabled = true;
             ChkBoxSaveOnExit.IsChecked = true;
@@ -481,9 +496,22 @@ namespace Mediaplayer_ILS
             }
         }
 
-        private void ListSelection_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+
+        private void ListIdentifier(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if ((ListSelectionWeb.Visibility == Visibility.Visible && ListSelectionWeb.SelectedItem == null) || (ListSelectionFolder.Visibility == Visibility.Visible && ListSelectionFolder.SelectedItem == null))
+            if (ListSelectionWebFav.IsMouseOver)
+            {
+                ListSelection_SelectionChanged(sender, e, 1);
+            }
+            else
+            {
+                ListSelection_SelectionChanged(sender, e, 0);
+            }
+        }
+
+        private void ListSelection_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e, int identifier)
+        {
+            if (((ListSelectionWeb.Visibility == Visibility.Visible && ListSelectionWeb.SelectedItem == null) && (ListSelectionWebFav.Visibility == Visibility.Visible && ListSelectionWebFav.SelectedItem == null)) || (ListSelectionFolder.Visibility == Visibility.Visible && ListSelectionFolder.SelectedItem == null))
             {
                 return;
             }
@@ -506,9 +534,16 @@ namespace Mediaplayer_ILS
                 }
                 else if (!folderSelectoin)
                 {
+                    if (identifier == 1)
+                    {
+                        selectedItemWeb = ListSelectionWebFav.SelectedItems[0];
+                    }
+                    else
+                    {
+                        selectedItemWeb = ListSelectionWeb.SelectedItems[0];
+                    }
                     // String bauen
-                    dynamic selectedItemWeb = ListSelectionWeb.SelectedItems[0];
-                    var selectionWeb = selectedItemWeb.StationUrl;
+                    selectionWeb = selectedItemWeb.StationUrl;
                     tempSelectionWeb = selectionWeb;
                     try
                     {
@@ -570,5 +605,13 @@ namespace Mediaplayer_ILS
                 webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("True");
             }
         }
+    }
+
+    internal class WebFavs
+    {
+        public string StationNameFav { get; set; }
+        public string BitRateFav { get; set; }
+        public string StationUrlFav { get; set; }
+        public bool StationFavFav { get; set; }
     }
 }
