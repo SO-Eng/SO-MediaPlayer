@@ -22,7 +22,7 @@ namespace Mediaplayer_ILS.WebFileProcessor
             }
 
             // Splits the header into one column header per entry
-            var headers = lines[0].Split(',');
+            var headers = lines[0].Split(';');
 
             // Removes the header row from the lines so we don't
             // have to worry about skipping over that first row.
@@ -36,7 +36,7 @@ namespace Mediaplayer_ILS.WebFileProcessor
                 // of this row matches the index of the header so the
                 // FirstName column header lines up with the FirstName
                 // value in this row.
-                var vals = row.Split(',');
+                var vals = row.Split(';');
 
                 // Loops through each header entry so we can compare that
                 // against the list of columns from reflection. Once we get
@@ -77,7 +77,7 @@ namespace Mediaplayer_ILS.WebFileProcessor
             foreach (var col in cols)
             {
                 line.Append(col.Name);
-                line.Append(",");
+                line.Append(";");
             }
 
             // Adds the column header entries to the first line (removing
@@ -91,7 +91,7 @@ namespace Mediaplayer_ILS.WebFileProcessor
                 foreach (var col in cols)
                 {
                     line.Append(col.GetValue(row));
-                    line.Append(",");
+                    line.Append(";");
                 }
 
                 // Adds the row to the set of lines (removing

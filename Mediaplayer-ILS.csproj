@@ -130,6 +130,8 @@
     <Resource Include="icons\openFolder.png" />
     <Resource Include="icons\openWeb.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="RadioStations\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

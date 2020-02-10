@@ -8,8 +8,8 @@ namespace Mediaplayer_ILS.Models
 {
     public class WebStations
     {
-        public string StationNum { get; set; }
-        public string StationUrl { get; set; }
         public string StationName { get; set; }
+        public string BitRate { get; set; }
+        public string StationUrl { get; set; }
     }
 }

@@ -29,26 +29,36 @@ namespace Mediaplayer_ILS
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        // Fields
+        #region Fields
+        // Player spielt
         bool playing = false;
+        // fuer HotKey-absicherung
         private bool fileLoaded = false;
+        // Pfad zum Ordner oeffnen
         private string sPath = string.Empty;
-        private string webStationFile = String.Empty;
+        // Datei zum importieren (Pfad)
+        private string webStationFile = string.Empty;
+        // Order oder Datei geoeffnet, wenn false dann WebListe
         private bool folderSelectoin = false;
+        // zwischenspeichern (Stop/Play)
         private string tempSelectionWeb;
-        private long count = 0;
-        DateTime startTime;
-        DateTime diff;
+
+        // Maximale Spielzeit der geladenen Dateien ----noch offen
         private string playtime;
 
-        //private GridView gridView;
-        //List<WebStations> webStations = new List<WebStations>();
+        // Spielzeit fuer WebRadio
+        DateTime startTime;
+        DateTime diff;
+
+        // StandardListe laden oder oeffnen
+        private bool checkBox = true;
 
         // Timer (Ticker) um aktuelle Zeit wiederzuegeben an Label
         readonly DispatcherTimer timer = new DispatcherTimer();
         readonly DispatcherTimer timerWeb = new DispatcherTimer();
 
+
+        #endregion
 
         public MainWindow()
         {
@@ -78,15 +88,27 @@ namespace Mediaplayer_ILS
 
         private void ButtonOpenWeb_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openWebDialog = new OpenFileDialog();
-            openWebDialog.FileName = String.Empty;
-            openWebDialog.Multiselect = false;
-            //openWebDialog.Filter = "";
-            if (openWebDialog.ShowDialog() == true)
+            if (!checkBox)
+            {
+                OpenFileDialog openWebDialog = new OpenFileDialog();
+                openWebDialog.FileName = string.Empty;
+                openWebDialog.Multiselect = false;
+                //openWebDialog.Filter = "";
+                if (openWebDialog.ShowDialog() == true)
+                {
+                    ListSelectionFolder.Visibility = Visibility.Collapsed;
+                    ListSelectionWeb.Visibility = Visibility.Visible;
+                    webStationFile = openWebDialog.FileName;
+                    ListSelectionWeb.Items.Clear();
+                    folderSelectoin = false;
+                    WebStationsStorage();
+                }
+            }
+            else
             {
                 ListSelectionFolder.Visibility = Visibility.Collapsed;
                 ListSelectionWeb.Visibility = Visibility.Visible;
-                webStationFile = openWebDialog.FileName;
+                webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
                 ListSelectionWeb.Items.Clear();
                 folderSelectoin = false;
                 WebStationsStorage();
@@ -99,8 +121,7 @@ namespace Mediaplayer_ILS
 
             foreach (var webStation in webStations)
             {
-                ListSelectionWeb.Items.Add(new WebStations { StationNum = webStation.StationNum, StationName = webStation.StationName, StationUrl = webStation.StationUrl});
-                //ListSelection.Items.Add($"{ webStation.StationNum } { webStation.StationUrl } { webStation.StationName }");
+                ListSelectionWeb.Items.Add(new WebStations { StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl});
             }
         }
 
@@ -461,6 +482,7 @@ namespace Mediaplayer_ILS
                     PlayRoutine();
                     playing = false;
                     ButtonPlayPause_Click(sender, e);
+                    LabelFileName.Content = sB.ToString();
                 }
                 else if (!folderSelectoin)
                 {
@@ -480,6 +502,7 @@ namespace Mediaplayer_ILS
                     PlayRoutineWeb();
                     playing = false;
                     ButtonPlayPause_Click(sender, e);
+                    LabelFileName.Content = selectionWeb.ToString();
                 }
             }
         }
