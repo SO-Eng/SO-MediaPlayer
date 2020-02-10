@@ -11,5 +11,6 @@ namespace Mediaplayer_ILS.Models
         public string StationName { get; set; }
         public string BitRate { get; set; }
         public string StationUrl { get; set; }
+        public bool StationFav { get; set; }
     }
 }

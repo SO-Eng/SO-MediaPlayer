@@ -57,6 +57,8 @@ namespace Mediaplayer_ILS
         readonly DispatcherTimer timer = new DispatcherTimer();
         readonly DispatcherTimer timerWeb = new DispatcherTimer();
 
+        readonly List<WebStations> webStationList = new List<WebStations>();
+
 
         #endregion
 
@@ -83,6 +85,8 @@ namespace Mediaplayer_ILS
                 playing = false;
                 PlayRoutine();
                 LabelFileName.Content = openDialog.FileName;
+                ChkBoxSaveOnExit.IsEnabled = false;
+                ChkBoxSaveOnExit.IsChecked = false;
             }
         }
 
@@ -108,22 +112,35 @@ namespace Mediaplayer_ILS
             {
                 ListSelectionFolder.Visibility = Visibility.Collapsed;
                 ListSelectionWeb.Visibility = Visibility.Visible;
-                webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
+                webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List02.csv";
                 ListSelectionWeb.Items.Clear();
                 folderSelectoin = false;
                 WebStationsStorage();
             }
+
         }
 
         private void WebStationsStorage()
         {
-            var webStations = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebStations>(webStationFile);
+            var newWebStationses = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebStations>(webStationFile);
 
-            foreach (var webStation in webStations)
+            foreach (var webStation in newWebStationses)
             {
-                ListSelectionWeb.Items.Add(new WebStations { StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl});
+                ListSelectionWeb.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl});
+                webStationList.Add( new WebStations { StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl, StationFav = webStation.StationFav } );
+            }
+            ChkBoxSaveOnExit.IsEnabled = true;
+            ChkBoxSaveOnExit.IsChecked = true;
+        }
+
+        private void WindowMediaPLayer_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (CheckForInternetConnection())
+            {
+                WebFileProcessor.WebFileProcessor.SaveToTextFile(webStationList, webStationFile);
             }
         }
+
 
         // Open Folder Dialog
         private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
@@ -139,6 +156,9 @@ namespace Mediaplayer_ILS
                 ListSelectionFolder.Visibility = Visibility.Visible;
                 // GridView vorbereiten
                 //this.ListSelection.View = gridView;
+
+                ChkBoxSaveOnExit.IsEnabled = false;
+                ChkBoxSaveOnExit.IsChecked = false;
 
                 // Pfad uebergeben
                 sPath = folderDialog.SelectedPath;
@@ -534,5 +554,6 @@ namespace Mediaplayer_ILS
                     break;
             }
         }
+
     }
 }

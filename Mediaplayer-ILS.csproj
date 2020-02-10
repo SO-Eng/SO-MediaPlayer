@@ -126,6 +126,8 @@
     <Resource Include="icons\folder-tar.png" />
     <Resource Include="icons\folder-music.png" />
     <Resource Include="icons\folder-html.png" />
+    <Resource Include="icons\favorites.png" />
+    <Resource Include="icons\favorites_false.png" />
     <Content Include="icons\openFile.png" />
     <Resource Include="icons\openFolder.png" />
     <Resource Include="icons\openWeb.png" />
