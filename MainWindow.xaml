@@ -4,11 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Mediaplayer" Height="500" Width="800" KeyDown="WindowMediaPLayer_KeyDown" 
+        Title="Mediaplayer" Height="600" Width="970" KeyDown="WindowMediaPLayer_KeyDown" 
         MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="ico/headphones.ico" 
         Loaded="WindowMediaPLayer_Loaded" Closing="WindowMediaPLayer_Closing">
     <Grid>
-        <ToolBarTray>
+        <Grid Margin="0,0,0,75">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" MinWidth="150" />
+                <ColumnDefinition Width="3" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" /> <!-- Menueleiste -->
+                <RowDefinition Height="45"/>    <!-- Toolbar -->
+                <RowDefinition x:Name="FavListHeight" Height="125" MinHeight="69" MaxHeight="200"/> <!-- Listen (Folder oder Favoriten) -->
+                <RowDefinition Height="3" />    <!-- GridSplitter -->
+                <RowDefinition Height="25" />   <!-- Searchbox -->
+                <RowDefinition Height="*" />    <!-- Liste Webradio -->
+            </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="3">
+            <MenuItem Header="Datei">
+                <MenuItem x:Name="OpenFileMenu" Header="Öffne _Datei"/>
+                <MenuItem x:Name="OpenFolderMenu" Header="Öffne V_erzeichnis"/>
+                <MenuItem x:Name="OpenWeblistMenu" Header="Öffne _Radio-Webliste"/>
+                <Separator/>
+                <MenuItem x:Name="AddWebStation" Header="Radio_station hinzufügen"/>
+                <Separator/>
+                <MenuItem x:Name="CloseMenu" Header="_Beenden"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Wiedergabe">
+                <MenuItem x:Name="PlayMenu" Header="_Abspielen"/>
+                <MenuItem x:Name="StopMenu" Header="_Stopp"/>
+                <MenuItem x:Name="ForwardMenu" Header="_Vorwärts (10sek.)"/>
+                <MenuItem x:Name="BackwardMenu" Header="_Zurück (10sek.)"/>
+                <MenuItem x:Name="NextMenu" Header="_Nächster Titel"/>
+                <MenuItem x:Name="PreviousMenu" Header="_Vorheriger Titel"/>
+            </MenuItem>
+            <MenuItem Header="_Ansicht">
+                <MenuItem x:Name="FolderListMenu" Header="_Verzeichnisliste" IsCheckable="True" IsChecked="True"/>
+                <Separator/>
+                <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" />
+                <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" />
+                <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" />
+            </MenuItem>
+            <MenuItem Header="_Hilfe">
+                <MenuItem x:Name="AboutMenu" Header="Ü_ber"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
             <ToolBar MinWidth="140">
                 <Button x:Name="ButtonOpen" Height="38" Width="38" ToolTip="Datei öffnen" Click="ButtonOpen_Click">
                     <Image x:Name="ImageOpenPic" Source="icons/folder-music.png"/>
@@ -37,26 +81,14 @@
         </ToolBarTray>
 
         <!--Mediabereich-->
-        <Grid Margin="0,45,0,75">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" MinWidth="150" />
-                <ColumnDefinition Width="3" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition x:Name="FavListHeight" Height="125" MinHeight="69" MaxHeight="200"/>
-                <RowDefinition Height="3" />
-                <RowDefinition Height="25" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Height="20" VerticalAlignment="Top" Background="White" Text="Favoriten-Liste" TextAlignment="Center" />
+            <TextBlock Grid.Row="2" Grid.Column="0" Height="20" VerticalAlignment="Top" Background="White" Text="Favoriten-Liste" TextAlignment="Center" />
 
             <!-- Favoriten-Liste -->
-            <DataGrid x:Name="ListSelectionWebFav" Visibility="Visible" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False"
+            <DataGrid x:Name="ListSelectionWebFav" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed"
                       CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier"
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
-                      SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="0" Margin="0,20,0,0">
+                      SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="2" Grid.Column="0" Margin="0,20,0,0" PreviewKeyDown="ListSelection_PreviewKeyDown" >
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="FavsSortFav" Header="Favs." CanUserSort="True" SortMemberPath="StationFav">
                         <DataGridTemplateColumn.CellTemplate>
@@ -72,28 +104,29 @@
             </DataGrid>
 
             <!-- Gridsplitter Horizontal -->
-            <GridSplitter x:Name="GridSplitterWebLists" Grid.Row="1" Grid.Column="0" PreviewKeyDown="GridSplitter_PreviewKeyDown" Height="3" VerticalAlignment="Stretch" 
-                          HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows">
+            <GridSplitter x:Name="GridSplitterWebLists" Grid.Row="3" Grid.Column="0" PreviewKeyDown="GridSplitter_PreviewKeyDown" Height="3" VerticalAlignment="Stretch" 
+                          HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" Visibility="Collapsed" >
                 <GridSplitter.Background>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                        <GradientStop Color="#FF212121" Offset="0"/>
-                        <GradientStop Color="#FFC1C1C1" Offset="0.521"/>
-                        <GradientStop Color="#FF212121" Offset="1"/>
+                        <GradientStop Color="#6F6F6F" Offset="0"/>
+                        <GradientStop Color="#FF3983A4" Offset="0.521"/>
+                        <GradientStop Color="#6F6F6F" Offset="1"/>
                     </LinearGradientBrush>
                 </GridSplitter.Background>
             </GridSplitter>
 
             <!-- Searchbox -->
-            <StackPanel x:Name="StackPanelSearch" Grid.Row="2" Grid.Column="0" Background="White" >
+            <StackPanel x:Name="StackPanelSearch" Grid.Row="4" Grid.Column="0" Background="White" Visibility="Collapsed" >
                 <TextBox x:Name="TextBoxSearch" Height="20" Width="150" Margin="20,3,0,20" HorizontalAlignment="Left" 
                          Text="{Binding Path=dummyporp, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" LostFocus="TextBoxSearch_LostFocus" KeyUp="TextBoxSearch_KeyUp"  />
             </StackPanel>
 
             <!-- Webstation-Liste -->
-            <DataGrid x:Name="ListSelectionWeb" Visibility="Visible" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False"
+            <DataGrid x:Name="ListSelectionWeb" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed"
                       CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
-                      SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="3">
+                      SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="5" Grid.Column="0"
+                      PreviewKeyDown="ListSelection_PreviewKeyDown" >
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="FavsSort" Header="Favs." CanUserSort="True" SortMemberPath="StationFav">
                         <DataGridTemplateColumn.CellTemplate>
@@ -124,9 +157,10 @@
                 </ListView.View>
             </ListView>-->
 
-            <ListView Grid.Column="0" x:Name="ListSelectionFolder" SelectionChanged="ListIdentifier" 
-                      PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Collapsed"
-                      Grid.Row="0" Grid.RowSpan="4">
+        <!-- Liste fuer Order-Auswahl -->
+        <ListView Grid.Column="0" x:Name="ListSelectionFolder" SelectionChanged="ListIdentifier" 
+                  PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Visible"
+                  Grid.Row="2" Grid.RowSpan="4" BorderBrush="{x:Null}">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
                         <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -142,7 +176,7 @@
             </ListView>
 
             <!--Der Splitter-->
-            <GridSplitter Grid.Column="1" ResizeBehavior="PreviousAndNext" Grid.RowSpan="4"
+            <GridSplitter Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" ResizeBehavior="PreviousAndNext" Visibility="Visible"
                           PreviewKeyDown="GridSplitter_PreviewKeyDown" Width="3" HorizontalAlignment="Stretch">
                 <GridSplitter.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -154,9 +188,9 @@
                                 <TranslateTransform/>
                             </TransformGroup>
                         </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF212121"/>
-                        <GradientStop Color="#FF212121" Offset="1"/>
-                        <GradientStop Color="#FF898989" Offset="0.5"/>
+                        <GradientStop Color="#6F6F6F"/>
+                        <GradientStop Color="#6F6F6F" Offset="1"/>
+                        <GradientStop Color="#FF3983A4" Offset="0.5"/>
                     </LinearGradientBrush>
                 </GridSplitter.Background>
             </GridSplitter>
@@ -164,9 +198,9 @@
             <!--Der Mediaplayer-->
             <MediaElement x:Name="MediaPlayer" Source="C:\Users\iPhr3ak\Desktop\SoftwOrt\Logo\Final\final\1500x1500_logo_bildschirm.jpg" 
                           MediaOpened="MediaPlayer_MediaOpened" LoadedBehavior="Manual" 
-                          Volume="{Binding ElementName=ProgressVolume, Path=Value}" Grid.Column="2" Grid.RowSpan="4"/>
+                          Volume="{Binding ElementName=ProgressVolume, Path=Value}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="4"/>
             <!-- If Audiofile is loaded, show music picture -->
-            <Image x:Name="ImageAudio" Grid.Column="2" Grid.RowSpan="4" />
+            <Image x:Name="ImageAudio" Grid.Row="2" Grid.Column="2" Grid.RowSpan="4" />
         </Grid>
 
         <!--Statusleiste unten-->

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,7 +8,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Mediaplayer_ILS.Models;
@@ -151,7 +149,6 @@ namespace Mediaplayer_ILS
 
             foreach (var webStation in newWebStationses)
             {
-                //ListSelectionWeb.ItemsSource = webStationList;
                 ListSelectionWeb.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl});
                 webStationList.Add( new WebStations { StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl, StationFav = webStation.StationFav } );
                 if (webStation.StationFav == true)
@@ -170,7 +167,7 @@ namespace Mediaplayer_ILS
         // Liste aus Datagrid in Datei speichern, wenn gewuenscht
         private void WindowMediaPLayer_Closing(object sender, CancelEventArgs e)
         {
-            if (CheckForInternetConnection())
+            if (ChkBoxSaveOnExit.IsChecked == true)
             {
                 WebFileProcessor.WebFileProcessor.SaveToTextFile(webStationList, webStationFile);
             }
@@ -450,7 +447,7 @@ namespace Mediaplayer_ILS
         // 10 Sekunden vorwaerts springen
         private void ButtonForwards_Click(object sender, RoutedEventArgs e)
         {
-            if (!playing)
+            if (!playing || !folderSelectoin)
             {
                 return;
             }
@@ -468,7 +465,7 @@ namespace Mediaplayer_ILS
         // 10 sekunden zurueck springen
         private void ButtonBackwards_Click(object sender, RoutedEventArgs e)
         {
-            if (!playing)
+            if (!playing || !folderSelectoin)
             {
                 return;
             }
@@ -616,6 +613,7 @@ namespace Mediaplayer_ILS
         }
 
         // Wenn Favorit an- oder abgewaehlt wurde, Listen aktualisieren und neu laden in GUI
+        // Normale WebStationen Liste
         private void CheckBoxList_Click(object sender, RoutedEventArgs e)
         {
             dynamic selectedItemWeb = ListSelectionWeb.SelectedItems[0];
@@ -650,6 +648,7 @@ namespace Mediaplayer_ILS
 
         }
         // Wenn Favorit an- oder abgewaehlt wurde, Listen aktualisieren und neu laden in GUI
+        // Favoriten Liste
         private void CheckBoxFav_Click(object sender, RoutedEventArgs e)
         {
             dynamic selectedItemWeb = ListSelectionWebFav.SelectedItems[0];
