@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="125" MinHeight="62" MaxHeight="200"/>
+                <RowDefinition x:Name="FavListHeight" Height="125" MinHeight="69" MaxHeight="200"/>
                 <RowDefinition Height="3" />
                 <RowDefinition Height="25" />
                 <RowDefinition Height="*" />
@@ -71,7 +71,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- Webstation-Liste -->
+            <!-- Gridsplitter Horizontal -->
             <GridSplitter x:Name="GridSplitterWebLists" Grid.Row="1" Grid.Column="0" PreviewKeyDown="GridSplitter_PreviewKeyDown" Height="3" VerticalAlignment="Stretch" 
                           HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows">
                 <GridSplitter.Background>
@@ -83,10 +83,12 @@
                 </GridSplitter.Background>
             </GridSplitter>
 
+            <!-- Searchbox -->
             <StackPanel x:Name="StackPanelSearch" Grid.Row="2" Grid.Column="0" Background="White" >
                 <TextBox Height="20" Width="150" Margin="20,3,0,20" HorizontalAlignment="Left" Text="{Binding Path=dummyporp, FallbackValue=Search}" />
             </StackPanel>
 
+            <!-- Webstation-Liste -->
             <DataGrid x:Name="ListSelectionWeb" Visibility="Visible" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False"
                       CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier"
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"

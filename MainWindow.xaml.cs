@@ -152,9 +152,10 @@ namespace Mediaplayer_ILS
                 if (webStation.StationFav == true)
                 {
                     ListSelectionWebFav.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl });
-                    //webFavList.Add(new WebFavs { StationNameFav = webStation.StationName, BitRateFav = webStation.BitRate, StationUrlFav = webStation.StationUrl, StationFavFav = webStation.StationFav });
                 }
             }
+            // Datagrid of FavoriteList adjust to height (max 200 in XAML)
+            FavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
             ChkBoxSaveOnExit.IsEnabled = true;
             ChkBoxSaveOnExit.IsChecked = true;
         }
@@ -634,6 +635,8 @@ namespace Mediaplayer_ILS
                     }
                 }
             }
+            FavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
+
         }
 
         private void CheckBoxFav_Click(object sender, RoutedEventArgs e)
