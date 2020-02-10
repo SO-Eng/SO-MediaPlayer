@@ -72,8 +72,8 @@
             </DataGrid>
 
             <!-- Webstation-Liste -->
-            <GridSplitter Grid.Row="1" Grid.Column="0" 
-                          PreviewKeyDown="GridSplitter_PreviewKeyDown" Height="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows">
+            <GridSplitter x:Name="GridSplitterWebLists" Grid.Row="1" Grid.Column="0" PreviewKeyDown="GridSplitter_PreviewKeyDown" Height="3" VerticalAlignment="Stretch" 
+                          HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows">
                 <GridSplitter.Background>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="#FF212121" Offset="0"/>
@@ -83,7 +83,7 @@
                 </GridSplitter.Background>
             </GridSplitter>
 
-            <StackPanel Grid.Row="2" Grid.Column="0" Background="White" >
+            <StackPanel x:Name="StackPanelSearch" Grid.Row="2" Grid.Column="0" Background="White" >
                 <TextBox Height="20" Width="150" Margin="20,3,0,20" HorizontalAlignment="Left" Text="{Binding Path=dummyporp, FallbackValue=Search}" />
             </StackPanel>
 
@@ -95,7 +95,7 @@
                     <DataGridTemplateColumn x:Name="FavsSort" Header="Favs." CanUserSort="True" SortMemberPath="StationFav">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxFav_Click" />
+                                <CheckBox Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxList_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -123,7 +123,7 @@
 
             <ListView Grid.Column="0" x:Name="ListSelectionFolder" SelectionChanged="ListIdentifier" 
                       PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Collapsed"
-                      Grid.Row="3">
+                      Grid.Row="0" Grid.RowSpan="4">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
                         <Setter Property="HorizontalContentAlignment" Value="Left"/>

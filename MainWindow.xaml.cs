@@ -98,6 +98,10 @@ namespace Mediaplayer_ILS
 
         private void ButtonOpenWeb_Click(object sender, RoutedEventArgs e)
         {
+            if (webStationList != null)
+            {
+                webStationList.Clear();
+            }
             if (!checkBox)
             {
                 OpenFileDialog openWebDialog = new OpenFileDialog();
@@ -108,6 +112,9 @@ namespace Mediaplayer_ILS
                 {
                     ListSelectionFolder.Visibility = Visibility.Collapsed;
                     ListSelectionWeb.Visibility = Visibility.Visible;
+                    ListSelectionWebFav.Visibility = Visibility.Visible;
+                    GridSplitterWebLists.Visibility = Visibility.Visible;
+                    StackPanelSearch.Visibility = Visibility.Visible;
                     webStationFile = openWebDialog.FileName;
                     ListSelectionWeb.Items.Clear();
                     folderSelectoin = false;
@@ -116,8 +123,13 @@ namespace Mediaplayer_ILS
             }
             else
             {
+                ListSelectionWebFav.Items.Clear();
+                ListSelectionWeb.Items.Clear();
                 ListSelectionFolder.Visibility = Visibility.Collapsed;
                 ListSelectionWeb.Visibility = Visibility.Visible;
+                ListSelectionWebFav.Visibility = Visibility.Visible;
+                GridSplitterWebLists.Visibility = Visibility.Visible;
+                StackPanelSearch.Visibility = Visibility.Visible;
                 webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List02.csv";
                 ListSelectionWeb.Items.Clear();
                 ListSelectionWebFav.Items.Clear();
@@ -140,15 +152,14 @@ namespace Mediaplayer_ILS
                 if (webStation.StationFav == true)
                 {
                     ListSelectionWebFav.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl });
-                    webFavList.Add(new WebFavs { StationNameFav = webStation.StationName, BitRateFav = webStation.BitRate, StationUrlFav = webStation.StationUrl, StationFavFav = webStation.StationFav });
+                    //webFavList.Add(new WebFavs { StationNameFav = webStation.StationName, BitRateFav = webStation.BitRate, StationUrlFav = webStation.StationUrl, StationFavFav = webStation.StationFav });
                 }
-
             }
             ChkBoxSaveOnExit.IsEnabled = true;
             ChkBoxSaveOnExit.IsChecked = true;
         }
 
-        private void WindowMediaPLayer_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void WindowMediaPLayer_Closing(object sender, CancelEventArgs e)
         {
             if (CheckForInternetConnection())
             {
@@ -168,6 +179,9 @@ namespace Mediaplayer_ILS
             if (result == WinForms.DialogResult.OK)
             {
                 ListSelectionWeb.Visibility = Visibility.Collapsed;
+                ListSelectionWebFav.Visibility = Visibility.Collapsed;
+                GridSplitterWebLists.Visibility = Visibility.Collapsed;
+                StackPanelSearch.Visibility = Visibility.Collapsed;
                 ListSelectionFolder.Visibility = Visibility.Visible;
                 // GridView vorbereiten
                 //this.ListSelection.View = gridView;
@@ -497,7 +511,7 @@ namespace Mediaplayer_ILS
         }
 
 
-        private void ListIdentifier(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void ListIdentifier(object sender, SelectionChangedEventArgs e)
         {
             if (ListSelectionWebFav.IsMouseOver)
             {
@@ -509,7 +523,7 @@ namespace Mediaplayer_ILS
             }
         }
 
-        private void ListSelection_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e, int identifier)
+        private void ListSelection_SelectionChanged(object sender, SelectionChangedEventArgs e, int identifier)
         {
             if (((ListSelectionWeb.Visibility == Visibility.Visible && ListSelectionWeb.SelectedItem == null) && (ListSelectionWebFav.Visibility == Visibility.Visible && ListSelectionWebFav.SelectedItem == null)) || (ListSelectionFolder.Visibility == Visibility.Visible && ListSelectionFolder.SelectedItem == null))
             {
@@ -590,7 +604,7 @@ namespace Mediaplayer_ILS
             }
         }
 
-        private void CheckBoxFav_Click(object sender, RoutedEventArgs e)
+        private void CheckBoxList_Click(object sender, RoutedEventArgs e)
         {
             dynamic selectedItemWeb = ListSelectionWeb.SelectedItems[0];
             var selectedName = selectedItemWeb.StationName;
@@ -599,13 +613,58 @@ namespace Mediaplayer_ILS
             if (selectedFav == false)
             {
                 webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("False");
+                ListSelectionWebFav.Items.Clear();
+                foreach (var station in webStationList)
+                {
+                    if (station.StationFav == true)
+                    {
+                        ListSelectionWebFav.Items.Add(new WebStations { StationFav = station.StationFav, StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl });
+                    }
+                }
             }
             else
             {
                 webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("True");
+                ListSelectionWebFav.Items.Clear();
+                foreach (var station in webStationList)
+                {
+                    if (station.StationFav == true)
+                    {
+                        ListSelectionWebFav.Items.Add(new WebStations { StationFav = station.StationFav, StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl });
+                    }
+                }
+            }
+        }
+
+        private void CheckBoxFav_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic selectedItemWeb = ListSelectionWebFav.SelectedItems[0];
+            var selectedName = selectedItemWeb.StationName;
+            var selectedFav = selectedItemWeb.StationFav;
+
+            if (selectedFav == false)
+            {
+                webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("False");
+                ListSelectionWeb.Items.Clear();
+                foreach (var station in webStationList)
+                {
+                    ListSelectionWeb.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
+                }
+            }
+            else
+            {
+                webStationList.First(f => f.StationName == selectedName).StationFav = Convert.ToBoolean("True");
+                ListSelectionWeb.Items.Clear();
+                foreach (var station in webStationList)
+                {
+                    ListSelectionWeb.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
+                }
             }
         }
     }
+
+
+
 
     internal class WebFavs
     {
