@@ -1,0 +1,46 @@
+﻿<Window x:Class="SO_Mediaplayer.AddRadiostation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SO_Mediaplayer"
+        mc:Ignorable="d"
+        Title="Radiostation auswählen" Width="500" Icon="ico/headphones.ico" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Height="260">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="1*" />
+            <!--<ColumnDefinition Width="1*" />-->
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="66" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <!-- Row 1 -->
+        <Label x:Name="LabelDescription" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock x:Name="TextBlockDescr" TextWrapping="Wrap" />
+        </Label>
+
+        <!-- Row 2 -->
+        <Label x:Name="LabelStationName" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Radiosender :"/>
+        <TextBox x:Name="TextBoxStationName" Grid.Row="2" Grid.Column="2" Height="25" VerticalAlignment="Bottom" Margin="5,0,100,0"/>
+
+        <!-- Row 3 -->
+        <Label x:Name="LabelUrl" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Webadresse :"/>
+        <TextBox x:Name="TextBoxUrl" Grid.Row="3" Grid.Column="2" Height="25" VerticalAlignment="Bottom" Margin="5,0"/>
+
+        <!-- Row 4 -->
+        <Button x:Name="ButtonPrelisten" Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="80" Content="Vorhören" Click="ButtonPrelisten_Click" />
+        <Button x:Name="ButtonAdd" Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Hinzufügen"
+                Width="80"  IsEnabled="False" ToolTip="Sendername, Webadresse und vorhören benötigt" ToolTipService.ShowOnDisabled="True" Click="ButtonAdd_Click" />
+        <MediaElement x:Name="MediaPlayerListen" Grid.Row="4" Grid.Column="1" LoadedBehavior="Manual" Volume="0.3" Visibility="Collapsed"/>
+
+    </Grid>
+</Window>

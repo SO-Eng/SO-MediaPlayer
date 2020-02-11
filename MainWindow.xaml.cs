@@ -146,10 +146,10 @@ namespace SO_Mediaplayer
         private void WebStationsStorage()
         {
 
-            var newWebStationses = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebStations>(webStationFile);
+            var newWebStations = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebStations>(webStationFile);
             //var newWebStationsesFav = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebFavs>(webStationFile);
 
-            foreach (var webStation in newWebStationses)
+            foreach (var webStation in newWebStations)
             {
                 ListSelectionWeb.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl});
                 webStationList.Add( new WebStations { StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl, StationFav = webStation.StationFav } );
@@ -249,7 +249,8 @@ namespace SO_Mediaplayer
         {
             if (!folderSelectoin)
             {
-                ImageAudio.Source = new BitmapImage(new Uri("musicBackground/audio.jpg", UriKind.Relative));
+                // Photo by israel palacio(https://unsplash.com/@othentikisra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on Unsplash(https://unsplash.com)
+                ImageAudio.Source = new BitmapImage(new Uri("musicBackground/radio.jpg", UriKind.Relative));
                 playing = false;
                 ButtonPlayPause_Click(sender, e);
                 MediaPlayer.Play();
@@ -698,6 +699,40 @@ namespace SO_Mediaplayer
             ListSelectionWeb.Items.Clear();
             foreach (var station in filter)
             {
+                ListSelectionWeb.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
+            }
+        }
+
+        private void AddWebStation_Click(object sender, RoutedEventArgs e)
+        {
+            string stationName;
+            string stationUrl;
+
+            AddRadiostation openDialog = new AddRadiostation();
+            openDialog.ShowDialog();
+            openDialog.Owner = this;
+
+            if (openDialog.DialogResult == true)
+            {
+                stationName = openDialog.StationName;
+                stationUrl = openDialog.StationUrl;
+                AddStationToList(stationName, stationUrl);
+            }
+        }
+
+        // Webradio Station hinzufuegen
+        private void AddStationToList(string stationName, string stationUrl)
+        {
+            // Radiostaion hinzu
+            webStationList.Add(new WebStations { StationName = stationName, BitRate = "128", StationUrl = stationUrl, StationFav = false });
+            // Liste sortieren
+            var orderedStationList = webStationList.OrderBy(x => x.StationName).ToList();
+            // GUI und List<T> updaten
+            ListSelectionWeb.Items.Clear();
+            webStationList.Clear();
+            foreach (var station in orderedStationList)
+            {
+                webStationList.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
                 ListSelectionWeb.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
             }
         }

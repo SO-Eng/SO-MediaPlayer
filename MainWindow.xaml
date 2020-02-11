@@ -29,7 +29,7 @@
                 <MenuItem x:Name="OpenFolderMenu" Header="Öffne V_erzeichnis"/>
                 <MenuItem x:Name="OpenWeblistMenu" Header="Öffne _Radio-Webliste"/>
                 <Separator/>
-                <MenuItem x:Name="AddWebStation" Header="Radio_station hinzufügen"/>
+                <MenuItem x:Name="AddWebStation" Header="Radio_station hinzufügen" Click="AddWebStation_Click"/>
                 <Separator/>
                 <MenuItem x:Name="CloseMenu" Header="_Beenden"></MenuItem>
             </MenuItem>

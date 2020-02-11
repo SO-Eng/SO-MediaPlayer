@@ -59,9 +59,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddRadiostation.xaml.cs">
+      <DependentUpon>AddRadiostation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\FolderPick.cs" />
     <Compile Include="Models\WebStations.cs" />
     <Compile Include="WebFileProcessor\WebFileProcessor.cs" />
+    <Page Include="AddRadiostation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -120,6 +127,7 @@
     <Resource Include="icons\forward.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="musicBackground\radio.jpg" />
     <Resource Include="internetCon\network-connect-3.png" />
     <Resource Include="internetCon\network-disconnect-3.png" />
     <Resource Include="soundVol\audio-volume-high.png" />
