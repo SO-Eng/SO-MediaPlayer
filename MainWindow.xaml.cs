@@ -34,31 +34,41 @@ namespace SO_Mediaplayer
         // fuer HotKey-absicherung
         private bool fileLoaded = false;
         // Pfad zum Ordner oeffnen
-        private string sPath = string.Empty;
+        private string sPath = String.Empty;
         // Datei zum importieren (Pfad)
-        private string webStationFile = string.Empty;
+        private string webStationFile = String.Empty;
         // Order oder Datei geoeffnet, wenn false dann WebListe
-        private bool folderSelectoin = false;
+        private bool folderSelection = true;
         // zwischenspeichern (Stop/Play)
         private string tempSelectionWeb;
-
-        private int favsExisting = 0;
         // Maximale Spielzeit der geladenen Dateien ----noch offen
         private string playtime;
 
+        // Progressbar Steuerung
         private bool sliderMoving;
 
         // Hilfsattribute fuer die Listenauswahl (click)
         private dynamic selectedItemWeb;
         private dynamic selectionWeb;
 
-        private TimeSpan position;
+        // Bool fuer Ansichten
+        private static bool folderSelected;
+        private static bool favListSelected;
+        private static bool searchBoxSelected;
+        private static bool webListSelected;
+        private double columnListMinWidth;
+        private double favListMinHeight;
+        private GridLength columnList;
+        private GridLength columnSplitter;
+        private GridLength rowFavList;
+        private GridLength rowSplitter;
+        private GridLength rowSearchBox;
+        private GridLength rowWebList;
 
         // Spielzeit fuer WebRadio
         DateTime startTime;
         DateTime diff;
 
-        public bool AllowFiltering { get; set; }
         // StandardListe laden oder oeffnen
         private bool checkBox = true;
 
@@ -70,7 +80,6 @@ namespace SO_Mediaplayer
         readonly List<WebStations> webStationList = new List<WebStations>();
         readonly List<WebFavs> webFavList = new List<WebFavs>();
 
-
         #endregion
 
         public MainWindow()
@@ -80,19 +89,41 @@ namespace SO_Mediaplayer
             // Timerintervall setzen
             timer.Interval = TimeSpan.FromMilliseconds(250);
             timerWeb.Interval = TimeSpan.FromSeconds(1);
+
+            ViewSettings();
         }
+
+        // Einstellungen fuer Ansichtsmenue
+        private void ViewSettings()
+        {
+            if (folderSelection)
+            {
+                FolderListMenu.IsEnabled = true;
+                FavListMenu.IsEnabled = false;
+                SearchboxMenu.IsEnabled = false;
+                WebListMenu.IsEnabled = false;
+            }
+            else
+            {
+                FolderListMenu.IsEnabled = false;
+                FavListMenu.IsEnabled = true;
+                SearchboxMenu.IsEnabled = true;
+                WebListMenu.IsEnabled = true;
+            }
+        }
+
 
         // einzelne Datei auswaehlen
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
             // den Dialog erzeugen
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.FileName = string.Empty;
+            openDialog.FileName = String.Empty;
             if (openDialog.ShowDialog() == true)
             {
                 MediaPlayer.Source = new Uri(openDialog.FileName);
                 ImagePlay();
-                folderSelectoin = true;
+                folderSelection = true;
                 MediaPlayer.Stop();
                 playing = false;
                 PlayRoutine();
@@ -100,6 +131,7 @@ namespace SO_Mediaplayer
                 ChkBoxSaveOnExit.IsEnabled = false;
                 ChkBoxSaveOnExit.IsChecked = false;
                 AddWebStationMenu.IsEnabled = false;
+                ViewSettings();
             }
         }
 
@@ -113,7 +145,7 @@ namespace SO_Mediaplayer
             if (!checkBox)
             {
                 OpenFileDialog openWebDialog = new OpenFileDialog();
-                openWebDialog.FileName = string.Empty;
+                openWebDialog.FileName = String.Empty;
                 openWebDialog.Multiselect = false;
                 //openWebDialog.Filter = "";
                 if (openWebDialog.ShowDialog() == true)
@@ -125,9 +157,10 @@ namespace SO_Mediaplayer
                     StackPanelSearch.Visibility = Visibility.Visible;
                     webStationFile = openWebDialog.FileName;
                     ListSelectionWeb.Items.Clear();
-                    folderSelectoin = false;
+                    folderSelection = false;
                     WebStationsStorage();
                     AddWebStationMenu.IsEnabled = true;
+                    ViewSettings();
                 }
             }
             else
@@ -142,9 +175,10 @@ namespace SO_Mediaplayer
                 webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
                 ListSelectionWeb.Items.Clear();
                 ListSelectionWebFav.Items.Clear();
-                folderSelectoin = false;
+                folderSelection = false;
                 WebStationsStorage();
                 AddWebStationMenu.IsEnabled = true;
+                ViewSettings();
             }
 
         }
@@ -166,7 +200,7 @@ namespace SO_Mediaplayer
                 }
             }
             // Datagrid of FavoriteList adjust to height (max 200 in XAML)
-            FavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
+            RowFavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
             ChkBoxSaveOnExit.IsEnabled = true;
             ChkBoxSaveOnExit.IsChecked = true;
 
@@ -200,10 +234,11 @@ namespace SO_Mediaplayer
                 ListSelectionFolder.Visibility = Visibility.Visible;
                 // GridView vorbereiten
                 //this.ListSelection.View = gridView;
-
+                folderSelection = true;
                 ChkBoxSaveOnExit.IsEnabled = false;
                 ChkBoxSaveOnExit.IsChecked = false;
                 AddWebStationMenu.IsEnabled = false;
+                ViewSettings();
 
                 // Pfad uebergeben
                 sPath = folderDialog.SelectedPath;
@@ -212,7 +247,6 @@ namespace SO_Mediaplayer
                 if (folder.Exists)
                 {
                     ListSelectionFolder.Items.Clear();
-                    folderSelectoin = true;
                     foreach (var fileInfo in folder.GetFiles())
                     {
                         playtime = "00:00:00";
@@ -266,7 +300,7 @@ namespace SO_Mediaplayer
         // Wenn MediaFile geladen, Gesamtzeit anzeigen
         private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
         {
-            if (!folderSelectoin)
+            if (!folderSelection)
             {
                 // Photo by israel palacio(https://unsplash.com/@othentikisra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on Unsplash(https://unsplash.com)
                 ImageAudio.Source = new BitmapImage(new Uri("musicBackground/radio.jpg", UriKind.Relative));
@@ -278,9 +312,6 @@ namespace SO_Mediaplayer
             try
             {
                 LabelMaxTime.Content = MediaPlayer.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
-                position = MediaPlayer.NaturalDuration.TimeSpan;
-                ProgressPlayed.Minimum = 0;
-                ProgressPlayed.Maximum = position.TotalSeconds;
                 if (MediaPlayer.HasVideo)
                 {
                     ImageAudio.Source = null;
@@ -340,7 +371,7 @@ namespace SO_Mediaplayer
         {
             if (!playing)
             {
-                if (folderSelectoin)
+                if (folderSelection)
                 {
                     MediaPlayer.Play();
                     ImagePause();
@@ -357,7 +388,7 @@ namespace SO_Mediaplayer
             }
             else
             {
-                if (folderSelectoin)
+                if (folderSelection)
                 {
                     MediaPlayer.Pause();
                     ImagePlay();
@@ -380,7 +411,7 @@ namespace SO_Mediaplayer
         // Mediendatei stoppen
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
-            if (folderSelectoin)
+            if (folderSelection)
             {
                 ImagePlay();
                 MediaPlayer.Stop();
@@ -494,7 +525,7 @@ namespace SO_Mediaplayer
         // 10 Sekunden vorwaerts springen
         private void ButtonForwards_Click(object sender, RoutedEventArgs e)
         {
-            if (!playing || !folderSelectoin)
+            if (!playing || !folderSelection)
             {
                 return;
             }
@@ -512,7 +543,7 @@ namespace SO_Mediaplayer
         // 10 sekunden zurueck springen
         private void ButtonBackwards_Click(object sender, RoutedEventArgs e)
         {
-            if (!playing || !folderSelectoin)
+            if (!playing || !folderSelection)
             {
                 return;
             }
@@ -588,7 +619,7 @@ namespace SO_Mediaplayer
             }
             else
             {
-                if (folderSelectoin)
+                if (folderSelection)
                 {
                     dynamic selectedItemFolder = ListSelectionFolder.SelectedItems[0];
                     var selectionFolder = selectedItemFolder.FileName;
@@ -602,7 +633,7 @@ namespace SO_Mediaplayer
                     ButtonPlayPause_Click(sender, e);
                     LabelFileName.Content = sB.ToString();
                 }
-                else if (!folderSelectoin)
+                else if (!folderSelection)
                 {
                     if (identifier == 1)
                     {
@@ -691,7 +722,7 @@ namespace SO_Mediaplayer
                     }
                 }
             }
-            FavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
+            RowFavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
 
         }
         // Wenn Favorit an- oder abgewaehlt wurde, Listen aktualisieren und neu laden in GUI
@@ -728,7 +759,7 @@ namespace SO_Mediaplayer
         // Fokus auf Suche-Textbox bzw. Fukos verlieren
         private void TextBoxSearch_GotMouseCapture(object sender, MouseEventArgs e)
         {
-            TextBoxSearch.Text = string.Empty;
+            TextBoxSearch.Text = String.Empty;
         }
 
         private void TextBoxSearch_LostFocus(object sender, RoutedEventArgs e)
@@ -800,7 +831,7 @@ namespace SO_Mediaplayer
         // Track-/ Videoposition per Progressbar steuern
         private void ProgressPlayed_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!playing && !folderSelectoin)
+            if (!playing && !folderSelection)
             {
                 return;
             }
@@ -813,11 +844,6 @@ namespace SO_Mediaplayer
             double ratio = mP / ProgressPlayed.ActualWidth ;
             double progressBarValue = ratio * ProgressPlayed.Maximum;
             return progressBarValue;
-        }
-
-        private void CloseMenu_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
 
         //private void ProgressPlayed_MouseMove(object sender, MouseEventArgs e)
@@ -840,6 +866,85 @@ namespace SO_Mediaplayer
         //    double mousePosition = e.GetPosition(ProgressPlayed).X;
         //    MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
         //}
+
+
+        // Close Window
+        private void CloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+
+
+        public void ListController()
+        {
+            // Datei oder Verzeichnisliste
+            if (folderSelection)
+            {
+                if (FolderListMenu.IsChecked)
+                {
+                    ColumnWidthLists.Width = columnList;
+                    ColumnWidthLists.MinWidth = columnListMinWidth;
+                    ColumnGridSplitter.Width = columnSplitter;
+
+                    ListSelectionFolder.Visibility = Visibility.Visible;
+                    GridSplitterColumn.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    columnList = ColumnWidthLists.Width;
+                    columnListMinWidth = ColumnWidthLists.MinWidth;
+                    columnSplitter = ColumnGridSplitter.Width;
+
+                    ListSelectionFolder.Visibility = Visibility.Collapsed;
+                    GridSplitterColumn.Visibility = Visibility.Collapsed;
+                    ColumnWidthLists.MinWidth = 0;
+
+                    ColumnWidthLists.Width = new GridLength(0);
+                    ColumnGridSplitter.Width = new GridLength(0);
+                }
+            }
+            // WebRadio Optionen
+            else
+            {
+                if (FavListMenu.IsChecked)
+                {
+                    RowFavListHeight.Height = rowFavList;
+                    RowFavListHeight.MinHeight = favListMinHeight;
+                    RowFavGridSplitter.Height = rowSplitter;
+
+                    ListSelectionWebFav.Visibility = Visibility.Visible;
+                    TextBlockFavListHeader.Visibility = Visibility.Visible;
+                    GridSplitterWebLists.Visibility = Visibility.Visible;
+                    favListSelected = true;
+                }
+                else
+                {
+                    rowFavList = RowFavListHeight.Height;
+                    favListMinHeight = RowFavListHeight.MinHeight;
+                    rowSplitter = RowFavGridSplitter.Height;
+
+                    ListSelectionWebFav.Visibility = Visibility.Collapsed;
+                    TextBlockFavListHeader.Visibility = Visibility.Collapsed;
+                    GridSplitterWebLists.Visibility = Visibility.Collapsed;
+                    favListSelected = false;
+
+                    RowFavListHeight.MinHeight = 0;
+                    RowFavListHeight.Height = new GridLength(0);
+                    RowFavGridSplitter.Height = new GridLength(0);
+                }
+            }
+        }
+
+        private void FolderListMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ListController();
+        }
+
+        private void FavListMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ListController();
+        }
     }
 }
 

@@ -10,17 +10,17 @@
     <Grid>
         <Grid Margin="0,0,0,75">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" MinWidth="150" />
-                <ColumnDefinition Width="3" />
+                <ColumnDefinition x:Name="ColumnWidthLists" Width="300" MinWidth="150" />
+                <ColumnDefinition x:Name="ColumnGridSplitter" Width="3" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" /> <!-- Menueleiste -->
                 <RowDefinition Height="45"/>    <!-- Toolbar -->
-                <RowDefinition x:Name="FavListHeight" Height="125" MinHeight="69" MaxHeight="200"/> <!-- Listen (Folder oder Favoriten) -->
-                <RowDefinition Height="3" />    <!-- GridSplitter -->
-                <RowDefinition Height="25" />   <!-- Searchbox -->
-                <RowDefinition Height="*" />    <!-- Liste Webradio -->
+                <RowDefinition x:Name="RowFavListHeight" Height="125" MinHeight="69" MaxHeight="200"/> <!-- Listen (Folder oder Favoriten) -->
+                <RowDefinition x:Name="RowFavGridSplitter" Height="3" />    <!-- GridSplitter -->
+                <RowDefinition x:Name="RowSearchBox" Height="25" />   <!-- Searchbox -->
+                <RowDefinition x:Name="RowWebList" Height="*" />    <!-- Liste Webradio -->
             </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
@@ -86,11 +86,11 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Ansicht">
-                <MenuItem x:Name="FolderListMenu" Header="_Verzeichnisliste" IsCheckable="True" IsChecked="True"/>
+                <MenuItem x:Name="FolderListMenu" Header="_Verzeichnisliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
                 <Separator/>
-                <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" />
-                <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" />
-                <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" />
+                <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
+                <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" IsChecked="True" />
+                <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" IsChecked="True" />
             </MenuItem>
             <MenuItem Header="_Hilfe">
                 <MenuItem x:Name="AboutMenu" Header="Ü_ber"></MenuItem>
@@ -126,7 +126,8 @@
 
         <!--Mediabereich-->
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Height="20" VerticalAlignment="Top" Background="White" Text="Favoriten-Liste" TextAlignment="Center" />
+            <TextBlock x:Name="TextBlockFavListHeader" Grid.Row="2" Grid.Column="0" Height="20" VerticalAlignment="Top" 
+                       Background="White" Text="Favoriten-Liste" TextAlignment="Center" Visibility="Collapsed" />
 
             <!-- Favoriten-Liste -->
             <DataGrid x:Name="ListSelectionWebFav" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed"
@@ -220,7 +221,7 @@
             </ListView>
 
             <!--Der Splitter-->
-            <GridSplitter Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" ResizeBehavior="PreviousAndNext" Visibility="Visible"
+            <GridSplitter x:Name="GridSplitterColumn" Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" ResizeBehavior="PreviousAndNext" Visibility="Visible"
                           PreviewKeyDown="GridSplitter_PreviewKeyDown" Width="3" HorizontalAlignment="Stretch">
                 <GridSplitter.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
