@@ -139,6 +139,17 @@
     <Resource Include="icons\folder-html.png" />
     <Resource Include="icons\favorites.png" />
     <Resource Include="icons\favorites_false.png" />
+    <Resource Include="icons\menu\help.png" />
+    <Resource Include="icons\menu\help-contents.png" />
+    <Resource Include="icons\menu\menu-pause.png" />
+    <Resource Include="icons\menu\menu-start.png" />
+    <Resource Include="icons\menu\menu-stop.png" />
+    <Resource Include="icons\menu\menu-backward.png" />
+    <Resource Include="icons\menu\menu-forward.png" />
+    <Resource Include="icons\menu\menu-skip-backward.png" />
+    <Resource Include="icons\menu\menu-skip-forward.png" />
+    <Resource Include="icons\menu\close.png" />
+    <Resource Include="icons\menu\addWeb.png" />
     <Content Include="icons\openFile.png" />
     <Resource Include="icons\openFolder.png" />
     <Resource Include="icons\openWeb.png" />

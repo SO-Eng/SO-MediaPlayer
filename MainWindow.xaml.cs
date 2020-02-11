@@ -226,6 +226,12 @@ namespace SO_Mediaplayer
         // Abspielroutine nach File oder Folder oeffnen
         private void PlayRoutine()
         {
+            PlayMenu.IsEnabled = true;
+            StopMenu.IsEnabled = true;
+            ForwardMenu.IsEnabled = true;
+            BackwardMenu.IsEnabled = true;
+            NextMenu.IsEnabled = true;
+            PreviousMenu.IsEnabled = true;
             ButtonPlayPause.IsEnabled = true;
             ButtonBackwards.IsEnabled = true;
             ButtonForwards.IsEnabled = true;
@@ -240,6 +246,11 @@ namespace SO_Mediaplayer
 
         private void PlayRoutineWeb()
         {
+            PlayMenu.IsEnabled = true;
+            StopMenu.IsEnabled = true;
+            NextMenu.IsEnabled = true;
+
+            PreviousMenu.IsEnabled = true;
             ButtonPlayPause.IsEnabled = true;
             ImagePlayPic.Opacity = 0.85;
             fileLoaded = true;
@@ -363,6 +374,7 @@ namespace SO_Mediaplayer
             // Button Stoppen aktivieren
             ButtonStop.IsEnabled = true;
             ImageStopPic.Opacity = 0.85;
+            StopMenu.IsEnabled = true;
         }
 
         // Mediendatei stoppen
@@ -375,6 +387,12 @@ namespace SO_Mediaplayer
                 ImageStopPic.Opacity = 0.5;
                 ButtonStop.IsEnabled = false;
                 playing = false;
+                PlayMenu.IsEnabled = true;
+                StopMenu.IsEnabled = true;
+                ForwardMenu.IsEnabled = true;
+                BackwardMenu.IsEnabled = true;
+                NextMenu.IsEnabled = true;
+                PreviousMenu.IsEnabled = true;
             }
             // WebRadio has to deload Source
             else
@@ -385,6 +403,10 @@ namespace SO_Mediaplayer
                 ImageStopPic.Opacity = 0.5;
                 ButtonStop.IsEnabled = false;
                 playing = false;
+                PlayMenu.IsEnabled = true;
+                StopMenu.IsEnabled = true;
+                NextMenu.IsEnabled = true;
+                PreviousMenu.IsEnabled = true;
                 timerWeb.Stop();
             }
         }
@@ -395,12 +417,16 @@ namespace SO_Mediaplayer
         {
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/play.png", UriKind.Relative));
             ButtonPlayPause.ToolTip = "Wiedergeben";
+            PlayMenu.Header = "_Abspielen";
+            PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-start.png", UriKind.Relative));
         }
 
         void ImagePause()
         {
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/pause.png", UriKind.Relative));
             ButtonPlayPause.ToolTip = "Pausieren";
+            PlayMenu.Header = "_Pause";
+            PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-pause.png", UriKind.Relative));
         }
 
 
@@ -787,6 +813,11 @@ namespace SO_Mediaplayer
             double ratio = mP / ProgressPlayed.ActualWidth ;
             double progressBarValue = ratio * ProgressPlayed.Maximum;
             return progressBarValue;
+        }
+
+        private void CloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         //private void ProgressPlayed_MouseMove(object sender, MouseEventArgs e)

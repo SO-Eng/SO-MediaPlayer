@@ -25,21 +25,65 @@
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
             <MenuItem Header="Datei">
-                <MenuItem x:Name="OpenFileMenu" Header="Öffne _Datei"/>
-                <MenuItem x:Name="OpenFolderMenu" Header="Öffne V_erzeichnis"/>
-                <MenuItem x:Name="OpenWeblistMenu" Header="Öffne _Radio-Webliste"/>
+                    <MenuItem x:Name="OpenFileMenu" Header="_Datei Öffnen" Click="ButtonOpen_Click">
+                    <MenuItem.Icon>
+                        <Image Source="icons/folder-music.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                    <MenuItem x:Name="OpenFolderMenu" Header="_Verzeichnis Öffnen" Click="ButtonOpenFolder_Click">
+                    <MenuItem.Icon>
+                        <Image Source="icons/folder-tar.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                    <MenuItem x:Name="OpenWeblistMenu" Header="_Radio-Webliste Öffnen" Click="ButtonOpenWeb_Click">
+                    <MenuItem.Icon>
+                        <Image Source="icons/folder-html.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator/>
-                <MenuItem x:Name="AddWebStationMenu" Header="Radio_station hinzufügen" Click="AddWebStation_Click" IsEnabled="False"/>
+                <MenuItem x:Name="AddWebStationMenu" Header="Radio_station hinzufügen" Click="AddWebStation_Click" IsEnabled="False">
+                    <MenuItem.Icon>
+                        <Image Source="icons/menu/addWeb.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator/>
-                <MenuItem x:Name="CloseMenu" Header="_Beenden"></MenuItem>
+                    <MenuItem x:Name="CloseMenu" Header="_Beenden" Click="CloseMenu_Click">
+                        <MenuItem.Icon>
+                    <Image Source="icons/menu/close.png"/>
+                </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Wiedergabe">
-                <MenuItem x:Name="PlayMenu" Header="_Abspielen"/>
-                <MenuItem x:Name="StopMenu" Header="_Stopp"/>
-                <MenuItem x:Name="ForwardMenu" Header="_Vorwärts (10sek.)"/>
-                <MenuItem x:Name="BackwardMenu" Header="_Zurück (10sek.)"/>
-                <MenuItem x:Name="NextMenu" Header="_Nächster Titel"/>
-                <MenuItem x:Name="PreviousMenu" Header="_Vorheriger Titel"/>
+                <MenuItem x:Name="PlayMenu" Header="_Abspielen" Click="ButtonPlayPause_Click" IsEnabled="False">
+                    <MenuItem.Icon>
+                        <Image x:Name="PlayPauseMenuImage" Source="icons/menu/menu-start.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="StopMenu" Header="_Stopp" Click="ButtonStop_Click" IsEnabled="False">
+                    <MenuItem.Icon>
+                        <Image Source="icons/menu/menu-stop.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="ForwardMenu" Header="_Vorwärts (10sek.)" Click="ButtonForwards_Click" IsEnabled="False">
+                    <MenuItem.Icon>
+                        <Image Source="icons/menu/menu-forward.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="BackwardMenu" Header="_Zurück (10sek.)" Click="ButtonBackwards_Click" IsEnabled="False">
+                    <MenuItem.Icon>
+                        <Image Source="icons/menu/menu-backward.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="NextMenu" Header="_Nächster Titel" IsEnabled="False">
+                    <MenuItem.Icon>
+                        <Image Source="icons/menu/menu-skip-forward.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="PreviousMenu" Header="_Vorheriger Titel" IsEnabled="False">
+                    <MenuItem.Icon>
+                        <Image Source="icons/menu/menu-skip-backward.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Ansicht">
                 <MenuItem x:Name="FolderListMenu" Header="_Verzeichnisliste" IsCheckable="True" IsChecked="True"/>
