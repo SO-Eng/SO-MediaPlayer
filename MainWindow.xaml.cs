@@ -46,9 +46,13 @@ namespace SO_Mediaplayer
         // Maximale Spielzeit der geladenen Dateien ----noch offen
         private string playtime;
 
+        private bool sliderMoving;
+
         // Hilfsattribute fuer die Listenauswahl (click)
         private dynamic selectedItemWeb;
         private dynamic selectionWeb;
+
+        private TimeSpan position;
 
         // Spielzeit fuer WebRadio
         DateTime startTime;
@@ -95,6 +99,7 @@ namespace SO_Mediaplayer
                 LabelFileName.Content = openDialog.FileName;
                 ChkBoxSaveOnExit.IsEnabled = false;
                 ChkBoxSaveOnExit.IsChecked = false;
+                AddWebStationMenu.IsEnabled = false;
             }
         }
 
@@ -122,6 +127,7 @@ namespace SO_Mediaplayer
                     ListSelectionWeb.Items.Clear();
                     folderSelectoin = false;
                     WebStationsStorage();
+                    AddWebStationMenu.IsEnabled = true;
                 }
             }
             else
@@ -138,6 +144,7 @@ namespace SO_Mediaplayer
                 ListSelectionWebFav.Items.Clear();
                 folderSelectoin = false;
                 WebStationsStorage();
+                AddWebStationMenu.IsEnabled = true;
             }
 
         }
@@ -196,6 +203,7 @@ namespace SO_Mediaplayer
 
                 ChkBoxSaveOnExit.IsEnabled = false;
                 ChkBoxSaveOnExit.IsChecked = false;
+                AddWebStationMenu.IsEnabled = false;
 
                 // Pfad uebergeben
                 sPath = folderDialog.SelectedPath;
@@ -259,6 +267,9 @@ namespace SO_Mediaplayer
             try
             {
                 LabelMaxTime.Content = MediaPlayer.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
+                position = MediaPlayer.NaturalDuration.TimeSpan;
+                ProgressPlayed.Minimum = 0;
+                ProgressPlayed.Maximum = position.TotalSeconds;
                 if (MediaPlayer.HasVideo)
                 {
                     ImageAudio.Source = null;
@@ -290,6 +301,13 @@ namespace SO_Mediaplayer
                 if (MediaPlayer.NaturalDuration.HasTimeSpan)
                 {
                     LabelCurrentTime.Content = MediaPlayer.Position.ToString(@"hh\:mm\:ss");
+                    // uodate Progressbar gespielte Zeit
+                    if (MediaPlayer.NaturalDuration.HasTimeSpan && !sliderMoving)
+                    {
+                        ProgressPlayed.Minimum = 0;
+                        ProgressPlayed.Maximum = MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+                        ProgressPlayed.Value = MediaPlayer.Position.TotalSeconds;
+                    }
                 }
             }
             else
@@ -707,6 +725,8 @@ namespace SO_Mediaplayer
         {
             string stationName;
             string stationUrl;
+            string bitRate;
+            bool fav;
 
             AddRadiostation openDialog = new AddRadiostation();
             openDialog.ShowDialog();
@@ -716,15 +736,17 @@ namespace SO_Mediaplayer
             {
                 stationName = openDialog.StationName;
                 stationUrl = openDialog.StationUrl;
-                AddStationToList(stationName, stationUrl);
+                bitRate = openDialog.BitRate;
+                fav = openDialog.Favorite;
+                AddStationToList(stationName, bitRate, stationUrl, fav);
             }
         }
 
         // Webradio Station hinzufuegen
-        private void AddStationToList(string stationName, string stationUrl)
+        private void AddStationToList(string stationName, string bitRate, string stationUrl, bool fav)
         {
             // Radiostaion hinzu
-            webStationList.Add(new WebStations { StationName = stationName, BitRate = "128", StationUrl = stationUrl, StationFav = false });
+            webStationList.Add(new WebStations { StationName = stationName, BitRate = bitRate, StationUrl = stationUrl, StationFav = fav });
             // Liste sortieren
             var orderedStationList = webStationList.OrderBy(x => x.StationName).ToList();
             // GUI und List<T> updaten
@@ -735,8 +757,60 @@ namespace SO_Mediaplayer
                 webStationList.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
                 ListSelectionWeb.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
             }
+            // wenn direkt als Favorit speichern, Favoritenliste updaten
+            if (fav)
+            {
+                ListSelectionWebFav.Items.Clear();
+                foreach (var station in orderedStationList)
+                {
+                    if (station.StationFav)
+                    {
+                        ListSelectionWebFav.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
+                    }
+                }
+            }
         }
+
+        // Track-/ Videoposition per Progressbar steuern
+        private void ProgressPlayed_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!playing)
+            {
+                return;
+            }
+            double mousePosition = e.GetPosition(ProgressPlayed).X;
+            MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
+        }
+
+        private double SetProgressBarValuePlayed(double mP)
+        {
+            double ratio = mP / ProgressPlayed.ActualWidth ;
+            double progressBarValue = ratio * ProgressPlayed.Maximum;
+            return progressBarValue;
+        }
+
+        //private void ProgressPlayed_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    if (e.MouseDevice.LeftButton == MouseButtonState.Pressed )
+        //    {
+        //        sliderMoving = true;
+        //        double mousePosition = e.GetPosition(ProgressPlayed).X;
+        //        ProgressPlayed.Value = SetProgressBarValuePlayed(mousePosition);
+        //    }
+        //}
+
+        //private void ProgressPlayed_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (!playing)
+        //    {
+        //        return;
+        //    }
+        //    sliderMoving = false;
+        //    double mousePosition = e.GetPosition(ProgressPlayed).X;
+        //    MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
+        //}
     }
+}
 
 
 
@@ -748,4 +822,4 @@ namespace SO_Mediaplayer
         public string StationUrlFav { get; set; }
         public bool StationFavFav { get; set; }
     }
-}
+

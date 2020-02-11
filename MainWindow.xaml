@@ -29,7 +29,7 @@
                 <MenuItem x:Name="OpenFolderMenu" Header="Öffne V_erzeichnis"/>
                 <MenuItem x:Name="OpenWeblistMenu" Header="Öffne _Radio-Webliste"/>
                 <Separator/>
-                <MenuItem x:Name="AddWebStation" Header="Radio_station hinzufügen" Click="AddWebStation_Click"/>
+                <MenuItem x:Name="AddWebStationMenu" Header="Radio_station hinzufügen" Click="AddWebStation_Click" IsEnabled="False"/>
                 <Separator/>
                 <MenuItem x:Name="CloseMenu" Header="_Beenden"></MenuItem>
             </MenuItem>
@@ -226,7 +226,8 @@
             <CheckBox x:Name="ChkBoxSaveOnExit" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" IsChecked="False"  IsEnabled="False"/>
             <TextBlock x:Name="TextBlockSaveOnExit" Text="Save Webstation-list at exit" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
 
-            <ProgressBar x:Name="ProgressPlayed" Grid.Row="1" Grid.Column="2" Height="12" Margin="20,0,20,0" VerticalAlignment="Center"></ProgressBar>
+            <ProgressBar x:Name="ProgressPlayed" Grid.Row="1" Grid.Column="2" Height="12" Margin="20,0,20,0" VerticalAlignment="Center" 
+                         Value="{Binding ElementName=MediaPlayer, Path=Position}" MouseLeftButtonDown="ProgressPlayed_MouseLeftButtonDown"  />
 
             <!-- Reihe 2 -->
             <!-- Start ProgrssBar Volume -->

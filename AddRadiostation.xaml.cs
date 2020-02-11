@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,8 @@ namespace SO_Mediaplayer
 
         public string StationName { get; set; }
         public string StationUrl { get; set; }
+        public string BitRate { get; set; }
+        public bool Favorite { get; set; }
 
         #endregion
 
@@ -82,11 +85,38 @@ namespace SO_Mediaplayer
 
         }
 
+        // Button Hinzufuegen Methode
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             StationName = TextBoxStationName.Text;
             StationUrl = TextBoxUrl.Text;
+
+            if (TextBoxBitrate.Text != string.Empty)
+            {
+                BitRate = TextBoxBitrate.Text;
+            }
+            else
+            {
+                BitRate = "0";
+            }
+
+            if (CheckBoxFav.IsChecked == true)
+            {
+                Favorite = true;
+            }
+            else
+            {
+                Favorite = false;
+            }
+
             DialogResult = true;
+        }
+
+        // Nur Zahlen in Textbox fuer Bitrate zulassen
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
