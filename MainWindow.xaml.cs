@@ -774,7 +774,7 @@ namespace SO_Mediaplayer
         // Track-/ Videoposition per Progressbar steuern
         private void ProgressPlayed_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!playing)
+            if (!playing && !folderSelectoin)
             {
                 return;
             }
