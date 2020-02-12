@@ -10,17 +10,17 @@
     <Grid>
         <Grid Margin="0,0,0,75">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="ColumnWidthLists" Width="300" MinWidth="150" />
+                <ColumnDefinition x:Name="ColumnWidthLists" Width="300" MinWidth="255" />
                 <ColumnDefinition x:Name="ColumnGridSplitter" Width="3" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" /> <!-- Menueleiste -->
                 <RowDefinition Height="45"/>    <!-- Toolbar -->
-                <RowDefinition x:Name="RowFavListHeight" Height="125" MinHeight="69" MaxHeight="200"/> <!-- Listen (Folder oder Favoriten) -->
+                <RowDefinition x:Name="RowFavListHeight" Height="125" MinHeight="69" MaxHeight="260"/> <!-- Listen (Folder oder Favoriten) -->
                 <RowDefinition x:Name="RowFavGridSplitter" Height="3" />    <!-- GridSplitter -->
-                <RowDefinition x:Name="RowSearchBox" Height="25" />   <!-- Searchbox -->
-                <RowDefinition x:Name="RowWebList" Height="*" />    <!-- Liste Webradio -->
+                <RowDefinition x:Name="RowSearchBoxGrid" Height="25" />   <!-- Searchbox -->
+                <RowDefinition x:Name="RowWebListGrid" Height="*" />    <!-- Liste Webradio -->
             </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
@@ -88,10 +88,12 @@
             <MenuItem Header="_Ansicht">
                 <MenuItem x:Name="FolderListMenu" Header="_Verzeichnisliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
                 <Separator/>
-                <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
-                <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" IsChecked="True" />
-                <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" IsChecked="True" />
-            </MenuItem>
+                <!--<MenuItem Header="Webradio Listen">-->
+                    <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
+                    <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" IsChecked="True" Click="SearchboxMenu_Click" />
+                    <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" IsChecked="True" Click="WebListMenu_Click" />
+                <!--</MenuItem>-->
+                </MenuItem>
             <MenuItem Header="_Hilfe">
                 <MenuItem x:Name="AboutMenu" Header="Ü_ber"></MenuItem>
             </MenuItem>
@@ -162,8 +164,16 @@
 
             <!-- Searchbox -->
             <StackPanel x:Name="StackPanelSearch" Grid.Row="4" Grid.Column="0" Background="White" Visibility="Collapsed" >
-                <TextBox x:Name="TextBoxSearch" Height="20" Width="150" Margin="20,3,0,20" HorizontalAlignment="Left" 
-                         Text="{Binding Path=dummyporp, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" LostFocus="TextBoxSearch_LostFocus" KeyUp="TextBoxSearch_KeyUp"  />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="1.25*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TextBoxSearch" Grid.Column="0" Height="20" Width="150" Margin="5,3,0,0" HorizontalAlignment="Left" 
+                             Text="{Binding Path=dummyporp, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
+                              KeyUp="TextBoxSearch_KeyUp" />
+                <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="Clear search" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
+                </Grid>
             </StackPanel>
 
             <!-- Webstation-Liste -->
@@ -186,7 +196,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!--<ListView Grid.Column="0" x:Name="ListSelectionWeb" SelectionChanged="ListSelection_SelectionChanged" PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Visible">
+            <!--<ListView Grid.Column="0" x:Name="ListSelectionWeb" SelectionChanged="ListSelection_SelectionChanged" PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Collapsed">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
                         <Setter Property="HorizontalContentAlignment" Value="Left"/>

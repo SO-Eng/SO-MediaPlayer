@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SO_Mediaplayer.Models
 {
+
     public class WebStations
     {
         public string StationName { get; set; }
