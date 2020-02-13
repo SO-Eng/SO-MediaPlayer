@@ -934,17 +934,21 @@ namespace SO_Mediaplayer
         {
             if (FavListMenu.IsChecked)
             {
-                if (rowFavList.GridUnitType == GridUnitType.Star && webListSelected)
+                if (rowFavList.GridUnitType == GridUnitType.Star && webListSelected || rowFavList.Value == 0 && webListSelected)
                 {
                     rowFavList = new GridLength(ListSelectionWebFav.Items.Count * 24 + 45);
                     RowFavListHeight.Height = rowFavList;
+                }
+                else if (rowFavList.Value == 0 && !webListSelected)
+                {
+                    rowFavList = new GridLength(1, GridUnitType.Star);
                 }
                 else
                 {
                     RowFavListHeight.Height = rowFavList;
                 }
-                RowFavListHeight.MinHeight = favListMinHeight;
 
+                RowFavListHeight.MinHeight = favListMinHeight;
                 ListSelectionWebFav.Visibility = Visibility.Visible;
                 TextBlockFavListHeader.Visibility = Visibility.Visible;
                 if (webListSelected)
@@ -954,6 +958,11 @@ namespace SO_Mediaplayer
                     GridSplitterWebLists.ResizeBehavior = GridResizeBehavior.PreviousAndNext;
                 }
                 favListSelected = true;
+
+                if (!WebListMenu.IsChecked)
+                {
+                    CheckWebListsOn();
+                }
             }
             else
             {
@@ -968,6 +977,8 @@ namespace SO_Mediaplayer
                 RowFavListHeight.MinHeight = 0;
                 RowFavListHeight.Height = new GridLength(0);
                 RowFavGridSplitter.Height = new GridLength(0);
+
+                CheckWebListsOff();
             }
         }
 
@@ -999,6 +1010,7 @@ namespace SO_Mediaplayer
             {
                 RowWebListGrid.Height = rowWebList;
                 RowFavListHeight.MaxHeight = 200;
+                
 
                 ListSelectionWeb.Visibility = Visibility.Visible;
                 webListSelected = true;
@@ -1015,6 +1027,13 @@ namespace SO_Mediaplayer
                 if (FavListMenu.IsChecked)
                 {
                     FavListMenu_Click(sender,e);
+                }
+
+                if (!FavListMenu.IsChecked)
+                {
+                    RowFavListHeight.Height = new GridLength(0);
+
+                    CheckWebListsOn();
                 }
             }
             else
@@ -1045,7 +1064,40 @@ namespace SO_Mediaplayer
                 RowFavGridSplitter.Height = new GridLength(0);
                 GridSplitterWebLists.ResizeBehavior = GridResizeBehavior.PreviousAndNext;
                 RowFavListHeight.Height = new GridLength(1, GridUnitType.Star);
+
+                CheckWebListsOff();
             }
+        }
+
+        private void CheckWebListsOff()
+        {
+            if (!favListSelected && !webListSelected)
+            {
+                columnListMinWidth = ColumnWidthLists.MinWidth;
+                columnList = ColumnWidthLists.Width;
+
+                ColumnWidthLists.MinWidth = 0;
+                ColumnWidthLists.Width = new GridLength(0);
+                GridSplitterColumn.Visibility = Visibility.Collapsed;
+                ColumnGridSplitter.Width = new GridLength(0);
+
+                RowFavListHeight.Height = new GridLength(1, GridUnitType.Star);
+            }
+        }
+
+        private void CheckWebListsOn()
+        {
+            ColumnWidthLists.MinWidth = 255;
+            if (columnList.Value == 0)
+            {
+                ColumnWidthLists.Width = new GridLength(300);
+            }
+            else
+            {
+                ColumnWidthLists.Width = columnList;
+            }
+            ColumnGridSplitter.Width = new GridLength(3);
+            GridSplitterColumn.Visibility = Visibility.Visible;
         }
     }
 }

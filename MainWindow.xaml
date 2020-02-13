@@ -8,7 +8,7 @@
         MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="ico/headphones.ico" 
         Loaded="WindowMediaPLayer_Loaded" Closing="WindowMediaPLayer_Closing">
     <Grid>
-        <Grid Margin="0,0,0,75">
+        <Grid x:Name="myGrid" Margin="0,0,0,75">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="ColumnWidthLists" Width="300" MinWidth="255" />
                 <ColumnDefinition x:Name="ColumnGridSplitter" Width="3" />

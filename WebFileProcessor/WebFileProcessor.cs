@@ -7,7 +7,12 @@ namespace SO_Mediaplayer.WebFileProcessor
 {
     public static class WebFileProcessor
     {
-        // To load Radiostation-List
+        /// <summary>
+        /// Loads csv file from local drive to a generic List
+        /// </summary>
+        /// <typeparam name="T"> Needs a generic List </typeparam>
+        /// <param name="filePath"> Needs a parameter where file is located as string (path) </param>
+        /// <returns> Generic List filled with data from csv file without headline </returns>
         public static List<T> LoadFromTextFile<T>(string filePath) where T : class, new()
         {
             var lines = System.IO.File.ReadAllLines(filePath).ToList();
