@@ -52,18 +52,15 @@ namespace SO_Mediaplayer
         private dynamic selectionWeb;
 
         // Bool fuer Ansichten
-        private static bool folderSelected = true;
-        private static bool favListSelected = true;
-        private static bool searchBoxSelected = true;
-        private static bool webListSelected = true;
-        private double columnListMinWidth;
+        private bool folderSelected = true;
+        private bool favListSelected = true;
+        private bool webListSelected = true;
+        private bool firstLoad;
+        //private double columnListMinWidth;
         private double favListMinHeight;
         private GridLength columnList;
         private GridLength columnSplitter;
         private GridLength rowFavList;
-        private GridLength rowSplitter;
-        private GridLength rowSearchBox;
-        private GridLength rowWebList;
 
         // Spielzeit fuer WebRadio
         DateTime startTime;
@@ -91,6 +88,8 @@ namespace SO_Mediaplayer
             timerWeb.Interval = TimeSpan.FromSeconds(1);
 
             ViewSettings();
+
+            firstLoad = true;
         }
 
         // Einstellungen fuer Ansichtsmenue
@@ -127,6 +126,7 @@ namespace SO_Mediaplayer
                 StackPanelSearch.Visibility = Visibility.Collapsed;
                 TextBlockFavListHeader.Visibility = Visibility.Collapsed;
                 ListSelectionFolder.Visibility = Visibility.Visible;
+                FolderListMenu_Click(sender, e);
                 MediaPlayer.Source = new Uri(openDialog.FileName);
                 ImagePlay();
                 folderSelection = true;
@@ -162,6 +162,12 @@ namespace SO_Mediaplayer
                     GridSplitterWebLists.Visibility = Visibility.Visible;
                     StackPanelSearch.Visibility = Visibility.Visible;
                     TextBlockFavListHeader.Visibility = Visibility.Visible;
+                    if (!FolderListMenu.IsChecked)
+                    {
+                        CheckWebListsOn();
+                    }
+                    CheckListSwitch(sender, e);
+
                     webStationFile = openWebDialog.FileName;
                     ListSelectionWeb.Items.Clear();
                     folderSelection = false;
@@ -180,6 +186,12 @@ namespace SO_Mediaplayer
                 GridSplitterWebLists.Visibility = Visibility.Visible;
                 StackPanelSearch.Visibility = Visibility.Visible;
                 TextBlockFavListHeader.Visibility = Visibility.Visible;
+                if (!FolderListMenu.IsChecked)
+                {
+                    CheckWebListsOn();
+                }
+                CheckListSwitch(sender, e);
+
                 webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
                 ListSelectionWeb.Items.Clear();
                 ListSelectionWebFav.Items.Clear();
@@ -207,8 +219,12 @@ namespace SO_Mediaplayer
                     ListSelectionWebFav.Items.Add(new WebStations { StationFav = webStation.StationFav, StationName = webStation.StationName, BitRate = webStation.BitRate, StationUrl = webStation.StationUrl });
                 }
             }
-            // Datagrid of FavoriteList adjust to height (max 200 in XAML)
-            RowFavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
+            // Datagrid of FavoriteList adjust to height (max 200 in XAML) only at first load of List
+            if (firstLoad && WebListMenu.IsChecked && FavListMenu.IsChecked)
+            {
+                RowFavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
+                firstLoad = false;
+            }
             ChkBoxSaveOnExit.IsEnabled = true;
             ChkBoxSaveOnExit.IsChecked = true;
 
@@ -241,7 +257,10 @@ namespace SO_Mediaplayer
                 StackPanelSearch.Visibility = Visibility.Collapsed;
                 TextBlockFavListHeader.Visibility = Visibility.Collapsed;
                 ListSelectionFolder.Visibility = Visibility.Visible;
-                // GridView vorbereiten
+                //CheckWebListsOn();
+                FolderListMenu.IsChecked = true;
+                FolderListMenu_Click(sender, e);
+                //GridView vorbereiten
                 //this.ListSelection.View = gridView;
                 folderSelection = true;
                 ChkBoxSaveOnExit.IsEnabled = false;
@@ -764,7 +783,7 @@ namespace SO_Mediaplayer
         }
 
 
-        // Fokus auf Suche-Textbox bzw. Fukos verlieren
+        // Fokus auf Suche-Textbox 
         private void TextBoxSearch_GotMouseCapture(object sender, MouseEventArgs e)
         {
             TextBoxSearch.Text = string.Empty;
@@ -906,8 +925,7 @@ namespace SO_Mediaplayer
         {
             if (FolderListMenu.IsChecked)
             {
-                ColumnWidthLists.Width = columnList;
-                ColumnWidthLists.MinWidth = columnListMinWidth;
+                ColumnWidthLists.MinWidth = 200;
                 ColumnGridSplitter.Width = columnSplitter;
 
                 ListSelectionFolder.Visibility = Visibility.Visible;
@@ -917,7 +935,6 @@ namespace SO_Mediaplayer
             else
             {
                 columnList = ColumnWidthLists.Width;
-                columnListMinWidth = ColumnWidthLists.MinWidth;
                 columnSplitter = ColumnGridSplitter.Width;
 
                 ListSelectionFolder.Visibility = Visibility.Collapsed;
@@ -963,6 +980,7 @@ namespace SO_Mediaplayer
                 {
                     CheckWebListsOn();
                 }
+
             }
             else
             {
@@ -986,19 +1004,14 @@ namespace SO_Mediaplayer
         {
             if (SearchboxMenu.IsChecked)
             {
-                RowSearchBoxGrid.Height = rowSearchBox;
+                RowSearchBoxGrid.Height = new GridLength(25);
 
                 StackPanelSearch.Visibility = Visibility.Visible;
                 GridSplitterWebLists.ResizeBehavior = GridResizeBehavior.PreviousAndNext;
-
-                searchBoxSelected = true;
             }
             else
             {
-                rowSearchBox = RowSearchBoxGrid.Height;
-
                 StackPanelSearch.Visibility = Visibility.Collapsed;
-                searchBoxSelected = false;
 
                 RowSearchBoxGrid.Height = new GridLength(0);
             }
@@ -1008,7 +1021,7 @@ namespace SO_Mediaplayer
         {
             if (WebListMenu.IsChecked)
             {
-                RowWebListGrid.Height = rowWebList;
+                RowWebListGrid.Height = new GridLength(1, GridUnitType.Star);
                 RowFavListHeight.MaxHeight = 200;
                 
 
@@ -1032,13 +1045,11 @@ namespace SO_Mediaplayer
                 if (!FavListMenu.IsChecked)
                 {
                     RowFavListHeight.Height = new GridLength(0);
-
                     CheckWebListsOn();
                 }
             }
             else
             {
-                rowWebList = RowWebListGrid.Height;
                 RowFavListHeight.MaxHeight = 2800;
 
                 ListSelectionWeb.Visibility = Visibility.Collapsed;
@@ -1073,7 +1084,7 @@ namespace SO_Mediaplayer
         {
             if (!favListSelected && !webListSelected)
             {
-                columnListMinWidth = ColumnWidthLists.MinWidth;
+                //columnListMinWidth = ColumnWidthLists.MinWidth;
                 columnList = ColumnWidthLists.Width;
 
                 ColumnWidthLists.MinWidth = 0;
@@ -1092,12 +1103,26 @@ namespace SO_Mediaplayer
             {
                 ColumnWidthLists.Width = new GridLength(300);
             }
-            else
-            {
-                ColumnWidthLists.Width = columnList;
-            }
             ColumnGridSplitter.Width = new GridLength(3);
             GridSplitterColumn.Visibility = Visibility.Visible;
+        }
+
+        private void CheckListSwitch(object sender, RoutedEventArgs e)
+        {
+            if (!FavListMenu.IsChecked)
+            {
+                FavListMenu_Click(sender, e);
+            }
+
+            if (!WebListMenu.IsChecked)
+            {
+                WebListMenu_Click(sender, e);
+            }
+
+            if (!SearchboxMenu.IsChecked)
+            {
+                SearchboxMenu_Click(sender, e);
+            }
         }
     }
 }

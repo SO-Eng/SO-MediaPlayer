@@ -20,7 +20,7 @@
                 <RowDefinition x:Name="RowFavListHeight" Height="125" MinHeight="69" MaxHeight="260"/> <!-- Listen (Folder oder Favoriten) -->
                 <RowDefinition x:Name="RowFavGridSplitter" Height="3" />    <!-- GridSplitter -->
                 <RowDefinition x:Name="RowSearchBoxGrid" Height="25" />   <!-- Searchbox -->
-                <RowDefinition x:Name="RowWebListGrid" Height="*" />    <!-- Liste Webradio -->
+                <RowDefinition x:Name="RowWebListGrid" Height="1*" />    <!-- Liste Webradio -->
             </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
@@ -88,11 +88,11 @@
             <MenuItem Header="_Ansicht">
                 <MenuItem x:Name="FolderListMenu" Header="_Verzeichnisliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
                 <Separator/>
-                <!--<MenuItem Header="Webradio Listen">-->
+                <MenuItem Header="Webradio Listen">
                     <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
                     <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" IsChecked="True" Click="SearchboxMenu_Click" />
                     <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" IsChecked="True" Click="WebListMenu_Click" />
-                <!--</MenuItem>-->
+                </MenuItem>
                 </MenuItem>
             <MenuItem Header="_Hilfe">
                 <MenuItem x:Name="AboutMenu" Header="Ü_ber"></MenuItem>
@@ -171,7 +171,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="TextBoxSearch" Grid.Column="0" Height="20" Width="150" Margin="5,3,0,0" HorizontalAlignment="Left" 
                              Text="{Binding Path=dummyporp, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
-                              KeyUp="TextBoxSearch_KeyUp" />
+                              KeyUp="TextBoxSearch_KeyUp" CharacterCasing="Lower" />
                 <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="Clear search" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
                 </Grid>
             </StackPanel>
