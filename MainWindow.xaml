@@ -7,8 +7,17 @@
         Title="SoftwOrt-Mediaplayer" Height="600" Width="970" KeyDown="WindowMediaPLayer_KeyDown" 
         MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="ico/headphones.ico" 
         Loaded="WindowMediaPLayer_Loaded" Closing="WindowMediaPLayer_Closing">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo x:Name="TaskbarItemInfo">
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfo x:Name="ThumbButtonPrevious" ImageSource="icons/skip-backward.png" Description="Play" IsEnabled="False"/>
+                <ThumbButtonInfo x:Name="ThumbButtonPlay" ImageSource="icons/play.png" Description="Play" Click="ButtonPlayPause_Click" IsEnabled="False"/>
+                <ThumbButtonInfo x:Name="ThumbButtonNext" ImageSource="icons/skip-forward.png" Description="Play" IsEnabled="False"/>
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
     <Grid>
-        <Grid x:Name="myGrid" Margin="0,0,0,75">
+        <Grid Margin="0,0,0,75">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="ColumnWidthLists" Width="300" MinWidth="255" />
                 <ColumnDefinition x:Name="ColumnGridSplitter" Width="3" />
@@ -111,6 +120,12 @@
                 </Button>
             </ToolBar>
             <ToolBar MinWidth="180">
+                <Button x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
+                    <Image x:Name="ImageSkipBackwardPic" Source="icons/skip-backward.png" Opacity="0.5"/>
+                </Button>
+                <Button x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click" Margin="0,0,10,0">
+                    <Image x:Name="ImageSkipForwardPic" Source="icons/skip-forward.png" Opacity="0.5"/>
+                </Button>
                 <Button x:Name="ButtonStop" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
                     <Image x:Name="ImageStopPic" Source="icons/stop.png" Opacity="0.5"/>
                 </Button>

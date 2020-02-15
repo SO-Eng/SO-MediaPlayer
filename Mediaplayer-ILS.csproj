@@ -150,6 +150,8 @@
     <Resource Include="icons\menu\menu-skip-forward.png" />
     <Resource Include="icons\menu\close.png" />
     <Resource Include="icons\menu\addWeb.png" />
+    <Resource Include="icons\skip-backward.png" />
+    <Resource Include="icons\skip-forward.png" />
     <Content Include="icons\openFile.png" />
     <Resource Include="icons\openFolder.png" />
     <Resource Include="icons\openWeb.png" />

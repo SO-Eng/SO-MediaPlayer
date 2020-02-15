@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using SO_Mediaplayer.Models;
@@ -300,6 +301,9 @@ namespace SO_Mediaplayer
             ImagePlayPic.Opacity = 0.85;
             ImageBackwardPic.Opacity = 0.85;
             ImageForwardPic.Opacity = 0.85;
+            ThumbButtonPlay.IsEnabled = true;
+            ThumbButtonNext.IsEnabled = true;
+            ThumbButtonPrevious.IsEnabled = true;
             fileLoaded = true;
             // Timer (Ticker) starten
             timer.Tick += TimerTick;
@@ -314,6 +318,9 @@ namespace SO_Mediaplayer
 
             PreviousMenu.IsEnabled = true;
             ButtonPlayPause.IsEnabled = true;
+            ThumbButtonPlay.IsEnabled = true;
+            ThumbButtonNext.IsEnabled = true;
+            ThumbButtonPrevious.IsEnabled = true;
             ImagePlayPic.Opacity = 0.85;
             fileLoaded = true;
             startTime = DateTime.Now;
@@ -395,7 +402,7 @@ namespace SO_Mediaplayer
 
 
         // Mediendatei abspielen || pausieren
-        private void ButtonPlayPause_Click(object sender, RoutedEventArgs e)
+        private void ButtonPlayPause_Click(object sender, EventArgs e)
         {
             if (!playing)
             {
@@ -468,6 +475,7 @@ namespace SO_Mediaplayer
                 PreviousMenu.IsEnabled = true;
                 timerWeb.Stop();
             }
+            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/stop.png"));
         }
 
 
@@ -475,15 +483,19 @@ namespace SO_Mediaplayer
         void ImagePlay()
         {
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/play.png", UriKind.Relative));
-            ButtonPlayPause.ToolTip = "Wiedergeben";
-            PlayMenu.Header = "_Abspielen";
+            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
+            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
+            ButtonPlayPause.ToolTip = "Wiedergabe";
+            PlayMenu.Header = "_Wiedergabe";
             PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-start.png", UriKind.Relative));
         }
 
         void ImagePause()
         {
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/pause.png", UriKind.Relative));
-            ButtonPlayPause.ToolTip = "Pausieren";
+            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
+            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
+            ButtonPlayPause.ToolTip = "Pause";
             PlayMenu.Header = "_Pause";
             PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-pause.png", UriKind.Relative));
         }
