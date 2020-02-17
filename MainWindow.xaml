@@ -148,7 +148,7 @@
 
             <!-- Favoriten-Liste -->
             <DataGrid x:Name="ListSelectionWebFav" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed"
-                      CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier"
+                      CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier" CanUserReorderColumns="False" IsReadOnly="True"
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
                       SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="2" Grid.Column="0" Margin="0,20,0,0" PreviewKeyDown="ListSelection_PreviewKeyDown" >
                 <DataGrid.Columns>
@@ -185,14 +185,14 @@
                         <ColumnDefinition Width="1.25*" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="TextBoxSearch" Grid.Column="0" Height="20" Width="150" Margin="5,3,0,0" HorizontalAlignment="Left" 
-                             Text="{Binding Path=dummyporp, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
+                             Text="{Binding Path=dummyprop, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
                               KeyUp="TextBoxSearch_KeyUp" CharacterCasing="Lower" />
                 <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="Clear search" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
                 </Grid>
             </StackPanel>
 
             <!-- Webstation-Liste -->
-            <DataGrid x:Name="ListSelectionWeb" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed"
+            <DataGrid x:Name="ListSelectionWeb" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed" CanUserReorderColumns="False" IsReadOnly="True"
                       CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
                       SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="5" Grid.Column="0"
@@ -312,7 +312,7 @@
                         </LinearGradientBrush>
                     </ProgressBar.Foreground>
                 </ProgressBar>
-                <TextBlock Text="{Binding ElementName=ProgressVolume, Path=Value, StringFormat=Vol. {0:0%}}" 
+                <TextBlock Text="{Binding ElementName=ProgressVolume, Path=Value, StringFormat=Vol. {0:0%}}" IsHitTestVisible="False"
                            HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" UseLayoutRounding="False" />
             </Grid>
             <Grid Column="0" Row="2">

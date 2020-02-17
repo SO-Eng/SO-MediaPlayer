@@ -484,7 +484,7 @@ namespace SO_Mediaplayer
         {
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/play.png", UriKind.Relative));
             TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
-            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
+            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
             ButtonPlayPause.ToolTip = "Wiedergabe";
             PlayMenu.Header = "_Wiedergabe";
             PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-start.png", UriKind.Relative));
@@ -494,7 +494,7 @@ namespace SO_Mediaplayer
         {
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/pause.png", UriKind.Relative));
             TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
-            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
+            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
             ButtonPlayPause.ToolTip = "Pause";
             PlayMenu.Header = "_Pause";
             PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-pause.png", UriKind.Relative));
@@ -603,6 +603,7 @@ namespace SO_Mediaplayer
         {
             double mousePosition = e.GetPosition(ProgressVolume).X;
             ProgressVolume.Value = SetProgressBarValue(mousePosition);
+            SoundBoxVolume();
         }
 
         private double SetProgressBarValue(double mP)
@@ -677,6 +678,7 @@ namespace SO_Mediaplayer
                 {
                     if (identifier == 1)
                     {
+                        ButtonCancelSearch_Click(sender, e);
                         selectedItemWeb = ListSelectionWebFav.SelectedItems[0];
                     }
                     else
@@ -808,6 +810,10 @@ namespace SO_Mediaplayer
 
         private void ButtonCancelSearch_Click(object sender, RoutedEventArgs e)
         {
+            if (TextBoxSearch.Text == "Search" || TextBoxSearch.Text == string.Empty)
+            {
+                return;
+            }
             TextBoxSearch.Text = "Search";
             ListSelectionWeb.Items.Clear();
             foreach (var station in webStationList)
