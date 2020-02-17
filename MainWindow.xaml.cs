@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -57,6 +58,8 @@ namespace SO_Mediaplayer
         private bool favListSelected = true;
         private bool webListSelected = true;
         private bool firstLoad;
+
+        private bool loop = true;
         //private double columnListMinWidth;
         private double favListMinHeight;
         private GridLength columnList;
@@ -322,6 +325,13 @@ namespace SO_Mediaplayer
             ThumbButtonNext.IsEnabled = true;
             ThumbButtonPrevious.IsEnabled = true;
             ImagePlayPic.Opacity = 0.85;
+            ButtonSkipBackward.IsEnabled = true;
+            ImageSkipBackwardPic.Opacity = 0.85;
+            BackwardMenu.IsEnabled = true;
+            ButtonSkipForward.IsEnabled = true;
+            ImageSkipForwardPic.Opacity = 0.85;
+            ForwardMenu.IsEnabled = true;
+
             fileLoaded = true;
             startTime = DateTime.Now;
             LabelMaxTime.Content = "--:--:--";
@@ -385,6 +395,14 @@ namespace SO_Mediaplayer
                         ProgressPlayed.Maximum = MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
                         ProgressPlayed.Value = MediaPlayer.Position.TotalSeconds;
                     }
+
+                    if (MediaPlayer.Position == MediaPlayer.NaturalDuration.TimeSpan)
+                    {
+                        if (loop)
+                        {
+                            ButtonSkipForward_Click(sender, e);
+                        }
+                    }
                 }
             }
             else
@@ -441,6 +459,13 @@ namespace SO_Mediaplayer
             ButtonStop.IsEnabled = true;
             ImageStopPic.Opacity = 0.85;
             StopMenu.IsEnabled = true;
+            ButtonSkipBackward.IsEnabled = true;
+            ImageSkipBackwardPic.Opacity = 0.85;
+            BackwardMenu.IsEnabled = true;
+            ButtonSkipForward.IsEnabled = true;
+            ImageSkipForwardPic.Opacity = 0.85;
+            ForwardMenu.IsEnabled = true;
+
         }
 
         // Mediendatei stoppen
@@ -676,6 +701,10 @@ namespace SO_Mediaplayer
                 }
                 else if (!folderSelection && TextBoxSearch.Text != string.Empty)
                 {
+                    if (ListSelectionWebFav.SelectedItem == null)
+                    {
+                        identifier = 0;
+                    }
                     if (identifier == 1)
                     {
                         ButtonCancelSearch_Click(sender, e);
@@ -1140,6 +1169,72 @@ namespace SO_Mediaplayer
             if (!SearchboxMenu.IsChecked)
             {
                 SearchboxMenu_Click(sender, e);
+            }
+        }
+
+        private void ButtonSkipBackward_Click(object sender, EventArgs e)
+        {
+            if (folderSelection)
+            {
+                var lsf = ListSelectionFolder;
+
+                if (lsf.SelectedIndex >= 0)
+                {
+                    lsf.SelectedIndex--;
+                }
+
+                if (lsf.SelectedIndex < 0)
+                {
+                    int lastRow = lsf.Items.Count - 1;
+                    lsf.SelectedIndex = lastRow;
+                }
+            }
+            else
+            {
+                var lsw = ListSelectionWeb;
+
+                if (lsw.SelectedIndex >= 0)
+                {
+                    lsw.SelectedIndex--;
+                }
+
+                if (lsw.SelectedIndex < 0)
+                {
+                    int lastRow = lsw.Items.Count - 1;
+                    lsw.SelectedIndex = lastRow;
+                }
+            }
+        }
+
+        private void ButtonSkipForward_Click(object sender, EventArgs e)
+        {
+            if (folderSelection)
+            {
+                var lsf = ListSelectionFolder;
+
+                if (lsf.Items.Count - 1 == lsf.SelectedIndex)
+                {
+                    lsf.SelectedIndex = -1;
+                }
+
+                if (lsf.Items.Count - 1 >= lsf.SelectedIndex)
+                {
+                    lsf.SelectedIndex++;
+                }
+            }
+            else
+            {
+                var lsw = ListSelectionWeb;
+
+                if (lsw.Items.Count - 1 == lsw.SelectedIndex)
+                {
+                    lsw.SelectedIndex = -1;
+                }
+
+                if (lsw.Items.Count - 1 >= lsw.SelectedIndex)
+                {
+                    lsw.SelectedIndex++;
+                }
             }
         }
     }

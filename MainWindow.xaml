@@ -10,9 +10,9 @@
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskbarItemInfo">
             <TaskbarItemInfo.ThumbButtonInfos>
-                <ThumbButtonInfo x:Name="ThumbButtonPrevious" ImageSource="icons/skip-backward.png" Description="Play" IsEnabled="False"/>
+                <ThumbButtonInfo x:Name="ThumbButtonPrevious" ImageSource="icons/skip-backward.png" Description="Play" IsEnabled="False" Click="ButtonSkipBackward_Click"/>
                 <ThumbButtonInfo x:Name="ThumbButtonPlay" ImageSource="icons/play.png" Description="Play" Click="ButtonPlayPause_Click" IsEnabled="False"/>
-                <ThumbButtonInfo x:Name="ThumbButtonNext" ImageSource="icons/skip-forward.png" Description="Play" IsEnabled="False"/>
+                <ThumbButtonInfo x:Name="ThumbButtonNext" ImageSource="icons/skip-forward.png" Description="Play" IsEnabled="False" Click="ButtonSkipForward_Click"/>
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
     </Window.TaskbarItemInfo>
@@ -62,7 +62,7 @@
                 </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Wiedergabe">
+                <MenuItem Header="_Wiedergabe">
                 <MenuItem x:Name="PlayMenu" Header="_Abspielen" Click="ButtonPlayPause_Click" IsEnabled="False">
                     <MenuItem.Icon>
                         <Image x:Name="PlayPauseMenuImage" Source="icons/menu/menu-start.png"/>
@@ -83,12 +83,12 @@
                         <Image Source="icons/menu/menu-backward.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="NextMenu" Header="_Nächster Titel" IsEnabled="False">
+                    <MenuItem x:Name="NextMenu" Header="_Nächster Titel" IsEnabled="False" Click="ButtonSkipForward_Click">
                     <MenuItem.Icon>
                         <Image Source="icons/menu/menu-skip-forward.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="PreviousMenu" Header="_Vorheriger Titel" IsEnabled="False">
+                    <MenuItem x:Name="PreviousMenu" Header="_Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click">
                     <MenuItem.Icon>
                         <Image Source="icons/menu/menu-skip-backward.png"/>
                     </MenuItem.Icon>
@@ -120,10 +120,10 @@
                 </Button>
             </ToolBar>
             <ToolBar MinWidth="180">
-                <Button x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
+                <Button x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click" >
                     <Image x:Name="ImageSkipBackwardPic" Source="icons/skip-backward.png" Opacity="0.5"/>
                 </Button>
-                <Button x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click" Margin="0,0,10,0">
+                <Button x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="Nächster Titel" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" >
                     <Image x:Name="ImageSkipForwardPic" Source="icons/skip-forward.png" Opacity="0.5"/>
                 </Button>
                 <Button x:Name="ButtonStop" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
