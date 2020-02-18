@@ -508,8 +508,8 @@ namespace SO_Mediaplayer
         void ImagePlay()
         {
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/play.png", UriKind.Relative));
-            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
-            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
+            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
+            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
             ButtonPlayPause.ToolTip = "Wiedergabe";
             PlayMenu.Header = "_Wiedergabe";
             PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-start.png", UriKind.Relative));
@@ -518,8 +518,8 @@ namespace SO_Mediaplayer
         void ImagePause()
         {
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/pause.png", UriKind.Relative));
-            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
-            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
+            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
+            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
             ButtonPlayPause.ToolTip = "Pause";
             PlayMenu.Header = "_Pause";
             PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-pause.png", UriKind.Relative));
@@ -1187,6 +1187,7 @@ namespace SO_Mediaplayer
                 {
                     int lastRow = lsf.Items.Count - 1;
                     lsf.SelectedIndex = lastRow;
+                    lsf.ScrollIntoView(lsf.SelectedItem);
                 }
             }
             else
@@ -1196,12 +1197,18 @@ namespace SO_Mediaplayer
                 if (lsw.SelectedIndex >= 0)
                 {
                     lsw.SelectedIndex--;
+                    if (lsw.SelectedItem == null)
+                    {
+                        return;
+                    }
+                    lsw.ScrollIntoView(lsw.SelectedItem);
                 }
 
                 if (lsw.SelectedIndex < 0)
                 {
                     int lastRow = lsw.Items.Count - 1;
                     lsw.SelectedIndex = lastRow;
+                    lsw.ScrollIntoView(lsw.SelectedItem);
                 }
             }
         }
@@ -1220,6 +1227,7 @@ namespace SO_Mediaplayer
                 if (lsf.Items.Count - 1 >= lsf.SelectedIndex)
                 {
                     lsf.SelectedIndex++;
+                    lsf.ScrollIntoView(lsf.SelectedItem);
                 }
             }
             else
@@ -1234,6 +1242,7 @@ namespace SO_Mediaplayer
                 if (lsw.Items.Count - 1 >= lsw.SelectedIndex)
                 {
                     lsw.SelectedIndex++;
+                    lsw.ScrollIntoView(lsw.SelectedItem);
                 }
             }
         }

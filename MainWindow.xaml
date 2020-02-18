@@ -10,9 +10,9 @@
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskbarItemInfo">
             <TaskbarItemInfo.ThumbButtonInfos>
-                <ThumbButtonInfo x:Name="ThumbButtonPrevious" ImageSource="icons/skip-backward.png" Description="Play" IsEnabled="False" Click="ButtonSkipBackward_Click"/>
+                <ThumbButtonInfo x:Name="ThumbButtonPrevious" ImageSource="icons/skip-backward.png" Description="Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click"/>
                 <ThumbButtonInfo x:Name="ThumbButtonPlay" ImageSource="icons/play.png" Description="Play" Click="ButtonPlayPause_Click" IsEnabled="False"/>
-                <ThumbButtonInfo x:Name="ThumbButtonNext" ImageSource="icons/skip-forward.png" Description="Play" IsEnabled="False" Click="ButtonSkipForward_Click"/>
+                <ThumbButtonInfo x:Name="ThumbButtonNext" ImageSource="icons/skip-forward.png" Description="Nächster Titel" IsEnabled="False" Click="ButtonSkipForward_Click"/>
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
     </Window.TaskbarItemInfo>
@@ -33,7 +33,7 @@
             </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
-            <MenuItem Header="Datei">
+            <MenuItem Header="_Datei">
                     <MenuItem x:Name="OpenFileMenu" Header="_Datei Öffnen" Click="ButtonOpen_Click">
                     <MenuItem.Icon>
                         <Image Source="icons/folder-music.png"/>
@@ -95,9 +95,9 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Ansicht">
-                <MenuItem x:Name="FolderListMenu" Header="_Verzeichnisliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
+                <MenuItem x:Name="FolderListMenu" Header="_Wiedergabeliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
                 <Separator/>
-                <MenuItem Header="Webradio Listen">
+                <MenuItem Header="_Webradio Listen">
                     <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
                     <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" IsChecked="True" Click="SearchboxMenu_Click" />
                     <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" IsChecked="True" Click="WebListMenu_Click" />
