@@ -24,124 +24,130 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" /> <!-- Menueleiste -->
-                <RowDefinition Height="45"/>    <!-- Toolbar -->
-                <RowDefinition x:Name="RowFavListHeight" Height="125" MinHeight="69" MaxHeight="260"/> <!-- Listen (Folder oder Favoriten) -->
-                <RowDefinition x:Name="RowFavGridSplitter" Height="3" />    <!-- GridSplitter -->
-                <RowDefinition x:Name="RowSearchBoxGrid" Height="25" />   <!-- Searchbox -->
-                <RowDefinition x:Name="RowWebListGrid" Height="1*" />    <!-- Liste Webradio -->
+                <RowDefinition Height="Auto" />
+                <!-- Menueleiste -->
+                <RowDefinition Height="45"/>
+                <!-- Toolbar -->
+                <RowDefinition x:Name="RowFavListHeight" Height="125" MinHeight="69" MaxHeight="260"/>
+                <!-- Listen (Folder oder Favoriten) -->
+                <RowDefinition x:Name="RowFavGridSplitter" Height="3" />
+                <!-- GridSplitter -->
+                <RowDefinition x:Name="RowSearchBoxGrid" Height="25" />
+                <!-- Searchbox -->
+                <RowDefinition x:Name="RowWebListGrid" Height="1*" />
+                <!-- Liste Webradio -->
             </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Grid.ColumnSpan="3">
-            <MenuItem Header="_Datei">
+            <Menu Grid.Row="0" Grid.ColumnSpan="3">
+                <MenuItem Header="_Datei">
                     <MenuItem x:Name="OpenFileMenu" Header="_Datei Öffnen" Click="ButtonOpen_Click">
-                    <MenuItem.Icon>
-                        <Image Source="icons/folder-music.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
+                        <MenuItem.Icon>
+                            <Image Source="icons/folder-music.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem x:Name="OpenFolderMenu" Header="_Verzeichnis Öffnen" Click="ButtonOpenFolder_Click">
-                    <MenuItem.Icon>
-                        <Image Source="icons/folder-tar.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
+                        <MenuItem.Icon>
+                            <Image Source="icons/folder-tar.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem x:Name="OpenWeblistMenu" Header="_Radio-Webliste Öffnen" Click="ButtonOpenWeb_Click">
-                    <MenuItem.Icon>
-                        <Image Source="icons/folder-html.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <Separator/>
-                <MenuItem x:Name="AddWebStationMenu" Header="Radio_station hinzufügen" Click="AddWebStation_Click" IsEnabled="False">
-                    <MenuItem.Icon>
-                        <Image Source="icons/menu/addWeb.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <Separator/>
+                        <MenuItem.Icon>
+                            <Image Source="icons/folder-html.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem x:Name="AddWebStationMenu" Header="Radio_station hinzufügen" Click="AddWebStation_Click" IsEnabled="False">
+                        <MenuItem.Icon>
+                            <Image Source="icons/menu/addWeb.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
                     <MenuItem x:Name="CloseMenu" Header="_Beenden" Click="CloseMenu_Click">
                         <MenuItem.Icon>
-                    <Image Source="icons/menu/close.png"/>
-                </MenuItem.Icon>
+                            <Image Source="icons/menu/close.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-            </MenuItem>
                 <MenuItem Header="_Wiedergabe">
-                <MenuItem x:Name="PlayMenu" Header="_Abspielen" Click="ButtonPlayPause_Click" IsEnabled="False">
-                    <MenuItem.Icon>
-                        <Image x:Name="PlayPauseMenuImage" Source="icons/menu/menu-start.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem x:Name="StopMenu" Header="_Stopp" Click="ButtonStop_Click" IsEnabled="False">
-                    <MenuItem.Icon>
-                        <Image Source="icons/menu/menu-stop.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem x:Name="ForwardMenu" Header="_Vorwärts (10sek.)" Click="ButtonForwards_Click" IsEnabled="False">
-                    <MenuItem.Icon>
-                        <Image Source="icons/menu/menu-forward.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem x:Name="BackwardMenu" Header="_Zurück (10sek.)" Click="ButtonBackwards_Click" IsEnabled="False">
-                    <MenuItem.Icon>
-                        <Image Source="icons/menu/menu-backward.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
+                    <MenuItem x:Name="PlayMenu" Header="_Abspielen" Click="ButtonPlayPause_Click" IsEnabled="False">
+                        <MenuItem.Icon>
+                            <Image x:Name="PlayPauseMenuImage" Source="icons/menu/menu-start.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="StopMenu" Header="_Stopp" Click="ButtonStop_Click" IsEnabled="False">
+                        <MenuItem.Icon>
+                            <Image Source="icons/menu/menu-stop.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="ForwardMenu" Header="_Vorwärts (10sek.)" Click="ButtonForwards_Click" IsEnabled="False">
+                        <MenuItem.Icon>
+                            <Image Source="icons/menu/menu-forward.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="BackwardMenu" Header="_Zurück (10sek.)" Click="ButtonBackwards_Click" IsEnabled="False">
+                        <MenuItem.Icon>
+                            <Image Source="icons/menu/menu-backward.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem x:Name="NextMenu" Header="_Nächster Titel" IsEnabled="False" Click="ButtonSkipForward_Click">
-                    <MenuItem.Icon>
-                        <Image Source="icons/menu/menu-skip-forward.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
+                        <MenuItem.Icon>
+                            <Image Source="icons/menu/menu-skip-forward.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem x:Name="PreviousMenu" Header="_Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click">
-                    <MenuItem.Icon>
-                        <Image Source="icons/menu/menu-skip-backward.png"/>
-                    </MenuItem.Icon>
+                        <MenuItem.Icon>
+                            <Image Source="icons/menu/menu-skip-backward.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="_Ansicht">
-                <MenuItem x:Name="FolderListMenu" Header="_Wiedergabeliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
-                <Separator/>
-                <MenuItem Header="_Webradio Listen">
-                    <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
-                    <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" IsChecked="True" Click="SearchboxMenu_Click" />
-                    <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" IsChecked="True" Click="WebListMenu_Click" />
+                <MenuItem Header="_Ansicht">
+                    <MenuItem x:Name="FolderListMenu" Header="_Wiedergabeliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
+                    <Separator/>
+                    <MenuItem Header="_Webradio Listen">
+                        <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
+                        <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" IsChecked="True" Click="SearchboxMenu_Click" />
+                        <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" IsChecked="True" Click="WebListMenu_Click" />
+                    </MenuItem>
                 </MenuItem>
+                <MenuItem Header="_Hilfe">
+                    <MenuItem x:Name="AboutMenu" Header="Ü_ber"></MenuItem>
                 </MenuItem>
-            <MenuItem Header="_Hilfe">
-                <MenuItem x:Name="AboutMenu" Header="Ü_ber"></MenuItem>
-            </MenuItem>
-        </Menu>
-        <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
-            <ToolBar MinWidth="140">
-                <Button x:Name="ButtonOpen" Height="38" Width="38" ToolTip="Datei öffnen" Click="ButtonOpen_Click">
-                    <Image x:Name="ImageOpenPic" Source="icons/folder-music.png"/>
-                </Button>
-                <Button x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="Ordner öffnen" Click="ButtonOpenFolder_Click">
-                    <Image x:Name="ImageOpenFolderPic" Source="icons/folder-tar.png"/>
-                </Button>
-                <Button x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="Webstation öffnen" Click="ButtonOpenWeb_Click">
-                    <Image x:Name="ImageOpenWebPic" Source="icons/folder-html.png"/>
-                </Button>
-            </ToolBar>
-            <ToolBar MinWidth="180">
-                <Button x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click" >
-                    <Image x:Name="ImageSkipBackwardPic" Source="icons/skip-backward.png" Opacity="0.5"/>
-                </Button>
-                <Button x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="Nächster Titel" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" >
-                    <Image x:Name="ImageSkipForwardPic" Source="icons/skip-forward.png" Opacity="0.5"/>
-                </Button>
-                <Button x:Name="ButtonStop" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
-                    <Image x:Name="ImageStopPic" Source="icons/stop.png" Opacity="0.5"/>
-                </Button>
-                <Button x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="Wiedergeben" IsEnabled="False" Click="ButtonPlayPause_Click">
-                    <Image x:Name="ImagePlayPic" Source="icons/play.png" Opacity="0.5"/>
-                </Button>
-                <Button x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="10sek Zurück" IsEnabled="False" Click="ButtonBackwards_Click">
-                    <Image x:Name="ImageBackwardPic" Source="icons/backward.png" Opacity="0.5"/>
-                </Button>
-                <Button x:Name="ButtonForwards" Height="38" Width="38" ToolTip="10sek Vorwärts" IsEnabled="False" Click="ButtonForwards_Click">
-                    <Image x:Name="ImageForwardPic" Source="icons/forward.png" Opacity="0.5"/>
-                </Button>
-            </ToolBar>
-        </ToolBarTray>
+            </Menu>
+            <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
+                <ToolBar MinWidth="140">
+                    <Button x:Name="ButtonOpen" Height="38" Width="38" ToolTip="Datei öffnen" Click="ButtonOpen_Click">
+                        <Image x:Name="ImageOpenPic" Source="icons/folder-music.png"/>
+                    </Button>
+                    <Button x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="Ordner öffnen" Click="ButtonOpenFolder_Click">
+                        <Image x:Name="ImageOpenFolderPic" Source="icons/folder-tar.png"/>
+                    </Button>
+                    <Button x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="Webstation öffnen" Click="ButtonOpenWeb_Click">
+                        <Image x:Name="ImageOpenWebPic" Source="icons/folder-html.png"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar MinWidth="180">
+                    <Button x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click" >
+                        <Image x:Name="ImageSkipBackwardPic" Source="icons/skip-backward.png" Opacity="0.5"/>
+                    </Button>
+                    <Button x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="Nächster Titel" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" >
+                        <Image x:Name="ImageSkipForwardPic" Source="icons/skip-forward.png" Opacity="0.5"/>
+                    </Button>
+                    <Button x:Name="ButtonStop" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
+                        <Image x:Name="ImageStopPic" Source="icons/stop.png" Opacity="0.5"/>
+                    </Button>
+                    <Button x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="Wiedergeben" IsEnabled="False" Click="ButtonPlayPause_Click">
+                        <Image x:Name="ImagePlayPic" Source="icons/play.png" Opacity="0.5"/>
+                    </Button>
+                    <Button x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="10sek Zurück" IsEnabled="False" Click="ButtonBackwards_Click">
+                        <Image x:Name="ImageBackwardPic" Source="icons/backward.png" Opacity="0.5"/>
+                    </Button>
+                    <Button x:Name="ButtonForwards" Height="38" Width="38" ToolTip="10sek Vorwärts" IsEnabled="False" Click="ButtonForwards_Click">
+                        <Image x:Name="ImageForwardPic" Source="icons/forward.png" Opacity="0.5"/>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
 
-        <!--Mediabereich-->
+            <!--Mediabereich-->
 
             <TextBlock x:Name="TextBlockFavListHeader" Grid.Row="2" Grid.Column="0" Height="20" VerticalAlignment="Top" 
                        Background="White" Text="Favoriten-Liste" TextAlignment="Center" Visibility="Collapsed" />
@@ -187,7 +193,7 @@
                     <TextBox x:Name="TextBoxSearch" Grid.Column="0" Height="20" Width="150" Margin="5,3,0,0" HorizontalAlignment="Left" 
                              Text="{Binding Path=dummyprop, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
                               KeyUp="TextBoxSearch_KeyUp" CharacterCasing="Lower" />
-                <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="Clear search" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
+                    <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="Clear search" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
                 </Grid>
             </StackPanel>
 
@@ -227,8 +233,8 @@
                 </ListView.View>
             </ListView>-->
 
-        <!-- Liste fuer Order-Auswahl -->
-        <ListView Grid.Column="0" x:Name="ListSelectionFolder" SelectionChanged="ListIdentifier" 
+            <!-- Liste fuer Order-Auswahl -->
+            <ListView Grid.Column="0" x:Name="ListSelectionFolder" SelectionChanged="ListIdentifier" 
                   PreviewKeyDown="ListSelection_PreviewKeyDown" Visibility="Visible"
                   Grid.Row="2" Grid.RowSpan="4" BorderBrush="{x:Null}">
                 <ListView.Resources>
@@ -376,7 +382,72 @@
             <Grid x:Name="VolumeBarGrid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Column="1" Row="2">
                 <ProgressBar x:Name="ProgressVolume" HorizontalAlignment="Left" Height="18" VerticalAlignment="Center"
                              Width="200" Value="0.5" MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" Maximum="1" 
-                             Background="#FF60AEDA" >
+                             Background="#FF60AEDA" Style="{DynamicResource ProgressBarStyle_SO-Volume}" >
+                    <ProgressBar.Resources>
+                        <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FF06B025"/>
+                        <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
+                        <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
+                        <Style x:Key="ProgressBarStyle_SO-Volume" TargetType="{x:Type ProgressBar}">
+                            <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
+                            <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                        <Grid x:Name="TemplateRoot">
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="CommonStates">
+                                                    <VisualState x:Name="Determinate"/>
+                                                    <VisualState x:Name="Indeterminate">
+                                                        <Storyboard RepeatBehavior="Forever">
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Animation">
+                                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.25"/>
+                                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.25"/>
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="Animation">
+                                                                <EasingPointKeyFrame KeyTime="0" Value="-0.5,0.5"/>
+                                                                <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
+                                                                <EasingPointKeyFrame KeyTime="0:0:2" Value="1.5,0.5"/>
+                                                            </PointAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3"/>
+                                            <Rectangle x:Name="PART_Track"/>
+                                            <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
+                                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="4" RadiusY="4" />
+                                                <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="4" RadiusY="4">
+                                                    <Rectangle.RenderTransform>
+                                                        <TransformGroup>
+                                                            <ScaleTransform/>
+                                                            <SkewTransform/>
+                                                            <RotateTransform/>
+                                                            <TranslateTransform/>
+                                                        </TransformGroup>
+                                                    </Rectangle.RenderTransform>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="Orientation" Value="Vertical">
+                                                <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                                    <Setter.Value>
+                                                        <RotateTransform Angle="-90"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsIndeterminate" Value="true">
+                                                <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ProgressBar.Resources>
                     <ProgressBar.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF36AA00" Offset="1"/>

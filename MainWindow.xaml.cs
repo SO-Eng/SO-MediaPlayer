@@ -86,7 +86,6 @@ namespace SO_Mediaplayer
 
         // Liste fuer die Radiostaionen
         readonly List<WebStations> webStationList = new List<WebStations>();
-        readonly List<WebFavs> webFavList = new List<WebFavs>();
 
         #endregion
 
@@ -1290,11 +1289,11 @@ namespace SO_Mediaplayer
                 animElli.BeginTime = TimeSpan.FromMilliseconds(0);
                 animElli.Duration = TimeSpan.FromMilliseconds(100);
                 animElli.FillBehavior = FillBehavior.Stop;
-
                 elliTime.BeginAnimation(OpacityProperty, animElli);
             }
         }
 
+        // ProgressBarTime fill complete when Webradio is playing
         private void ProgressTimeWeb()
         {
             CanvasPbTime.Children.Clear();
@@ -1304,15 +1303,4 @@ namespace SO_Mediaplayer
         }
     }
 }
-
-
-
-
-    internal class WebFavs
-    {
-        public string StationNameFav { get; set; }
-        public string BitRateFav { get; set; }
-        public string StationUrlFav { get; set; }
-        public bool StationFavFav { get; set; }
-    }
 
