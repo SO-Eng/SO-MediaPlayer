@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="SoftwOrt-Mediaplayer" Height="600" Width="970" KeyDown="WindowMediaPLayer_KeyDown" 
-        MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="130" Icon="ico/headphones.ico" 
-        Loaded="WindowMediaPLayer_Loaded" Closing="WindowMediaPLayer_Closing">
+        MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="175" Icon="ico/headphones.ico" 
+        Loaded="WindowMediaPLayer_Loaded" Closing="WindowMediaPLayer_Closing" SizeChanged="SOMediaPlayer_SizeChanged">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskbarItemInfo">
             <TaskbarItemInfo.ThumbButtonInfos>
@@ -278,13 +278,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"/>
                 <ColumnDefinition Width="205"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" x:Name="ColumProgressTime"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1"/>
-                <RowDefinition Height="24"/>
+                <RowDefinition Height="24" x:Name="RowProgressTime"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
@@ -297,7 +297,79 @@
             <TextBlock x:Name="TextBlockSaveOnExit" Text="Save Webstation-list at exit" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
 
             <ProgressBar x:Name="ProgressPlayed" Grid.Row="1" Grid.Column="2" Height="12" Margin="20,0,20,0" VerticalAlignment="Center" 
-                         Value="{Binding ElementName=MediaPlayer, Path=Position}" MouseLeftButtonDown="ProgressPlayed_MouseLeftButtonDown"  />
+                         Value="{Binding ElementName=MediaPlayer, Path=Position}" MouseLeftButtonDown="ProgressPlayed_MouseLeftButtonDown" Style="{DynamicResource ProgressBarStyle_SO1}" >
+                <ProgressBar.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF36AA00" Offset="1"/>
+                        <GradientStop Color="#FF4BEE00"/>
+                    </LinearGradientBrush>
+                </ProgressBar.Foreground>
+                <ProgressBar.Resources>
+                    <SolidColorBrush x:Key="ProgressBar.Background" Color="#60ADD9"/>
+                    <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
+                    <Style x:Key="ProgressBarStyle_SO1" TargetType="{x:Type ProgressBar}">
+                        <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                    <Grid x:Name="TemplateRoot">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Determinate"/>
+                                                <VisualState x:Name="Indeterminate">
+                                                    <Storyboard RepeatBehavior="Forever">
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Animation">
+                                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.25"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.25"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                        <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="Animation">
+                                                            <EasingPointKeyFrame KeyTime="0" Value="-0.5,0.5"/>
+                                                            <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
+                                                            <EasingPointKeyFrame KeyTime="0:0:2" Value="1.5,0.5"/>
+                                                        </PointAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="6"/>
+                                        <Rectangle x:Name="PART_Track"/>
+                                        <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
+                                            <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="6" RadiusY="6"/>
+                                            <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="6" RadiusY="6">
+                                                <Rectangle.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Rectangle.RenderTransform>
+                                            </Rectangle>
+                                        </Grid>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="Orientation" Value="Vertical">
+                                            <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                                <Setter.Value>
+                                                    <RotateTransform Angle="-90"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsIndeterminate" Value="true">
+                                            <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ProgressBar.Resources>
+            </ProgressBar>
+            <Canvas x:Name="CanvasPbTime" Grid.Row="1" Grid.Column="2" Height="24" Margin="20,0,20,0" VerticalAlignment="Center" />
+            <!--<TextBlock x:Name="TextBlockHitTest" Grid.Row="1" Grid.Column="2"/>-->
 
             <!-- Reihe 2 -->
             <!-- Start ProgrssBar Volume -->

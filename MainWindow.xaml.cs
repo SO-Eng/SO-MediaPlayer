@@ -10,7 +10,10 @@ using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using SO_Mediaplayer.Models;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -70,6 +73,10 @@ namespace SO_Mediaplayer
         DateTime startTime;
         DateTime diff;
 
+        // Ellipse fuer Time-Progressbar
+        Ellipse elliTime = new Ellipse();
+        public Point ElliPos { get; set; }
+
         // StandardListe laden oder oeffnen
         private bool checkBox = true;
 
@@ -94,6 +101,26 @@ namespace SO_Mediaplayer
             ViewSettings();
 
             firstLoad = true;
+
+            ElliTimePos();
+        }
+
+        private void ElliTimePos()
+        {
+            GradientBrush filling = new RadialGradientBrush(Colors.LightGray, Color.FromRgb(198, 198, 198));
+            elliTime.Fill = filling;
+            elliTime.Height = 16;
+            elliTime.Width = 16;
+
+            DropShadowEffect effBlur = new DropShadowEffect();
+            effBlur.BlurRadius = 3;
+            effBlur.ShadowDepth = 1;
+            effBlur.Direction = -75;
+            effBlur.Color = Colors.Gray;
+            elliTime.Effect = effBlur;
+
+            Canvas.SetTop(elliTime, ProgressPlayed.Height / 3 - 1);
+            //CanvasPbTime.Children.Add(elliTime);
         }
 
         // Einstellungen fuer Ansichtsmenue
@@ -152,6 +179,7 @@ namespace SO_Mediaplayer
             {
                 webStationList.Clear();
             }
+
             if (!checkBox)
             {
                 OpenFileDialog openWebDialog = new OpenFileDialog();
@@ -204,7 +232,6 @@ namespace SO_Mediaplayer
                 AddWebStationMenu.IsEnabled = true;
                 ViewSettings();
             }
-
         }
 
         // Ausgewaehlte lokale Datei (Liste) in das Datagrid uebertragen
@@ -311,6 +338,7 @@ namespace SO_Mediaplayer
             // Timer (Ticker) starten
             timer.Tick += TimerTick;
             timer.Start();
+            ProgressPlayed.IsHitTestVisible = true;
         }
 
         private void PlayRoutineWeb()
@@ -338,6 +366,7 @@ namespace SO_Mediaplayer
             // Timer (Ticker) starten
             timerWeb.Tick += TimerWebTick;
             timerWeb.Start();
+            ProgressTimeWeb();
         }
 
 
@@ -388,12 +417,16 @@ namespace SO_Mediaplayer
                 if (MediaPlayer.NaturalDuration.HasTimeSpan)
                 {
                     LabelCurrentTime.Content = MediaPlayer.Position.ToString(@"hh\:mm\:ss");
-                    // uodate Progressbar gespielte Zeit
+                    CanvasPbTime.Children.Clear();
+                    // update Progressbar gespielte Zeit
                     if (MediaPlayer.NaturalDuration.HasTimeSpan && !sliderMoving)
                     {
                         ProgressPlayed.Minimum = 0;
                         ProgressPlayed.Maximum = MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
                         ProgressPlayed.Value = MediaPlayer.Position.TotalSeconds;
+                        // Timebar Ellipse aktualisieren
+                        Canvas.SetLeft(elliTime, (((ProgressPlayed.ActualWidth / MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds) * MediaPlayer.Position.TotalSeconds) - (elliTime.Width / 2)));
+                        CanvasPbTime.Children.Add(elliTime);
                     }
 
                     if (MediaPlayer.Position == MediaPlayer.NaturalDuration.TimeSpan)
@@ -932,7 +965,7 @@ namespace SO_Mediaplayer
 
         //private void ProgressPlayed_MouseMove(object sender, MouseEventArgs e)
         //{
-        //    if (e.MouseDevice.LeftButton == MouseButtonState.Pressed )
+        //    if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
         //    {
         //        sliderMoving = true;
         //        double mousePosition = e.GetPosition(ProgressPlayed).X;
@@ -1245,6 +1278,29 @@ namespace SO_Mediaplayer
                     lsw.ScrollIntoView(lsw.SelectedItem);
                 }
             }
+        }
+
+        // ProgressTime Ellipse hide when scaling Window
+        private void SOMediaPlayer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (playing)
+            {
+                var animElli = new DoubleAnimation();
+                animElli.To = 0;
+                animElli.BeginTime = TimeSpan.FromMilliseconds(0);
+                animElli.Duration = TimeSpan.FromMilliseconds(100);
+                animElli.FillBehavior = FillBehavior.Stop;
+
+                elliTime.BeginAnimation(OpacityProperty, animElli);
+            }
+        }
+
+        private void ProgressTimeWeb()
+        {
+            CanvasPbTime.Children.Clear();
+            ProgressPlayed.Maximum = 1;
+            ProgressPlayed.Value = 1;
+            ProgressPlayed.IsHitTestVisible = false;
         }
     }
 }
