@@ -50,6 +50,8 @@ namespace SO_Mediaplayer
         private string tempSelectionWeb;
         // Maximale Spielzeit der geladenen Dateien ----noch offen
         private string playtime;
+        // Spracheselektion uebergeben
+        private string langSelection;
 
         // Progressbar Steuerung
         private bool sliderMoving;
@@ -89,6 +91,8 @@ namespace SO_Mediaplayer
         // Liste fuer die Radiostaionen
         readonly List<WebStations> webStationList = new List<WebStations>();
 
+        private SetLanguages Sl;
+
         #endregion
 
         public MainWindow()
@@ -108,8 +112,13 @@ namespace SO_Mediaplayer
             foreach (MenuItem item in MenuItemLanguages.Items)
             {
                 if (item.Tag.ToString().Equals(CultureInfo.CurrentUICulture.Name))
+                {
                     item.IsChecked = true;
+                    Sl = new SetLanguages(item.Tag.ToString());
+                    langSelection = item.Tag.ToString();
+                }
             }
+
         }
 
         private void ElliTimePos()
@@ -411,7 +420,7 @@ namespace SO_Mediaplayer
             }
             catch
             {
-                MessageBox.Show("Try only load Audio or Video files", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Sl.ErrorLoad, Sl.MsgBoxInfo, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -550,8 +559,9 @@ namespace SO_Mediaplayer
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/play.png", UriKind.Relative));
             TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
             ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
-            ButtonPlayPause.ToolTip = "Wiedergabe";
-            PlayMenu.Header = "_Wiedergabe";
+            ThumbButtonPlay.Description = Sl.Play;
+            ButtonPlayPause.ToolTip = Sl.Play;
+            PlayMenu.Header = Sl.MenuPlay;
             PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-start.png", UriKind.Relative));
         }
 
@@ -560,8 +570,9 @@ namespace SO_Mediaplayer
             ImagePlayPic.Source = new BitmapImage(new Uri("icons/pause.png", UriKind.Relative));
             TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
             ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
-            ButtonPlayPause.ToolTip = "Pause";
-            PlayMenu.Header = "_Pause";
+            ThumbButtonPlay.Description = Sl.Pause;
+            ButtonPlayPause.ToolTip = Sl.Pause;
+            PlayMenu.Header = Sl.MenuPause;
             PlayPauseMenuImage.Source = new BitmapImage(new Uri("icons/menu/menu-pause.png", UriKind.Relative));
         }
 
@@ -762,7 +773,7 @@ namespace SO_Mediaplayer
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Diese WebStation scheint leider nicht erreichbar zu sein...", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(Sl.ErrorLoad, Sl.MsgBoxInfo, MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
                     PlayRoutineWeb();
@@ -879,11 +890,11 @@ namespace SO_Mediaplayer
 
         private void ButtonCancelSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (TextBoxSearch.Text == "Search" || TextBoxSearch.Text == string.Empty)
+            if (TextBoxSearch.Text == Sl.Search || TextBoxSearch.Text == string.Empty)
             {
                 return;
             }
-            TextBoxSearch.Text = "Search";
+            TextBoxSearch.Text = Sl.Search;
             ListSelectionWeb.Items.Clear();
             foreach (var station in webStationList)
             {
@@ -909,7 +920,7 @@ namespace SO_Mediaplayer
             string bitRate;
             bool fav;
 
-            AddRadiostation openDialog = new AddRadiostation();
+            AddRadiostation openDialog = new AddRadiostation(langSelection);
             openDialog.ShowDialog();
             openDialog.Owner = this;
 
@@ -1321,6 +1332,8 @@ namespace SO_Mediaplayer
             MenuItem mi = sender as MenuItem;
             mi.IsChecked = true;
             App.Instance.SwitchLanguage(mi.Tag.ToString());
+            Sl = new SetLanguages(mi.Tag.ToString());
+            langSelection = mi.Tag.ToString();
         }
     }
 }

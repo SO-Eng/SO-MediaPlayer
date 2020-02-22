@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="Models\FolderPick.cs" />
     <Compile Include="Models\WebStations.cs" />
+    <Compile Include="SetLanguages.cs" />
     <Compile Include="WebFileProcessor\WebFileProcessor.cs" />
     <Page Include="AddRadiostation.xaml">
       <SubType>Designer</SubType>

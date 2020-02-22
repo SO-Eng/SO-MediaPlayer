@@ -32,13 +32,17 @@ namespace SO_Mediaplayer
         public string BitRate { get; set; }
         public bool Favorite { get; set; }
 
+        private readonly SetLanguages Sl;
+
         #endregion
 
 
         #region Methods
-        public AddRadiostation()
+        public AddRadiostation(string lang)
         {
             InitializeComponent();
+            Sl = new SetLanguages(lang);
+
             LabelDescrContent();
 
             TextBoxStationName.Focus();
@@ -46,11 +50,9 @@ namespace SO_Mediaplayer
 
         private void LabelDescrContent()
         {
-            labelDescrContent = "Fügen Sie Ihren Lieblingssender zur Liste hinzu.\nWenn Sie die Liste speichern, wird der Sender Ihnen auch in Zukuft zur verfügung stehen!";
+            labelDescrContent = Sl.AddStationInfo;
             TextBlockDescr.Text = labelDescrContent;
         }
-
-        #endregion
 
         private void ButtonPrelisten_Click(object sender, RoutedEventArgs e)
         {
@@ -63,19 +65,19 @@ namespace SO_Mediaplayer
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Diese WebStation scheint leider nicht erreichbar zu sein...", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Sl.ErrorPlay, Sl.MsgBoxInfo, MessageBoxButton.OK, MessageBoxImage.Information);
                     exception = true;
                     return;
                 }
                 MediaPlayerListen.Play();
-                ButtonPrelisten.Content = "Stop";
+                ButtonPrelisten.Content = Sl.Stop;
                 isPlaying = true;
             }
             else
             {
                 MediaPlayerListen.Source = null;
                 MediaPlayerListen.Stop();
-                ButtonPrelisten.Content = "Vorhören";
+                ButtonPrelisten.Content = Sl.Prelisten;
                 isPlaying = false;
                 if (!exception && TextBoxStationName.Text != string.Empty && TextBoxUrl.Text != string.Empty)
                 {
@@ -118,5 +120,7 @@ namespace SO_Mediaplayer
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        #endregion
     }
 }

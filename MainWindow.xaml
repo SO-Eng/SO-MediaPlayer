@@ -10,9 +10,9 @@
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskbarItemInfo">
             <TaskbarItemInfo.ThumbButtonInfos>
-                <ThumbButtonInfo x:Name="ThumbButtonPrevious" ImageSource="icons/skip-backward.png" Description="Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click"/>
-                <ThumbButtonInfo x:Name="ThumbButtonPlay" ImageSource="icons/play.png" Description="Play" Click="ButtonPlayPause_Click" IsEnabled="False"/>
-                <ThumbButtonInfo x:Name="ThumbButtonNext" ImageSource="icons/skip-forward.png" Description="Nächster Titel" IsEnabled="False" Click="ButtonSkipForward_Click"/>
+                <ThumbButtonInfo x:Name="ThumbButtonPrevious" ImageSource="icons/skip-backward.png" Description="{DynamicResource ResourceKey=ThumbNail_Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click"/>
+                <ThumbButtonInfo x:Name="ThumbButtonPlay" ImageSource="icons/play.png" Description="{DynamicResource ResourceKey=ThumbNail_Play}" Click="ButtonPlayPause_Click" IsEnabled="False"/>
+                <ThumbButtonInfo x:Name="ThumbButtonNext" ImageSource="icons/skip-forward.png" Description="{DynamicResource ResourceKey=ThumbNail_Next}" IsEnabled="False" Click="ButtonSkipForward_Click"/>
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
     </Window.TaskbarItemInfo>

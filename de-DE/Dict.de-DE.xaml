@@ -8,6 +8,10 @@
     <!-- Localized strings -->
     <!-- Program Title -->
     <sys:String x:Key="MainWindow_Title">SoftwOrt - Mediaplayer</sys:String>
+    <!-- ThumbNails -->
+    <sys:String x:Key="ThumbNail_Prev">Vorheriger Titel</sys:String>
+    <sys:String x:Key="ThumbNail_Play">Wiedergeben</sys:String>
+    <sys:String x:Key="ThumbNail_Next">Nächster Titel</sys:String>
     <!-- Menu  -->
     <!-- Menu File -->
     <sys:String x:Key="Menu_File">_Datei</sys:String>
