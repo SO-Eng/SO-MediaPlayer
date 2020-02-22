@@ -100,6 +100,11 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Name="MenuItemLanguages" Header="_Languages">
+                    <MenuItem Tag="en-US" Header="_English" Click="MenuItem_Style_Click" />
+                    <MenuItem Tag="de-DE" Header="_German" Click="MenuItem_Style_Click" />
+                    <MenuItem Tag="es-ES" Header="_Spanish" Click="MenuItem_Style_Click" />
+                </MenuItem>
                 <MenuItem Header="_Ansicht">
                     <MenuItem x:Name="FolderListMenu" Header="_Wiedergabeliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
                     <Separator/>

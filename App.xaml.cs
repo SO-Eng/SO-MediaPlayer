@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -13,8 +16,6 @@ namespace Mediaplayer_ILS
     /// </summary>
     public partial class App : Application
     {
-<<<<<<< Updated upstream
-=======
         #region Member variables
         public static App Instance;
         public static String Directory;
@@ -107,6 +108,5 @@ namespace Mediaplayer_ILS
             }
         }
         #endregion
->>>>>>> Stashed changes
     }
 }
