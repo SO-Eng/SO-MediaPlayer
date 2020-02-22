@@ -39,114 +39,116 @@
             </Grid.RowDefinitions>
 
             <Menu Grid.Row="0" Grid.ColumnSpan="3">
-                <MenuItem Header="_Datei">
-                    <MenuItem x:Name="OpenFileMenu" Header="_Datei Öffnen" Click="ButtonOpen_Click">
+                <MenuItem Header="{DynamicResource ResourceKey=Menu_File}">
+                    <MenuItem x:Name="OpenFileMenu" Header="{DynamicResource ResourceKey=Menu_File-FileOpen}" Click="ButtonOpen_Click">
                         <MenuItem.Icon>
                             <Image Source="icons/folder-music.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="OpenFolderMenu" Header="_Verzeichnis Öffnen" Click="ButtonOpenFolder_Click">
+                    <MenuItem x:Name="OpenFolderMenu" Header="{DynamicResource ResourceKey=Menu_File-OpenFolder}" Click="ButtonOpenFolder_Click">
                         <MenuItem.Icon>
                             <Image Source="icons/folder-tar.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="OpenWeblistMenu" Header="_Radio-Webliste Öffnen" Click="ButtonOpenWeb_Click">
+                    <MenuItem x:Name="OpenWeblistMenu" Header="{DynamicResource ResourceKey=Menu_File-OpenWebstation}" Click="ButtonOpenWeb_Click">
                         <MenuItem.Icon>
                             <Image Source="icons/folder-html.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem x:Name="AddWebStationMenu" Header="Radio_station hinzufügen" Click="AddWebStation_Click" IsEnabled="False">
+                    <MenuItem x:Name="AddWebStationMenu" Header="{DynamicResource ResourceKey=Menu_File-AddWebstation}" Click="AddWebStation_Click" IsEnabled="False">
                         <MenuItem.Icon>
                             <Image Source="icons/menu/addWeb.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem x:Name="CloseMenu" Header="_Beenden" Click="CloseMenu_Click">
+                    <MenuItem x:Name="CloseMenu" Header="{DynamicResource ResourceKey=Menu_File-Exit}" Click="CloseMenu_Click">
                         <MenuItem.Icon>
                             <Image Source="icons/menu/close.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="_Wiedergabe">
-                    <MenuItem x:Name="PlayMenu" Header="_Abspielen" Click="ButtonPlayPause_Click" IsEnabled="False">
+                <MenuItem Header="{DynamicResource ResourceKey=Menu_Settings}">
+                    <MenuItem Name="MenuItemLanguages" Header="{DynamicResource ResourceKey=Menu_Sett-Language}">
+                        <MenuItem Tag="en-US" Header="{DynamicResource ResourceKey=Menu_Sett-English}" Click="MenuItem_Style_Click" />
+                        <MenuItem Tag="de-DE" Header="{DynamicResource ResourceKey=Menu_Sett-German}" Click="MenuItem_Style_Click" />
+                        <MenuItem Tag="es-ES" Header="{DynamicResource ResourceKey=Menu_Sett-Spanish}" Click="MenuItem_Style_Click" />
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{DynamicResource ResourceKey=Menu_Playback}">
+                    <MenuItem x:Name="PlayMenu" Header="{DynamicResource ResourceKey=Menu_Pb-Play}" Click="ButtonPlayPause_Click" IsEnabled="False">
                         <MenuItem.Icon>
                             <Image x:Name="PlayPauseMenuImage" Source="icons/menu/menu-start.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="StopMenu" Header="_Stopp" Click="ButtonStop_Click" IsEnabled="False">
+                    <MenuItem x:Name="StopMenu" Header="{DynamicResource ResourceKey=Menu_Pb-Stop}" Click="ButtonStop_Click" IsEnabled="False">
                         <MenuItem.Icon>
                             <Image Source="icons/menu/menu-stop.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="ForwardMenu" Header="_Vorwärts (10sek.)" Click="ButtonForwards_Click" IsEnabled="False">
+                    <MenuItem x:Name="ForwardMenu" Header="{DynamicResource ResourceKey=Menu_Pb-Forward}" Click="ButtonForwards_Click" IsEnabled="False">
                         <MenuItem.Icon>
                             <Image Source="icons/menu/menu-forward.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="BackwardMenu" Header="_Zurück (10sek.)" Click="ButtonBackwards_Click" IsEnabled="False">
+                    <MenuItem x:Name="BackwardMenu" Header="{DynamicResource ResourceKey=Menu_Pb-Backward}" Click="ButtonBackwards_Click" IsEnabled="False">
                         <MenuItem.Icon>
                             <Image Source="icons/menu/menu-backward.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="NextMenu" Header="_Nächster Titel" IsEnabled="False" Click="ButtonSkipForward_Click">
+                    <MenuItem x:Name="NextMenu" Header="{DynamicResource ResourceKey=Menu_Pb-Next}" IsEnabled="False" Click="ButtonSkipForward_Click">
                         <MenuItem.Icon>
                             <Image Source="icons/menu/menu-skip-forward.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="PreviousMenu" Header="_Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click">
+                    <MenuItem x:Name="PreviousMenu" Header="{DynamicResource ResourceKey=Menu_Pb-Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click">
                         <MenuItem.Icon>
                             <Image Source="icons/menu/menu-skip-backward.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Name="MenuItemLanguages" Header="_Languages">
-                    <MenuItem Tag="en-US" Header="_English" Click="MenuItem_Style_Click" />
-                    <MenuItem Tag="de-DE" Header="_German" Click="MenuItem_Style_Click" />
-                    <MenuItem Tag="es-ES" Header="_Spanish" Click="MenuItem_Style_Click" />
-                </MenuItem>
-                <MenuItem Header="_Ansicht">
-                    <MenuItem x:Name="FolderListMenu" Header="_Wiedergabeliste" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
+                <MenuItem Header="{DynamicResource ResourceKey=Menu_View}">
+                    <MenuItem x:Name="FolderListMenu" Header="{DynamicResource ResourceKey=Menu_View-PlaybackList}" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
                     <Separator/>
-                    <MenuItem Header="_Webradio Listen">
-                        <MenuItem x:Name="FavListMenu" Header="_Favoritenliste" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
-                        <MenuItem x:Name="SearchboxMenu" Header="_Suchleiste" IsCheckable="True" IsChecked="True" Click="SearchboxMenu_Click" />
-                        <MenuItem x:Name="WebListMenu" Header="_Webradioliste" IsCheckable="True" IsChecked="True" Click="WebListMenu_Click" />
+                    <MenuItem Header="{DynamicResource ResourceKey=Menu_View_Web}">
+                        <MenuItem x:Name="FavListMenu" Header="{DynamicResource ResourceKey=Menu_View_Web-FavList}" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
+                        <MenuItem x:Name="SearchboxMenu" Header="{DynamicResource ResourceKey=Menu_View_Web-Search}" IsCheckable="True" IsChecked="True" Click="SearchboxMenu_Click" />
+                        <MenuItem x:Name="WebListMenu" Header="{DynamicResource ResourceKey=Menu_View_Web-WebList}" IsCheckable="True" IsChecked="True" Click="WebListMenu_Click" />
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="_Hilfe">
-                    <MenuItem x:Name="AboutMenu" Header="Ü_ber"></MenuItem>
+                <MenuItem Header="{DynamicResource ResourceKey=Menu_Help}">
+                    <MenuItem x:Name="AboutMenu" Header="{DynamicResource ResourceKey=Menu_Help-About}"></MenuItem>
                 </MenuItem>
             </Menu>
             <ToolBarTray Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
                 <ToolBar MinWidth="140">
-                    <Button x:Name="ButtonOpen" Height="38" Width="38" ToolTip="Datei öffnen" Click="ButtonOpen_Click">
+                    <Button x:Name="ButtonOpen" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_FileOpen}" Click="ButtonOpen_Click">
                         <Image x:Name="ImageOpenPic" Source="icons/folder-music.png"/>
                     </Button>
-                    <Button x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="Ordner öffnen" Click="ButtonOpenFolder_Click">
+                    <Button x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenFolder}" Click="ButtonOpenFolder_Click">
                         <Image x:Name="ImageOpenFolderPic" Source="icons/folder-tar.png"/>
                     </Button>
-                    <Button x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="Webstation öffnen" Click="ButtonOpenWeb_Click">
+                    <Button x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenWebstation}" Click="ButtonOpenWeb_Click">
                         <Image x:Name="ImageOpenWebPic" Source="icons/folder-html.png"/>
                     </Button>
                 </ToolBar>
                 <ToolBar MinWidth="180">
-                    <Button x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="Vorheriger Titel" IsEnabled="False" Click="ButtonSkipBackward_Click" >
+                    <Button x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click" >
                         <Image x:Name="ImageSkipBackwardPic" Source="icons/skip-backward.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="Nächster Titel" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" >
+                    <Button x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Next}" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" >
                         <Image x:Name="ImageSkipForwardPic" Source="icons/skip-forward.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonStop" Height="38" Width="38" ToolTip="Wiedergabe beenden" IsEnabled="False" Click="ButtonStop_Click">
+                    <Button x:Name="ButtonStop" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Stop}" IsEnabled="False" Click="ButtonStop_Click">
                         <Image x:Name="ImageStopPic" Source="icons/stop.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="Wiedergeben" IsEnabled="False" Click="ButtonPlayPause_Click">
+                    <Button x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Play}" IsEnabled="False" Click="ButtonPlayPause_Click">
                         <Image x:Name="ImagePlayPic" Source="icons/play.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="10sek Zurück" IsEnabled="False" Click="ButtonBackwards_Click">
+                    <Button x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Backward}" IsEnabled="False" Click="ButtonBackwards_Click">
                         <Image x:Name="ImageBackwardPic" Source="icons/backward.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonForwards" Height="38" Width="38" ToolTip="10sek Vorwärts" IsEnabled="False" Click="ButtonForwards_Click">
+                    <Button x:Name="ButtonForwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Forward}" IsEnabled="False" Click="ButtonForwards_Click">
                         <Image x:Name="ImageForwardPic" Source="icons/forward.png" Opacity="0.5"/>
                     </Button>
                 </ToolBar>
@@ -196,9 +198,9 @@
                         <ColumnDefinition Width="1.25*" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="TextBoxSearch" Grid.Column="0" Height="20" Width="150" Margin="5,3,0,0" HorizontalAlignment="Left" 
-                             Text="{Binding Path=dummyprop, FallbackValue=Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
+                             Text="{DynamicResource ResourceKey=TextBox_Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
                               KeyUp="TextBoxSearch_KeyUp" CharacterCasing="Lower" />
-                    <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="Clear search" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
+                    <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="{DynamicResource ResourceKey=Button_ClearSearch}" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
                 </Grid>
             </StackPanel>
 
@@ -305,7 +307,7 @@
 
             <!-- Reihe 1 -->
             <CheckBox x:Name="ChkBoxSaveOnExit" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" IsChecked="False"  IsEnabled="False"/>
-            <TextBlock x:Name="TextBlockSaveOnExit" Text="Save Webstation-list at exit" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
+            <TextBlock x:Name="TextBlockSaveOnExit" Text="{DynamicResource ResourceKey=ChkBox_SaveList}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
 
             <ProgressBar x:Name="ProgressPlayed" Grid.Row="1" Grid.Column="2" Height="12" Margin="20,0,20,0" VerticalAlignment="Center" 
                          Value="{Binding ElementName=MediaPlayer, Path=Position}" MouseLeftButtonDown="ProgressPlayed_MouseLeftButtonDown" Style="{DynamicResource ProgressBarStyle_SO1}" >

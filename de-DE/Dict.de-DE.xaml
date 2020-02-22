@@ -3,9 +3,75 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!-- The name of this ResourceDictionary. Should not be localized. -->
-    <sys:String x:Key="ResourceDictionaryName" Localization.Comments="$Content(DoNotLocalize)">Loc-de-DE</sys:String>
+    <!--<sys:String x:Key="ResourceDictionaryName" Localization.Comments="$Content(DoNotLocalize)">Loc-de-DE</sys:String>-->
 
     <!-- Localized strings -->
+    <!-- Program Title -->
     <sys:String x:Key="MainWindow_Title">SoftwOrt - Mediaplayer</sys:String>
+    <!-- Menu  -->
+    <!-- Menu File -->
+    <sys:String x:Key="Menu_File">_Datei</sys:String>
+    <sys:String x:Key="Menu_File-FileOpen">_Datei Öffnen</sys:String>
+    <sys:String x:Key="Menu_File-OpenFolder">_Verzeichnis Öffnen</sys:String>
+    <sys:String x:Key="Menu_File-OpenWebstation">_Radio-Webliste Öffnen</sys:String>
+    <sys:String x:Key="Menu_File-AddWebstation">Radio_station hinzufügen</sys:String>
+    <sys:String x:Key="Menu_File-Exit">_Beenden</sys:String>
+    <!-- Menu Settings -->
+    <sys:String x:Key="Menu_Settings">_Einstellungen</sys:String>
+    <sys:String x:Key="Menu_Sett-Language">_Sprache</sys:String>
+    <sys:String x:Key="Menu_Sett-English">_Englisch</sys:String>
+    <sys:String x:Key="Menu_Sett-German">_Deutsch</sys:String>
+    <sys:String x:Key="Menu_Sett-Spanish">_Spanisch</sys:String>
+    <!-- Menu Playback -->
+    <sys:String x:Key="Menu_Playback">_Wiedergabe</sys:String>
+    <sys:String x:Key="Menu_Pb-Play">_Abspielen</sys:String>
+    <sys:String x:Key="Menu_Pb-Stop">_Stop</sys:String>
+    <sys:String x:Key="Menu_Pb-Forward">V_orwärts (10sek.)</sys:String>
+    <sys:String x:Key="Menu_Pb-Backward">_Zurück (10sek.)</sys:String>
+    <sys:String x:Key="Menu_Pb-Next">_Nächster Titel</sys:String>
+    <sys:String x:Key="Menu_Pb-Prev">_Vorheriger Titel</sys:String>
+    <!-- Menu Playback -->
+    <sys:String x:Key="Menu_View">_Ansicht</sys:String>
+    <sys:String x:Key="Menu_View-PlaybackList">_Wiedergabeliste</sys:String>
+    <sys:String x:Key="Menu_View_Web">W_ebradio Listen</sys:String>
+    <sys:String x:Key="Menu_View_Web-FavList">_Favoritenliste</sys:String>
+    <sys:String x:Key="Menu_View_Web-Search">_Suchleiste</sys:String>
+    <sys:String x:Key="Menu_View_Web-WebList">_Webradioliste</sys:String>
+    <!-- Menu Help -->
+    <sys:String x:Key="Menu_Help">_Hilfe</sys:String>
+    <sys:String x:Key="Menu_Help-About">Ü_ber</sys:String>
+    <!-- ToolBar -->
+    <!-- OpenToolBar -->
+    <sys:String x:Key="Toolbar_FileOpen">Datei öffnen</sys:String>
+    <sys:String x:Key="Toolbar_OpenFolder">Ordner öffnen</sys:String>
+    <sys:String x:Key="Toolbar_OpenWebstation">Webstation öffnen</sys:String>
+    <!-- PlaybackToolBar -->
+    <sys:String x:Key="Button_Prev">Vorheriger Titel</sys:String>
+    <sys:String x:Key="Button_Next">Nächster Titel</sys:String>
+    <sys:String x:Key="Button_Stop">Wiedergabe beenden</sys:String>
+    <sys:String x:Key="Button_Play">Wiedergeben</sys:String>
+    <sys:String x:Key="Button_Backward">10sek. Zurück</sys:String>
+    <sys:String x:Key="Button_Forward">10sek. Vorwärts</sys:String>
+    <!-- Search -->
+    <sys:String x:Key="TextBox_Search">Suchen</sys:String>
+    <sys:String x:Key="Button_ClearSearch">Suche löschen</sys:String>
+    <!-- CheckBox -->
+    <sys:String x:Key="ChkBox_SaveList">Listen beim beenden speichern</sys:String>
+
+    <!-- AddStationWindow -->
+    <!-- Title -->
+    <sys:String x:Key="AddStationWindow_Title">Radiostaion hinzufügen</sys:String>
+    <!-- Labels -->
+    <sys:String x:Key="Label_Radiostation">Radiosender* :</sys:String>
+    <sys:String x:Key="Label_Bitrate">Bitrate :</sys:String>
+    <sys:String x:Key="Label_WebURL">Webadress* :</sys:String>
+    <sys:String x:Key="Label_Favorite">Favorit :</sys:String>
+    <!-- CheckBox -->
+    <sys:String x:Key="ChkBox_DirectFav">Direkt als Favorit Übernehmen!</sys:String>
+    <!-- Buttons -->
+    <sys:String x:Key="Button_Prelisten">Vorhören</sys:String>
+    <sys:String x:Key="Button_Add">Hinzufügen</sys:String>
+    <sys:String x:Key="Button_Add-Tooltip">Sendername, Webadresse und vorhören benötigt</sys:String>
+
 
 </ResourceDictionary>
