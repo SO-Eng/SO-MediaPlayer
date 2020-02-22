@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="SoftwOrt-Mediaplayer" Height="600" Width="970" KeyDown="WindowMediaPLayer_KeyDown" 
+        Title="{DynamicResource ResourceKey=MainWindow_Title}" Height="600" Width="970" KeyDown="WindowMediaPLayer_KeyDown" 
         MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="175" Icon="ico/headphones.ico" 
         Loaded="WindowMediaPLayer_Loaded" Closing="WindowMediaPLayer_Closing" SizeChanged="SOMediaPlayer_SizeChanged">
     <Window.TaskbarItemInfo>
