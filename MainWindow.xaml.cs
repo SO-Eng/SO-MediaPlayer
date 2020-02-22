@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,6 +16,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Mediaplayer_ILS;
 using SO_Mediaplayer.Models;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
@@ -102,6 +104,12 @@ namespace SO_Mediaplayer
             firstLoad = true;
 
             ElliTimePos();
+
+            foreach (MenuItem item in MenuItemLanguages.Items)
+            {
+                if (item.Tag.ToString().Equals(CultureInfo.CurrentUICulture.Name))
+                    item.IsChecked = true;
+            }
         }
 
         private void ElliTimePos()
@@ -1300,6 +1308,19 @@ namespace SO_Mediaplayer
             ProgressPlayed.Maximum = 1;
             ProgressPlayed.Value = 1;
             ProgressPlayed.IsHitTestVisible = false;
+        }
+
+        private void MenuItem_Style_Click(object sender, RoutedEventArgs e)
+        {
+            // Uncheck each item
+            foreach (MenuItem item in MenuItemLanguages.Items)
+            {
+                item.IsChecked = false;
+            }
+
+            MenuItem mi = sender as MenuItem;
+            mi.IsChecked = true;
+            App.Instance.SwitchLanguage(mi.Tag.ToString());
         }
     }
 }
