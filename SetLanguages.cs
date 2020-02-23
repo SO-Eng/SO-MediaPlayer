@@ -16,6 +16,11 @@ namespace SO_Mediaplayer
         public string ErrorPlay { get; set; }
         public string AddStationInfo { get; set; }
         public string Search { get; set; }
+        public string FavListHeader { get; set; }
+        public string WebListFav { get; set; }
+        public string WebListStationName { get; set; }
+        public string WebListBitrate { get; set; }
+        public string WebListWebUrl { get; set; }
 
         #endregion
 
@@ -58,6 +63,11 @@ namespace SO_Mediaplayer
             ErrorPlay = "Unfortunately, this Radiostation does not seem to be available...";
             AddStationInfo = "Add your favourite station to the list.\nIf you save the list, the station will also be available to you in the future!";
             Search = "Search";
+            FavListHeader = "List of favourites";
+            WebListFav = "Favs.";
+            WebListStationName = "Station Name";
+            WebListBitrate = "Bitrate";
+            WebListWebUrl = "Web-URL";
         }
 
 
@@ -74,21 +84,31 @@ namespace SO_Mediaplayer
             ErrorPlay = "Diese WebStation scheint leider nicht erreichbar zu sein...";
             AddStationInfo = "Fügen Sie Ihren Lieblingssender zur Liste hinzu.\nWenn Sie die Liste speichern, wird der Sender Ihnen auch in Zukuft zur verfügung stehen!";
             Search = "Suchen";
+            FavListHeader = "Favoriten-Liste";
+            WebListFav = "Fav.";
+            WebListStationName = "Stations Name";
+            WebListBitrate = "Bitrate";
+            WebListWebUrl = "Web-URL";
         }
 
         private void SetSpanish()
         {
-            Play = "Jugar";
-            MenuPlay = "_Jugar";
-            Pause = "Pausas";
-            MenuPause = "_Pausas";
+            Play = "Reproducir";
+            MenuPlay = "_Reproducir";
+            Pause = "Pausar";
+            MenuPause = "_Pausar";
             Stop = "Detener la reproducción";
             Prelisten = "Vista previa";
             ErrorLoad = "Por favor, intenta cargar sólo archivos de audio o vídeo";
             MsgBoxInfo = "Información";
             ErrorPlay = "Esta estación de radio no parece estar disponible...";
             AddStationInfo = "Añade tu estación favorita a la lista.\n¡Si guardas la lista, la estación también estará disponible en el futuro!";
-            Search = "Buscar";
+            Search = "Busca en";
+            FavListHeader = "Lista de favoritos";
+            WebListFav = "Favs.";
+            WebListStationName = "Nombre de la estación";
+            WebListBitrate = "Bitrate";
+            WebListWebUrl = "URL de la web";
         }
 
         #endregion

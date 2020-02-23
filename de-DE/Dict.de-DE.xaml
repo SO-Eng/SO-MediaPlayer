@@ -76,6 +76,18 @@
     <sys:String x:Key="Button_Prelisten">Vorhören</sys:String>
     <sys:String x:Key="Button_Add">Hinzufügen</sys:String>
     <sys:String x:Key="Button_Add-Tooltip">Sendername, Webadresse und vorhören benötigt</sys:String>
+    <!-- Lists -->
+    <!-- FileList -->
+    <sys:String x:Key="FileList_Number">No.</sys:String>
+    <sys:String x:Key="FileList_FileName">Dateiname</sys:String>
+    <sys:String x:Key="FileList_Playtime">Spieldauer</sys:String>
+    <!-- Weblist -->
+    <!--<sys:String x:Key="WebList_Fav">Fav.</sys:String>
+    <sys:String x:Key="WebList_Stationname">Stations Name</sys:String>
+    <sys:String x:Key="WebList_Bitrate">Bitrate</sys:String>
+    <sys:String x:Key="WebList_WebURL">Web-URL</sys:String>-->
+    <!-- Fav-Title -->
+    <sys:String x:Key="TextBlock_Fav">Favoriten-Liste</sys:String>
 
 
 </ResourceDictionary>

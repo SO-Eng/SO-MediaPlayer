@@ -157,7 +157,7 @@
             <!--Mediabereich-->
 
             <TextBlock x:Name="TextBlockFavListHeader" Grid.Row="2" Grid.Column="0" Height="20" VerticalAlignment="Top" 
-                       Background="White" Text="Favoriten-Liste" TextAlignment="Center" Visibility="Collapsed" />
+                       Background="White" TextAlignment="Center" Visibility="Collapsed" />
 
             <!-- Favoriten-Liste -->
             <DataGrid x:Name="ListSelectionWebFav" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed"
@@ -165,16 +165,16 @@
                       AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
                       SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="2" Grid.Column="0" Margin="0,20,0,0" PreviewKeyDown="ListSelection_PreviewKeyDown" >
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn x:Name="FavsSortFav" Header="Favs." CanUserSort="True" SortMemberPath="StationFav">
+                    <DataGridTemplateColumn x:Name="FavsSortFav" CanUserSort="True" SortMemberPath="StationFav">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxFav_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Sations Name" Binding="{Binding Path=StationName}" />
-                    <DataGridTextColumn Header="Bitrate" CanUserResize="False" Binding="{Binding Path=BitRate}" />
-                    <DataGridTextColumn Header="Web-URL" Binding="{Binding Path=StationUrl}" />
+                    <DataGridTextColumn x:Name="DgcStationNameFav" Binding="{Binding Path=StationName}" />
+                    <DataGridTextColumn x:Name="DgcBitrateFav" CanUserResize="False" Binding="{Binding Path=BitRate}" />
+                    <DataGridTextColumn x:Name="DgcWebUrlFav" Binding="{Binding Path=StationUrl}" />
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -211,16 +211,16 @@
                       SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="5" Grid.Column="0"
                       PreviewKeyDown="ListSelection_PreviewKeyDown" >
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn x:Name="FavsSort" Header="Favs." CanUserSort="True" SortMemberPath="StationFav">
+                    <DataGridTemplateColumn x:Name="FavsSort" Header="{DynamicResource ResourceKey=WebList_Fav}" CanUserSort="True" SortMemberPath="StationFav">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxList_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Sations Name" Binding="{Binding Path=StationName}" />
-                    <DataGridTextColumn Header="Bitrate" CanUserResize="False" Binding="{Binding Path=BitRate}" />
-                    <DataGridTextColumn Header="Web-URL" Binding="{Binding Path=StationUrl}" />
+                    <DataGridTextColumn x:Name="DgcStationName" Binding="{Binding Path=StationName}" />
+                    <DataGridTextColumn x:Name="DgcBitrate" CanUserResize="False" Binding="{Binding Path=BitRate}" />
+                    <DataGridTextColumn x:Name="DgcWebUrl" Binding="{Binding Path=StationUrl}" />
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -251,9 +251,9 @@
                 </ListView.Resources>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="No." Width="25" DisplayMemberBinding="{Binding Number}" />
-                        <GridViewColumn Header="Filename" DisplayMemberBinding="{Binding FileName}"/>
-                        <GridViewColumn Header="Playtime" Width="auto" DisplayMemberBinding="{Binding PlayTime}"/>
+                        <GridViewColumn Header="{DynamicResource ResourceKey=FileList_Number}" Width="25" DisplayMemberBinding="{Binding Number}" />
+                        <GridViewColumn Header="{DynamicResource ResourceKey=FileList_FileName}" DisplayMemberBinding="{Binding FileName}"/>
+                        <GridViewColumn Header="{DynamicResource ResourceKey=FileList_Playtime}" Width="auto" DisplayMemberBinding="{Binding PlayTime}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

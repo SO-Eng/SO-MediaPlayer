@@ -3,9 +3,89 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!-- The name of this ResourceDictionary. Should not be localized. -->
-    <sys:String x:Key="ResourceDictionaryName" Localization.Comments="$Content(DoNotLocalize)">Loc-en-US</sys:String>
+    <!--<sys:String x:Key="ResourceDictionaryName" Localization.Comments="$Content(DoNotLocalize)">Loc-en-US</sys:String>-->
 
     <!-- Localized strings -->
     <sys:String x:Key="MainWindow_Title">SoftwOrt - Mediaplayer</sys:String>
+    <!-- ThumbNails -->
+    <sys:String x:Key="ThumbNail_Prev">Previous Title</sys:String>
+    <sys:String x:Key="ThumbNail_Play">Play</sys:String>
+    <sys:String x:Key="ThumbNail_Next">Next Title</sys:String>
+    <!-- Menu  -->
+    <!-- Menu File -->
+    <sys:String x:Key="Menu_File">_File</sys:String>
+    <sys:String x:Key="Menu_File-FileOpen">_Open File</sys:String>
+    <sys:String x:Key="Menu_File-OpenFolder">O_pen Folder</sys:String>
+    <sys:String x:Key="Menu_File-OpenWebstation">Open _Radiostaionlist</sys:String>
+    <sys:String x:Key="Menu_File-AddWebstation">_Add Radiostation</sys:String>
+    <sys:String x:Key="Menu_File-Exit">_Close</sys:String>
+    <!-- Menu Settings -->
+    <sys:String x:Key="Menu_Settings">_Settings</sys:String>
+    <sys:String x:Key="Menu_Sett-Language">_Language</sys:String>
+    <sys:String x:Key="Menu_Sett-English">_English</sys:String>
+    <sys:String x:Key="Menu_Sett-German">_German</sys:String>
+    <sys:String x:Key="Menu_Sett-Spanish">_Spanish</sys:String>
+    <!-- Menu Playback -->
+    <sys:String x:Key="Menu_Playback">_Playback</sys:String>
+    <sys:String x:Key="Menu_Pb-Play">_Play</sys:String>
+    <sys:String x:Key="Menu_Pb-Stop">_Stop</sys:String>
+    <sys:String x:Key="Menu_Pb-Forward">_Forward (10sec.)</sys:String>
+    <sys:String x:Key="Menu_Pb-Backward">_Back (10sec.)</sys:String>
+    <sys:String x:Key="Menu_Pb-Next">_Next Title</sys:String>
+    <sys:String x:Key="Menu_Pb-Prev">_Previous Title</sys:String>
+    <!-- Menu Playback -->
+    <sys:String x:Key="Menu_View">_View</sys:String>
+    <sys:String x:Key="Menu_View-PlaybackList">_Playback list</sys:String>
+    <sys:String x:Key="Menu_View_Web">W_ebradio lists</sys:String>
+    <sys:String x:Key="Menu_View_Web-FavList">_Favorites list</sys:String>
+    <sys:String x:Key="Menu_View_Web-Search">_Searchbar</sys:String>
+    <sys:String x:Key="Menu_View_Web-WebList">_Webradio list</sys:String>
+    <!-- Menu Help -->
+    <sys:String x:Key="Menu_Help">_Help</sys:String>
+    <sys:String x:Key="Menu_Help-About">_About</sys:String>
+    <!-- ToolBar -->
+    <!-- OpenToolBar -->
+    <sys:String x:Key="Toolbar_FileOpen">Open File</sys:String>
+    <sys:String x:Key="Toolbar_OpenFolder">Open Folder</sys:String>
+    <sys:String x:Key="Toolbar_OpenWebstation">Open Radiostaionlist</sys:String>
+    <!-- PlaybackToolBar -->
+    <sys:String x:Key="Button_Prev">Previous Title</sys:String>
+    <sys:String x:Key="Button_Next">Next Title</sys:String>
+    <sys:String x:Key="Button_Stop">Stop playback</sys:String>
+    <sys:String x:Key="Button_Play">Play</sys:String>
+    <sys:String x:Key="Button_Backward">10sec. Backward</sys:String>
+    <sys:String x:Key="Button_Forward">10sec. Forward</sys:String>
+    <!-- Search -->
+    <sys:String x:Key="TextBox_Search">Search</sys:String>
+    <sys:String x:Key="Button_ClearSearch">Clear search</sys:String>
+    <!-- CheckBox -->
+    <sys:String x:Key="ChkBox_SaveList">Save Webstation-list at exit</sys:String>
+
+    <!-- AddStationWindow -->
+    <!-- Title -->
+    <sys:String x:Key="AddStationWindow_Title">Add Radiostaion</sys:String>
+    <!-- Labels -->
+    <sys:String x:Key="Label_Radiostation">Radiostation* :</sys:String>
+    <sys:String x:Key="Label_Bitrate">Bitrate :</sys:String>
+    <sys:String x:Key="Label_WebURL">Web address* :</sys:String>
+    <sys:String x:Key="Label_Favorite">Favorite :</sys:String>
+    <!-- CheckBox -->
+    <sys:String x:Key="ChkBox_DirectFav">Directly Save as favorite!</sys:String>
+    <!-- Buttons -->
+    <sys:String x:Key="Button_Prelisten">Prelisten</sys:String>
+    <sys:String x:Key="Button_Add">Add</sys:String>
+    <sys:String x:Key="Button_Add-Tooltip">Station name, web address and pre-listening required</sys:String>
+    <!-- Lists -->
+    <!-- FileList -->
+    <sys:String x:Key="FileList_Number">No.</sys:String>
+    <sys:String x:Key="FileList_FileName">Filename</sys:String>
+    <sys:String x:Key="FileList_Playtime">Playtime</sys:String>
+    <!-- Weblist -->
+    <!--<sys:String x:Key="WebList_Fav">Favs.</sys:String>
+    <sys:String x:Key="WebList_Stationname">Station Name</sys:String>
+    <sys:String x:Key="WebList_Bitrate">Bitrate</sys:String>
+    <sys:String x:Key="WebList_WebURL">Web-URL</sys:String>-->
+    <!-- Fav-Title -->
+    <sys:String x:Key="TextBlock_Fav">List of favourites</sys:String>
 
 </ResourceDictionary>

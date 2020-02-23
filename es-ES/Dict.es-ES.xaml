@@ -3,9 +3,89 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!-- The name of this ResourceDictionary. Should not be localized. -->
-    <sys:String x:Key="ResourceDictionaryName" Localization.Comments="$Content(DoNotLocalize)">Loc-es-ES</sys:String>
+    <!--<sys:String x:Key="ResourceDictionaryName" Localization.Comments="$Content(DoNotLocalize)">Loc-es-ES</sys:String>-->
 
     <!-- Localized strings -->
     <sys:String x:Key="MainWindow_Title">SoftwOrt - Reproductor de medios</sys:String>
+    <!-- ThumbNails -->
+    <sys:String x:Key="ThumbNail_Prev">Título previo</sys:String>
+    <sys:String x:Key="ThumbNail_Play">Reproducir</sys:String>
+    <sys:String x:Key="ThumbNail_Next">Siguiente título</sys:String>
+    <!-- Menu  -->
+    <!-- Menu File -->
+    <sys:String x:Key="Menu_File">_Medio</sys:String>
+    <sys:String x:Key="Menu_File-FileOpen">_Abrir archivo</sys:String>
+    <sys:String x:Key="Menu_File-OpenFolder">A_brir carpeta</sys:String>
+    <sys:String x:Key="Menu_File-OpenWebstation">Abrir la lista _web de la radio</sys:String>
+    <sys:String x:Key="Menu_File-AddWebstation">Añade una estación de _radio</sys:String>
+    <sys:String x:Key="Menu_File-Exit">_Salir</sys:String>
+    <!-- Menu Settings -->
+    <sys:String x:Key="Menu_Settings">_Preferencias</sys:String>
+    <sys:String x:Key="Menu_Sett-Language">_Lenguaje</sys:String>
+    <sys:String x:Key="Menu_Sett-English">_Inglés</sys:String>
+    <sys:String x:Key="Menu_Sett-German">_Alemán</sys:String>
+    <sys:String x:Key="Menu_Sett-Spanish">_Español</sys:String>
+    <!-- Menu Playback -->
+    <sys:String x:Key="Menu_Playback">_Reproducción</sys:String>
+    <sys:String x:Key="Menu_Pb-Play">_Reproducir</sys:String>
+    <sys:String x:Key="Menu_Pb-Stop">_Detener</sys:String>
+    <sys:String x:Key="Menu_Pb-Forward">_Adelante (10seg.)</sys:String>
+    <sys:String x:Key="Menu_Pb-Backward">_Volver (10seg.)</sys:String>
+    <sys:String x:Key="Menu_Pb-Next">_Siguiente título</sys:String>
+    <sys:String x:Key="Menu_Pb-Prev">_Título previo</sys:String>
+    <!-- Menu Playback -->
+    <sys:String x:Key="Menu_View">_Ver</sys:String>
+    <sys:String x:Key="Menu_View-PlaybackList">_Lista de reproducción</sys:String>
+    <sys:String x:Key="Menu_View_Web">Listas de _radio web</sys:String>
+    <sys:String x:Key="Menu_View_Web-FavList">_Lista de _favoritos</sys:String>
+    <sys:String x:Key="Menu_View_Web-Search">_Barra de búsqueda</sys:String>
+    <sys:String x:Key="Menu_View_Web-WebList">Lista de radio _web</sys:String>
+    <!-- Menu Help -->
+    <sys:String x:Key="Menu_Help">_Ayuda</sys:String>
+    <sys:String x:Key="Menu_Help-About">A_cerca de</sys:String>
+    <!-- ToolBar -->
+    <!-- OpenToolBar -->
+    <sys:String x:Key="Toolbar_FileOpen">Abrir archivo</sys:String>
+    <sys:String x:Key="Toolbar_OpenFolder">Abrir carpeta</sys:String>
+    <sys:String x:Key="Toolbar_OpenWebstation">Abrir la lista web de la radio</sys:String>
+    <!-- PlaybackToolBar -->
+    <sys:String x:Key="Button_Prev">Título previo</sys:String>
+    <sys:String x:Key="Button_Next">Siguiente título</sys:String>
+    <sys:String x:Key="Button_Stop">Detener la reproducción</sys:String>
+    <sys:String x:Key="Button_Play">Reproducir</sys:String>
+    <sys:String x:Key="Button_Backward">10seg. volver</sys:String>
+    <sys:String x:Key="Button_Forward">10seg. adelante</sys:String>
+    <!-- Search -->
+    <sys:String x:Key="TextBox_Search">Busca en</sys:String>
+    <sys:String x:Key="Button_ClearSearch">Elim. la búsqueda</sys:String>
+    <!-- CheckBox -->
+    <sys:String x:Key="ChkBox_SaveList">Guardar las listas al salir</sys:String>
+
+    <!-- AddStationWindow -->
+    <!-- Title -->
+    <sys:String x:Key="AddStationWindow_Title">Añade la estación de radio</sys:String>
+    <!-- Labels -->
+    <sys:String x:Key="Label_Radiostation">Estación de radio* :</sys:String>
+    <sys:String x:Key="Label_Bitrate">Bitrate :</sys:String>
+    <sys:String x:Key="Label_WebURL">Dirección web* :</sys:String>
+    <sys:String x:Key="Label_Favorite">Favorito :</sys:String>
+    <!-- CheckBox -->
+    <sys:String x:Key="ChkBox_DirectFav">Directamente como favorito. ¡Toma el control!</sys:String>
+    <!-- Buttons -->
+    <sys:String x:Key="Button_Prelisten">Vista previa</sys:String>
+    <sys:String x:Key="Button_Add">Añade</sys:String>
+    <sys:String x:Key="Button_Add-Tooltip">Se requiere el nombre de la estación, la dirección web y la escucha previa</sys:String>
+    <!-- Lists -->
+    <!-- FileList -->
+    <sys:String x:Key="FileList_Number">No.</sys:String>
+    <sys:String x:Key="FileList_FileName">Nombre del archivo</sys:String>
+    <sys:String x:Key="FileList_Playtime">Tiempo de juego</sys:String>
+    <!-- Weblist -->
+    <!--<sys:String x:Key="WebList_Fav">Favs.</sys:String>
+    <sys:String x:Key="WebList_Stationname">Nombre de la estación</sys:String>
+    <sys:String x:Key="WebList_Bitrate">Bitrate</sys:String>
+    <sys:String x:Key="WebList_WebURL">URL de la web</sys:String>-->
+    <!-- Fav-Title -->
+    <sys:String x:Key="TextBlock_Fav">Lista de favoritos</sys:String>
 
 </ResourceDictionary>

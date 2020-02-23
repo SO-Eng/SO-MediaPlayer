@@ -109,6 +109,11 @@ namespace SO_Mediaplayer
 
             ElliTimePos();
 
+            SetLanguageStartUp();
+        }
+
+        private void SetLanguageStartUp()
+        {
             foreach (MenuItem item in MenuItemLanguages.Items)
             {
                 if (item.Tag.ToString().Equals(CultureInfo.CurrentUICulture.Name))
@@ -118,7 +123,20 @@ namespace SO_Mediaplayer
                     langSelection = item.Tag.ToString();
                 }
             }
+            TextBlockFavListHeader.Text = Sl.FavListHeader;
+            SetDataGridHeadersLang();
+        }
 
+        private void SetDataGridHeadersLang()
+        {
+            FavsSort.Header = Sl.WebListFav;
+            FavsSortFav.Header = Sl.WebListFav;
+            DgcStationNameFav.Header = Sl.WebListStationName;
+            DgcBitrateFav.Header = Sl.WebListBitrate;
+            DgcWebUrlFav.Header = Sl.WebListWebUrl;
+            DgcStationName.Header = Sl.WebListStationName;
+            DgcBitrate.Header = Sl.WebListBitrate;
+            DgcWebUrl.Header = Sl.WebListWebUrl;
         }
 
         private void ElliTimePos()
@@ -1011,11 +1029,6 @@ namespace SO_Mediaplayer
 
 
 
-        public void ListController()
-        {
-
-        }
-
         /// <summary>
         /// Ab hier "View" Bereich fuer Listen an/aus
         /// </summary>
@@ -1334,6 +1347,8 @@ namespace SO_Mediaplayer
             App.Instance.SwitchLanguage(mi.Tag.ToString());
             Sl = new SetLanguages(mi.Tag.ToString());
             langSelection = mi.Tag.ToString();
+            TextBlockFavListHeader.Text = Sl.FavListHeader;
+            SetDataGridHeadersLang();
         }
     }
 }
