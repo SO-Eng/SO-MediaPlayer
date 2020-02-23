@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
-namespace Mediaplayer_ILS
+namespace SO_Mediaplayer
 {
     /// <summary>
     /// Interaktionslogik für "App.xaml"
