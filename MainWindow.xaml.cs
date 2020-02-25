@@ -19,6 +19,7 @@ using SO_Mediaplayer.Models;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Path = System.IO.Path;
 using WinForms = System.Windows.Forms;
 
 /// <summary>
@@ -1335,7 +1336,7 @@ namespace SO_Mediaplayer
             ProgressPlayed.IsHitTestVisible = false;
         }
 
-        private void MenuItem_Style_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Lang_Click(object sender, RoutedEventArgs e)
         {
             // Uncheck each item
             foreach (MenuItem item in MenuItemLanguages.Items)
@@ -1343,13 +1344,50 @@ namespace SO_Mediaplayer
                 item.IsChecked = false;
             }
 
-            MenuItem mi = sender as MenuItem;
-            mi.IsChecked = true;
-            App.Instance.SwitchLanguage(mi.Tag.ToString());
-            Sl = new SetLanguages(mi.Tag.ToString());
-            langSelection = mi.Tag.ToString();
+            MenuItem miLang = sender as MenuItem;
+            miLang.IsChecked = true;
+            if (CultureInfo.CurrentCulture.Name.Equals(miLang.Tag.ToString()))
+            {
+                return;
+            }
+            App.Instance.SwitchLanguage(miLang.Tag.ToString());
+
+            Sl = new SetLanguages(miLang.Tag.ToString());
+            langSelection = miLang.Tag.ToString();
             TextBlockFavListHeader.Text = Sl.FavListHeader;
             SetDataGridHeadersLang();
+
+            if (playing)
+            {
+                ImagePause();
+            }
+            else
+            {
+                ImagePlay();
+            }
+        }
+
+        private void MenuItem_Style_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (MenuItem item in MenuItemStyle.Items)
+            {
+                item.IsChecked = false;
+            }
+
+            MenuItem miStyle = sender as MenuItem;
+            miStyle.IsChecked = true;
+            string stylefile = Path.Combine(App.Directory, "Styles", miStyle.Name + ".xaml");
+            App.Instance.LoadStyleDictionaryFromFile(stylefile);
+
+            // Load language again!
+            foreach (MenuItem item in MenuItemLanguages.Items)
+            {
+                if (item.IsChecked)
+                {
+                    App.Instance.SwitchLanguage(item.Tag.ToString());
+                }
+            }
+
         }
 
         #endregion

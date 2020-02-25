@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace SO_Mediaplayer
+﻿namespace SO_Mediaplayer
 {
     public class SetLanguages
     {

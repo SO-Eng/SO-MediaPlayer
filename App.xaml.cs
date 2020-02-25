@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace SO_Mediaplayer
 {
@@ -15,6 +16,7 @@ namespace SO_Mediaplayer
         public static App Instance;
         public static String Directory;
         public event EventHandler LanguageChangedEvent;
+        private String _DefaultStyle = "LightStyle.xaml";
         #endregion
 
         #region Constructor
@@ -23,7 +25,8 @@ namespace SO_Mediaplayer
             // Initialize static variables
             Instance = this;
             Directory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
+            string stringsFile = Path.Combine(Directory, "Styles", _DefaultStyle);
+            LoadStyleDictionaryFromFile(stringsFile);
             // Load the Localization Resource Dictionary based on OS language
             SetLanguageResourceDictionary(GetLocXAMLFilePath(CultureInfo.CurrentCulture.Name));
         }
@@ -36,8 +39,8 @@ namespace SO_Mediaplayer
         /// </summary>
         public void SwitchLanguage(string inFiveCharLang)
         {
-            if (CultureInfo.CurrentCulture.Name.Equals(inFiveCharLang))
-                return;
+            //if (CultureInfo.CurrentCulture.Name.Equals(inFiveCharLang))
+            //    return;
 
             var ci = new CultureInfo(inFiveCharLang);
             Thread.CurrentThread.CurrentCulture = ci;
@@ -58,7 +61,7 @@ namespace SO_Mediaplayer
         private string GetLocXAMLFilePath(string inFiveCharLang)
         {
             string locXamlFile = "Dict." + inFiveCharLang + ".xaml";
-            return Path.Combine(Directory, inFiveCharLang, locXamlFile);
+            return Path.Combine(Directory, "Languages", inFiveCharLang, locXamlFile);
         }
 
         /// <summary>
@@ -99,6 +102,30 @@ namespace SO_Mediaplayer
                 {
                     // Replace the current langage dictionary with the new one
                     Resources.MergedDictionaries[langDictId] = languageDictionary;
+                }
+            }
+        }
+        /// <summary>
+        /// This funtion loads a ResourceDictionary from a file at runtime
+        /// </summary>
+        public void LoadStyleDictionaryFromFile(string inFileName)
+        {
+            if (File.Exists(inFileName))
+            {
+                try
+                {
+                    using (var fs = new FileStream(inFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    {
+                        // Read in ResourceDictionary File
+                        var dic = (ResourceDictionary)XamlReader.Load(fs);
+                        // Clear any previous dictionaries loaded
+                        Resources.MergedDictionaries.Clear();
+                        // Add in newly loaded Resource Dictionary
+                        Resources.MergedDictionaries.Add(dic);
+                    }
+                }
+                catch
+                {
                 }
             }
         }

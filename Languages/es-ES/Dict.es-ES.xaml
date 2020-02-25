@@ -33,7 +33,7 @@
     <sys:String x:Key="Menu_Pb-Backward">_Volver (10seg.)</sys:String>
     <sys:String x:Key="Menu_Pb-Next">_Siguiente título</sys:String>
     <sys:String x:Key="Menu_Pb-Prev">_Título previo</sys:String>
-    <!-- Menu Playback -->
+    <!-- Menu View -->
     <sys:String x:Key="Menu_View">_Ver</sys:String>
     <sys:String x:Key="Menu_View-PlaybackList">_Lista de reproducción</sys:String>
     <sys:String x:Key="Menu_View_Web">Listas de _radio web</sys:String>

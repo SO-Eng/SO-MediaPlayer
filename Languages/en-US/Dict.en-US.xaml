@@ -33,7 +33,7 @@
     <sys:String x:Key="Menu_Pb-Backward">_Back (10sec.)</sys:String>
     <sys:String x:Key="Menu_Pb-Next">_Next Title</sys:String>
     <sys:String x:Key="Menu_Pb-Prev">_Previous Title</sys:String>
-    <!-- Menu Playback -->
+    <!-- Menu View -->
     <sys:String x:Key="Menu_View">_View</sys:String>
     <sys:String x:Key="Menu_View-PlaybackList">_Playback list</sys:String>
     <sys:String x:Key="Menu_View_Web">W_ebradio lists</sys:String>
@@ -47,7 +47,7 @@
     <!-- OpenToolBar -->
     <sys:String x:Key="Toolbar_FileOpen">Open File</sys:String>
     <sys:String x:Key="Toolbar_OpenFolder">Open Folder</sys:String>
-    <sys:String x:Key="Toolbar_OpenWebstation">Open Radiostaionlist</sys:String>
+    <sys:String x:Key="Toolbar_OpenWebstation">Open Radiostationlist</sys:String>
     <!-- PlaybackToolBar -->
     <sys:String x:Key="Button_Prev">Previous Title</sys:String>
     <sys:String x:Key="Button_Next">Next Title</sys:String>

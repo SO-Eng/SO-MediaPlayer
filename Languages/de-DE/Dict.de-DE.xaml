@@ -34,7 +34,7 @@
     <sys:String x:Key="Menu_Pb-Backward">_Zurück (10sek.)</sys:String>
     <sys:String x:Key="Menu_Pb-Next">_Nächster Titel</sys:String>
     <sys:String x:Key="Menu_Pb-Prev">_Vorheriger Titel</sys:String>
-    <!-- Menu Playback -->
+    <!-- Menu View -->
     <sys:String x:Key="Menu_View">_Ansicht</sys:String>
     <sys:String x:Key="Menu_View-PlaybackList">_Wiedergabeliste</sys:String>
     <sys:String x:Key="Menu_View_Web">W_ebradio Listen</sys:String>
