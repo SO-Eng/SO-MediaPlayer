@@ -133,8 +133,9 @@
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
-    <Style TargetType="DockPanel">
-        <Setter Property="Background" Value="#424242"/>
+
+    <Style x:Key="GridBottomStyle"  TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="#424242" />
     </Style>
 
     <Style TargetType="ListView">

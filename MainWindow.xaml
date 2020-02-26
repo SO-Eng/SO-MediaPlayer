@@ -40,7 +40,7 @@
             </Grid.RowDefinitions>
 
             <Menu Grid.Row="0" Grid.ColumnSpan="3">
-                <MenuItem Style="{StaticResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_File}" >
+                <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_File}" >
                     <MenuItem x:Name="OpenFileMenu" Header="{DynamicResource ResourceKey=Menu_File-FileOpen}" Click="ButtonOpen_Click">
                         <MenuItem.Icon>
                             <Image Source="icons/folder-music.png"/>
@@ -69,18 +69,18 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Settings}">
-                    <MenuItem Style="{StaticResource MenuItemBaseStyle}" Name="MenuItemLanguages" Header="{DynamicResource ResourceKey=Menu_Sett-Language}">
+                <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Settings}">
+                    <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Name="MenuItemLanguages" Header="{DynamicResource ResourceKey=Menu_Sett-Language}">
                         <MenuItem Tag="en-US" Header="{DynamicResource ResourceKey=Menu_Sett-English}" Click="MenuItem_Lang_Click" />
                         <MenuItem Tag="de-DE" Header="{DynamicResource ResourceKey=Menu_Sett-German}" Click="MenuItem_Lang_Click" />
                         <MenuItem Tag="es-ES" Header="{DynamicResource ResourceKey=Menu_Sett-Spanish}" Click="MenuItem_Lang_Click" />
                     </MenuItem>
-                    <MenuItem Style="{StaticResource MenuItemBaseStyle}" Name="MenuItemStyle" Header="_Styles">
+                    <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Name="MenuItemStyle" Header="_Styles">
                         <MenuItem Name="LightStyle" Header="_Light" Click="MenuItem_Style_Click" />
                         <MenuItem Name="DarkStyle" Header="_Dark" Click="MenuItem_Style_Click" />
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Playback}">
+                <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Playback}">
                     <MenuItem x:Name="PlayMenu" Header="{DynamicResource ResourceKey=Menu_Pb-Play}" Click="ButtonPlayPause_Click" IsEnabled="False">
                         <MenuItem.Icon>
                             <Image x:Name="PlayPauseMenuImage" Source="icons/menu/menu-start.png"/>
@@ -112,16 +112,16 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_View}">
+                <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_View}">
                     <MenuItem x:Name="FolderListMenu" Header="{DynamicResource ResourceKey=Menu_View-PlaybackList}" IsCheckable="True" IsChecked="True" Click="FolderListMenu_Click"/>
                     <Separator/>
-                    <MenuItem Style="{StaticResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_View_Web}">
+                    <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_View_Web}">
                         <MenuItem x:Name="FavListMenu" Header="{DynamicResource ResourceKey=Menu_View_Web-FavList}" IsCheckable="True" IsChecked="True" Click="FavListMenu_Click" />
                         <MenuItem x:Name="SearchboxMenu" Header="{DynamicResource ResourceKey=Menu_View_Web-Search}" IsCheckable="True" IsChecked="True" Click="SearchboxMenu_Click" />
                         <MenuItem x:Name="WebListMenu" Header="{DynamicResource ResourceKey=Menu_View_Web-WebList}" IsCheckable="True" IsChecked="True" Click="WebListMenu_Click" />
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Help}">
+                <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Help}">
                     <MenuItem x:Name="AboutMenu" Header="{DynamicResource ResourceKey=Menu_Help-About}"></MenuItem>
                 </MenuItem>
             </Menu>
@@ -302,41 +302,115 @@
         </Grid>
 
         <!--Statusleiste unten-->
-        <DockPanel VerticalAlignment="Bottom">
-            <Grid  x:Name="StatusBarBottom" VerticalAlignment="Bottom" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="205"/>
-                    <ColumnDefinition Width="*" x:Name="ColumProgressTime"/>
-                    <ColumnDefinition Width="110"/>
-                    <ColumnDefinition Width="40"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1"/>
-                    <RowDefinition Height="24" x:Name="RowProgressTime"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="20"/>
-                </Grid.RowDefinitions>
+            <Grid Style="{DynamicResource GridBottomStyle}" VerticalAlignment="Bottom" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="205"/>
+                <ColumnDefinition Width="*" x:Name="ColumProgressTime"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="24" x:Name="RowProgressTime"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
 
-                <!-- Reihe 0 -->
-                <Grid Row="0" Column="0" ColumnSpan="5" Background="Gray"/>
+            <!-- Reihe 0 -->
+            <Grid Row="0" Column="0" ColumnSpan="5" Background="Gray"/>
 
-                <!-- Reihe 1 -->
-                <CheckBox x:Name="ChkBoxSaveOnExit" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" IsChecked="False"  IsEnabled="False"/>
-                <TextBlock x:Name="TextBlockSaveOnExit" Text="{DynamicResource ResourceKey=ChkBox_SaveList}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
+            <!-- Reihe 1 -->
+            <CheckBox x:Name="ChkBoxSaveOnExit" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" IsChecked="False"  IsEnabled="False"/>
+            <TextBlock x:Name="TextBlockSaveOnExit" Text="{DynamicResource ResourceKey=ChkBox_SaveList}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
 
-                <ProgressBar x:Name="ProgressPlayed" Grid.Row="1" Grid.Column="2" Height="12" Margin="20,0,20,0" VerticalAlignment="Center" 
-                             Value="{Binding ElementName=MediaPlayer, Path=Position}" MouseLeftButtonDown="ProgressPlayed_MouseLeftButtonDown" Style="{DynamicResource ProgressBarStyle_SO1}" >
-                    <ProgressBar.Foreground>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF36AA00" Offset="1"/>
-                            <GradientStop Color="#FF4BEE00"/>
-                        </LinearGradientBrush>
-                    </ProgressBar.Foreground>
+            <ProgressBar x:Name="ProgressPlayed" Grid.Row="1" Grid.Column="2" Height="12" Margin="20,0,20,0" VerticalAlignment="Center" 
+                         Value="{Binding ElementName=MediaPlayer, Path=Position}" MouseLeftButtonDown="ProgressPlayed_MouseLeftButtonDown" Style="{DynamicResource ProgressBarStyle_SO1}" >
+                <ProgressBar.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF36AA00" Offset="1"/>
+                        <GradientStop Color="#FF4BEE00"/>
+                    </LinearGradientBrush>
+                </ProgressBar.Foreground>
+                <ProgressBar.Resources>
+                    <SolidColorBrush x:Key="ProgressBar.Background" Color="#60ADD9"/>
+                    <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
+                    <Style x:Key="ProgressBarStyle_SO1" TargetType="{x:Type ProgressBar}">
+                        <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                    <Grid x:Name="TemplateRoot">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Determinate"/>
+                                                <VisualState x:Name="Indeterminate">
+                                                    <Storyboard RepeatBehavior="Forever">
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Animation">
+                                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.25"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.25"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                        <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="Animation">
+                                                            <EasingPointKeyFrame KeyTime="0" Value="-0.5,0.5"/>
+                                                            <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
+                                                            <EasingPointKeyFrame KeyTime="0:0:2" Value="1.5,0.5"/>
+                                                        </PointAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="6"/>
+                                        <Rectangle x:Name="PART_Track"/>
+                                        <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
+                                            <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="6" RadiusY="6"/>
+                                            <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="6" RadiusY="6">
+                                                <Rectangle.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Rectangle.RenderTransform>
+                                            </Rectangle>
+                                        </Grid>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="Orientation" Value="Vertical">
+                                            <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                                <Setter.Value>
+                                                    <RotateTransform Angle="-90"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsIndeterminate" Value="true">
+                                            <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ProgressBar.Resources>
+            </ProgressBar>
+            <Canvas x:Name="CanvasPbTime" Grid.Row="1" Grid.Column="2" Height="24" Margin="20,0,20,0" VerticalAlignment="Center" />
+            <!--<TextBlock x:Name="TextBlockHitTest" Grid.Row="1" Grid.Column="2"/>-->
+
+            <!-- Reihe 2 -->
+            <!-- Start ProgrssBar Volume -->
+            <Grid x:Name="VolumeBarGrid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Column="1" Row="2">
+                <ProgressBar x:Name="ProgressVolume" HorizontalAlignment="Left" Height="18" VerticalAlignment="Center"
+                             Width="200" Value="0.5" MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" Maximum="1" 
+                             Background="#FF60AEDA" Style="{DynamicResource ProgressBarStyle_SO-Volume}" >
                     <ProgressBar.Resources>
-                        <SolidColorBrush x:Key="ProgressBar.Background" Color="#60ADD9"/>
+                        <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FF06B025"/>
+                        <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
                         <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
-                        <Style x:Key="ProgressBarStyle_SO1" TargetType="{x:Type ProgressBar}">
+                        <Style x:Key="ProgressBarStyle_SO-Volume" TargetType="{x:Type ProgressBar}">
+                            <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
                             <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
                             <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
                             <Setter Property="BorderThickness" Value="1"/>
@@ -363,11 +437,11 @@
                                                     </VisualState>
                                                 </VisualStateGroup>
                                             </VisualStateManager.VisualStateGroups>
-                                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="6"/>
+                                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3"/>
                                             <Rectangle x:Name="PART_Track"/>
                                             <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
-                                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="6" RadiusY="6"/>
-                                                <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="6" RadiusY="6">
+                                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="4" RadiusY="4" />
+                                                <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="4" RadiusY="4">
                                                     <Rectangle.RenderTransform>
                                                         <TransformGroup>
                                                             <ScaleTransform/>
@@ -396,115 +470,39 @@
                             </Setter>
                         </Style>
                     </ProgressBar.Resources>
+                    <ProgressBar.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF36AA00" Offset="1"/>
+                            <GradientStop Color="#FF4BEE00"/>
+                        </LinearGradientBrush>
+                    </ProgressBar.Foreground>
                 </ProgressBar>
-                <Canvas x:Name="CanvasPbTime" Grid.Row="1" Grid.Column="2" Height="24" Margin="20,0,20,0" VerticalAlignment="Center" />
-                <!--<TextBlock x:Name="TextBlockHitTest" Grid.Row="1" Grid.Column="2"/>-->
-
-                <!-- Reihe 2 -->
-                <!-- Start ProgrssBar Volume -->
-                <Grid x:Name="VolumeBarGrid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Column="1" Row="2">
-                    <ProgressBar x:Name="ProgressVolume" HorizontalAlignment="Left" Height="18" VerticalAlignment="Center"
-                                 Width="200" Value="0.5" MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" Maximum="1" 
-                                 Background="#FF60AEDA" Style="{DynamicResource ProgressBarStyle_SO-Volume}" >
-                        <ProgressBar.Resources>
-                            <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FF06B025"/>
-                            <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
-                            <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
-                            <Style x:Key="ProgressBarStyle_SO-Volume" TargetType="{x:Type ProgressBar}">
-                                <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
-                                <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
-                                <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
-                                <Setter Property="BorderThickness" Value="1"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ProgressBar}">
-                                            <Grid x:Name="TemplateRoot">
-                                                <VisualStateManager.VisualStateGroups>
-                                                    <VisualStateGroup x:Name="CommonStates">
-                                                        <VisualState x:Name="Determinate"/>
-                                                        <VisualState x:Name="Indeterminate">
-                                                            <Storyboard RepeatBehavior="Forever">
-                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Animation">
-                                                                    <EasingDoubleKeyFrame KeyTime="0" Value="0.25"/>
-                                                                    <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.25"/>
-                                                                    <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.25"/>
-                                                                </DoubleAnimationUsingKeyFrames>
-                                                                <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="Animation">
-                                                                    <EasingPointKeyFrame KeyTime="0" Value="-0.5,0.5"/>
-                                                                    <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
-                                                                    <EasingPointKeyFrame KeyTime="0:0:2" Value="1.5,0.5"/>
-                                                                </PointAnimationUsingKeyFrames>
-                                                            </Storyboard>
-                                                        </VisualState>
-                                                    </VisualStateGroup>
-                                                </VisualStateManager.VisualStateGroups>
-                                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3"/>
-                                                <Rectangle x:Name="PART_Track"/>
-                                                <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
-                                                    <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="4" RadiusY="4" />
-                                                    <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="4" RadiusY="4">
-                                                        <Rectangle.RenderTransform>
-                                                            <TransformGroup>
-                                                                <ScaleTransform/>
-                                                                <SkewTransform/>
-                                                                <RotateTransform/>
-                                                                <TranslateTransform/>
-                                                            </TransformGroup>
-                                                        </Rectangle.RenderTransform>
-                                                    </Rectangle>
-                                                </Grid>
-                                            </Grid>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="Orientation" Value="Vertical">
-                                                    <Setter Property="LayoutTransform" TargetName="TemplateRoot">
-                                                        <Setter.Value>
-                                                            <RotateTransform Angle="-90"/>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Trigger>
-                                                <Trigger Property="IsIndeterminate" Value="true">
-                                                    <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ProgressBar.Resources>
-                        <ProgressBar.Foreground>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FF36AA00" Offset="1"/>
-                                <GradientStop Color="#FF4BEE00"/>
-                            </LinearGradientBrush>
-                        </ProgressBar.Foreground>
-                    </ProgressBar>
-                    <TextBlock Text="{Binding ElementName=ProgressVolume, Path=Value, StringFormat=Vol. {0:0%}}" IsHitTestVisible="False"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" UseLayoutRounding="False" />
-                </Grid>
-                <Grid Column="0" Row="2">
-                    <Image x:Name="SoundBoxPic" Source="soundVol/audio-volume-medium.png" Margin="3,0,3,0" VerticalAlignment="Bottom" Height="20"/>
-                </Grid>
-                <!--End ProgressBar Volume-->
-
-                <Grid x:Name="TimeStampGrid" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Column="3" Row="2" ColumnSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="15"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label x:Name="LabelCurrentTime" MinWidth="30" Content="00:00:00" Grid.Column="0" HorizontalContentAlignment="Right"/>
-                    <Label x:Name="LabelTimeDivider" MinWidth="30" Content="/" Grid.Column="1"/>
-                    <Label x:Name="LabelMaxTime" MinWidth="30" Content="00:00:00" Grid.Column="2"/>
-                </Grid>
-
-                <!-- Row 3 -->
-                <Grid x:Name="FileNameGrid" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="Auto" Margin="0,0,0,-4" Column="0" Row="3" ColumnSpan="4">
-                    <Label x:Name="LabelFileName" HorizontalContentAlignment="Center" Opacity="0.6" HorizontalAlignment="Center"/>
-                </Grid>
-                <Image x:Name="InternetConPic" Grid.Row="3" Grid.Column="4" Source="internetCon/network-disconnect-3.png" MouseDown="WindowMediaPLayer_Loaded"/>
-
+                <TextBlock Text="{Binding ElementName=ProgressVolume, Path=Value, StringFormat=Vol. {0:0%}}" IsHitTestVisible="False"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" UseLayoutRounding="False" />
             </Grid>
-        </DockPanel>
+            <Grid Column="0" Row="2">
+                <Image x:Name="SoundBoxPic" Source="soundVol/audio-volume-medium.png" Margin="3,0,3,0" VerticalAlignment="Bottom" Height="20"/>
+            </Grid>
+            <!--End ProgressBar Volume-->
+
+            <Grid x:Name="TimeStampGrid" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Column="3" Row="2" ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="LabelCurrentTime" MinWidth="30" Content="00:00:00" Grid.Column="0" HorizontalContentAlignment="Right"/>
+                <Label x:Name="LabelTimeDivider" MinWidth="30" Content="/" Grid.Column="1"/>
+                <Label x:Name="LabelMaxTime" MinWidth="30" Content="00:00:00" Grid.Column="2"/>
+            </Grid>
+
+            <!-- Row 3 -->
+            <Grid x:Name="FileNameGrid" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="Auto" Margin="0,0,0,-4" Column="0" Row="3" ColumnSpan="4">
+                <Label x:Name="LabelFileName" HorizontalContentAlignment="Center" Opacity="0.6" HorizontalAlignment="Center"/>
+            </Grid>
+            <Image x:Name="InternetConPic" Grid.Row="3" Grid.Column="4" Source="internetCon/network-disconnect-3.png" MouseDown="WindowMediaPLayer_Loaded"/>
+
+        </Grid>
     </Grid>
 
 </Window>
