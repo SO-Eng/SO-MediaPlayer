@@ -320,6 +320,11 @@
         <Setter Property="Foreground" Value="LightGray" />
     </Style>
 
+    <!--AddRadiostation ChackBox-->
+    <Style x:Key="CheckBoxAddFav" TargetType="{x:Type CheckBox}">
+        <Setter Property="Foreground" Value="LightGray" />
+    </Style>
+
 
     <!--Scrollbar Thumbs-->
     <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">

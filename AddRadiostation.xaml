@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SO_Mediaplayer"
         mc:Ignorable="d"
-        Title="{DynamicResource ResourceKey=AddStationWindow_Title}" Width="564.688" Icon="ico/headphones.ico" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Height="300">
+        Title="{DynamicResource ResourceKey=AddStationWindow_Title}" 
+        Width="564.688" Icon="ico/headphones.ico" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Height="300"
+        Style="{DynamicResource ResourceKey=MainWindowStyle}" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
@@ -27,24 +29,25 @@
         </Grid.RowDefinitions>
 
         <!-- Row 1 -->
-        <Label x:Name="LabelDescription" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Label Style="{DynamicResource LabelStyle}" x:Name="LabelDescription" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
             <TextBlock x:Name="TextBlockDescr" TextWrapping="Wrap" />
         </Label>
 
         <!-- Row 2 -->
-        <Label x:Name="LabelStationName" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{DynamicResource ResourceKey=Label_Radiostation}"/>
-        <TextBox x:Name="TextBoxStationName" Grid.Row="2" Grid.Column="2" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Margin="5,0,50,0"/>
-        <Label x:Name="LabelBitRate" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="{DynamicResource ResourceKey=Label_Bitrate}"/>
-        <TextBox x:Name="TextBoxBitrate" Grid.Row="2" Grid.Column="4" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Margin="5,0"
+        <Label Style="{DynamicResource LabelStyle}" x:Name="LabelStationName" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{DynamicResource ResourceKey=Label_Radiostation}"/>
+        <TextBox Style="{DynamicResource TextBoxSearch}" x:Name="TextBoxStationName" Grid.Row="2" Grid.Column="2" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Margin="5,0,50,0"/>
+        <Label Style="{DynamicResource LabelStyle}" x:Name="LabelBitRate" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="{DynamicResource ResourceKey=Label_Bitrate}"/>
+        <TextBox Style="{DynamicResource TextBoxSearch}" x:Name="TextBoxBitrate" Grid.Row="2" Grid.Column="4" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Margin="5,0"
                  PreviewTextInput="NumberValidationTextBox"/>
 
         <!-- Row 3 -->
-        <Label x:Name="LabelUrl" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{DynamicResource ResourceKey=Label_WebURL}"/>
-        <TextBox x:Name="TextBoxUrl" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Height="25" VerticalAlignment="Bottom" Margin="5,0" VerticalContentAlignment="Center"/>
+        <Label Style="{DynamicResource LabelStyle}" x:Name="LabelUrl" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{DynamicResource ResourceKey=Label_WebURL}"/>
+        <TextBox Style="{DynamicResource TextBoxSearch}" x:Name="TextBoxUrl" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Height="25" VerticalAlignment="Bottom" Margin="5,0" VerticalContentAlignment="Center"/>
 
         <!-- Row 4 -->
-        <Label x:Name="LabelFav" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{DynamicResource ResourceKey=Label_Favorite}" />
-        <CheckBox x:Name="CheckBoxFav" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" Content="{DynamicResource ResourceKey=ChkBox_DirectFav}"/>
+        <Label Style="{DynamicResource LabelStyle}" x:Name="LabelFav" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{DynamicResource ResourceKey=Label_Favorite}" />
+        <CheckBox Style="{DynamicResource CheckBoxAddFav}" x:Name="CheckBoxFav" Grid.Row="4" Grid.Column="2" 
+                  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" Content="{DynamicResource ResourceKey=ChkBox_DirectFav}"/>
         <!-- Row 5 -->
         <Button x:Name="ButtonPrelisten" Grid.Row="5" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="80" Content="{DynamicResource ResourceKey=Button_Prelisten}" Click="ButtonPrelisten_Click" />
         <Button x:Name="ButtonAdd" Grid.Row="5" Grid.Column="4" VerticalAlignment="Bottom" Margin="0,0,5,0" Content="{DynamicResource ResourceKey=Button_Add}"  IsEnabled="False" ToolTip="{DynamicResource ResourceKey=Button_Add-Tooltip}" ToolTipService.ShowOnDisabled="True" Click="ButtonAdd_Click" />
