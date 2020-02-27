@@ -112,6 +112,8 @@ namespace SO_Mediaplayer
             ElliTimePos();
 
             SetLanguageStartUp();
+
+            LightStyle.IsChecked = true;
         }
 
         private void SetLanguageStartUp()

@@ -16,7 +16,7 @@ namespace SO_Mediaplayer
         public static App Instance;
         public static String Directory;
         public event EventHandler LanguageChangedEvent;
-        private String _DefaultStyle = "DarkStyle.xaml";
+        private String _DefaultStyle = "LightStyle.xaml";
         #endregion
 
         #region Constructor

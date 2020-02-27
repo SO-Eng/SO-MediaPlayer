@@ -127,13 +127,13 @@
             </Menu>
             <DockPanel Style="{DynamicResource DockPanelUpperMenu}" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
                 <DockPanel Margin="10,0,0,0" >
-                    <Button x:Name="ButtonOpen" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_FileOpen}" Click="ButtonOpen_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpen" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_FileOpen}" Click="ButtonOpen_Click" Background="{x:Null}" BorderBrush="{x:Null}">
                         <Image x:Name="ImageOpenPic" Source="icons/folder-music.png"/>
                     </Button>
-                    <Button x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenFolder}" Click="ButtonOpenFolder_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenFolder}" Click="ButtonOpenFolder_Click" Background="{x:Null}" BorderBrush="{x:Null}">
                         <Image x:Name="ImageOpenFolderPic" Source="icons/folder-tar.png"/>
                     </Button>
-                    <Button x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenWebstation}" Click="ButtonOpenWeb_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenWebstation}" Click="ButtonOpenWeb_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
                         <Image x:Name="ImageOpenWebPic" Source="icons/folder-html.png"/>
                     </Button>
                 </DockPanel>
@@ -148,22 +148,22 @@
                     </Separator.RenderTransform>
                 </Separator>
                 <DockPanel >
-                    <Button x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
                         <Image x:Name="ImageSkipBackwardPic" Source="icons/skip-backward.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Next}" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Next}" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
                         <Image x:Name="ImageSkipForwardPic" Source="icons/skip-forward.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonStop" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Stop}" IsEnabled="False" Click="ButtonStop_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonStop" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Stop}" IsEnabled="False" Click="ButtonStop_Click" Background="{x:Null}" BorderBrush="{x:Null}">
                         <Image x:Name="ImageStopPic" Source="icons/stop.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Play}" IsEnabled="False" Click="ButtonPlayPause_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Play}" IsEnabled="False" Click="ButtonPlayPause_Click" Background="{x:Null}" BorderBrush="{x:Null}">
                         <Image x:Name="ImagePlayPic" Source="icons/play.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Backward}" IsEnabled="False" Click="ButtonBackwards_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Backward}" IsEnabled="False" Click="ButtonBackwards_Click" Background="{x:Null}" BorderBrush="{x:Null}">
                         <Image x:Name="ImageBackwardPic" Source="icons/backward.png" Opacity="0.5"/>
                     </Button>
-                    <Button x:Name="ButtonForwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Forward}" IsEnabled="False" Click="ButtonForwards_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonForwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Forward}" IsEnabled="False" Click="ButtonForwards_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
                         <Image x:Name="ImageForwardPic" Source="icons/forward.png" Opacity="0.5"/>
                     </Button>
                 </DockPanel>
