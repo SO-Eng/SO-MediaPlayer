@@ -171,8 +171,8 @@
 
             <!--Mediabereich-->
 
-            <TextBlock x:Name="TextBlockFavListHeader" Grid.Row="2" Grid.Column="0" Height="20" VerticalAlignment="Top" 
-                       Background="White" TextAlignment="Center" Visibility="Collapsed" />
+            <TextBlock Style="{DynamicResource TextBlockFav}" x:Name="TextBlockFavListHeader" Grid.Row="2" Grid.Column="0" Height="20" VerticalAlignment="Top" 
+                       TextAlignment="Center" Visibility="Collapsed" />
 
             <!-- Favoriten-Liste -->
             <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="ListSelectionWebFav" CanUserDeleteRows="False" Visibility="Collapsed"
@@ -206,13 +206,13 @@
             </GridSplitter>
 
             <!-- Searchbox -->
-            <StackPanel x:Name="StackPanelSearch" Grid.Row="4" Grid.Column="0" Background="White" Visibility="Collapsed" >
+            <StackPanel Style="{DynamicResource StackPanelSearch}" x:Name="StackPanelSearch" Grid.Row="4" Grid.Column="0" Visibility="Collapsed" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1.25*" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="TextBoxSearch" Grid.Column="0" Height="20" Width="150" Margin="5,3,0,0" HorizontalAlignment="Left" 
+                    <TextBox Style="{DynamicResource TextBoxSearch}" x:Name="TextBoxSearch" Grid.Column="0" Height="20" Width="150" Margin="5,3,0,0" HorizontalAlignment="Left" 
                              Text="{DynamicResource ResourceKey=TextBox_Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
                               KeyUp="TextBoxSearch_KeyUp" CharacterCasing="Lower" />
                     <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="{DynamicResource ResourceKey=Button_ClearSearch}" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
