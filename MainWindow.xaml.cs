@@ -1389,8 +1389,15 @@ namespace SO_Mediaplayer
             }
 
         }
+        private void AboutMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            About about = new About();
+            about.Show();
+            about.Owner = this;
+        }
 
         #endregion
+
     }
 }
 

@@ -1,0 +1,22 @@
+﻿<Window x:Class="SO_Mediaplayer.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SO_Mediaplayer"
+        mc:Ignorable="d"
+        Title="{DynamicResource ResourceKey=AddStationWindow_Title}" Height="400" Width="500"
+        Style="{DynamicResource ResourceKey=MainWindowStyle}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
+    <Grid>
+        <StackPanel>
+            <TextBlock Style="{DynamicResource AboutTextBlockHeader}" Margin="40,10,40,10" Text="{DynamicResource ResourceKey=AboutHeader}"
+                       TextAlignment="Center" FontWeight="Bold" FontSize="14"/>
+            <StackPanel Margin="40,0,40,10">
+                <ScrollViewer>
+                    <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo}" TextWrapping="Wrap"
+                               TextAlignment="Justify"/>
+                </ScrollViewer>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

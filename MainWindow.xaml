@@ -122,7 +122,7 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Help}">
-                    <MenuItem x:Name="AboutMenu" Header="{DynamicResource ResourceKey=Menu_Help-About}"></MenuItem>
+                    <MenuItem x:Name="AboutMenu" Header="{DynamicResource ResourceKey=Menu_Help-About}" Click="AboutMenu_OnClick" />
                 </MenuItem>
             </Menu>
             <DockPanel Style="{DynamicResource DockPanelUpperMenu}" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">

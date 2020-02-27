@@ -407,6 +407,15 @@
         </Setter>
     </Style>
 
-
+    
+    <!--About Header-->
+    <Style x:Key="AboutTextBlockHeader" TargetType="TextBlock">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+    </Style>
+    <Style x:Key="AboutTextBlockInfo" TargetType="TextBlock">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+    </Style>
 
 </ResourceDictionary>

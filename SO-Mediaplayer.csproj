@@ -60,6 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddRadiostation.xaml.cs">
       <DependentUpon>AddRadiostation.xaml</DependentUpon>
     </Compile>
@@ -67,6 +70,10 @@
     <Compile Include="Models\WebStations.cs" />
     <Compile Include="SetLanguages.cs" />
     <Compile Include="WebFileProcessor\WebFileProcessor.cs" />
+    <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddRadiostation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

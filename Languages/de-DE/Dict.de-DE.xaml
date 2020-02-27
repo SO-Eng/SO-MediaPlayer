@@ -89,5 +89,8 @@
     <!-- Fav-Title -->
     <sys:String x:Key="TextBlock_Fav">Favoriten-Liste</sys:String>
 
+    <!--About Window-->
+    <sys:String x:Key="AboutHeader">Info über SoftwOrt-Mediaplayer</sys:String>
+    <sys:String x:Key="AboutTextInfo">Hier kommt Text über den Player sowie\nLinks und Haftung...</sys:String>
 
 </ResourceDictionary>
