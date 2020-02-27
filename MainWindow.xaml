@@ -175,15 +175,15 @@
                        Background="White" TextAlignment="Center" Visibility="Collapsed" />
 
             <!-- Favoriten-Liste -->
-            <DataGrid x:Name="ListSelectionWebFav" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed"
+            <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="ListSelectionWebFav" CanUserDeleteRows="False" Visibility="Collapsed"
                       CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier" CanUserReorderColumns="False" IsReadOnly="True"
-                      AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
-                      SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="2" Grid.Column="0" Margin="0,20,0,0" PreviewKeyDown="ListSelection_PreviewKeyDown" >
+                      AutoGenerateColumns="False" GridLinesVisibility="Horizontal" SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="2" 
+                      Grid.Column="0" Margin="0,20,0,0" PreviewKeyDown="ListSelection_PreviewKeyDown" >
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="FavsSortFav" CanUserSort="True" SortMemberPath="StationFav">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxFav_Click" />
+                                <CheckBox Style="{DynamicResource CheckBoxDataGrid}" Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxFav_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -220,16 +220,16 @@
             </StackPanel>
 
             <!-- Webstation-Liste -->
-            <DataGrid x:Name="ListSelectionWeb" AlternatingRowBackground="GhostWhite" CanUserDeleteRows="False" Visibility="Collapsed" CanUserReorderColumns="False" IsReadOnly="True"
-                      CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"
-                      AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="AliceBlue"
+            <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="ListSelectionWeb" CanUserDeleteRows="False" Visibility="Collapsed" CanUserReorderColumns="False" 
+                      IsReadOnly="True" CanUserAddRows="False" CanUserSortColumns="True" SelectionChanged="ListIdentifier" IsTextSearchEnabled="True" 
+                      IsTextSearchCaseSensitive="False" AutoGenerateColumns="False" GridLinesVisibility="Horizontal"
                       SelectionMode="Single" BorderBrush="{x:Null}" Grid.Row="5" Grid.Column="0"
                       PreviewKeyDown="ListSelection_PreviewKeyDown" >
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="FavsSort" Header="{DynamicResource ResourceKey=WebList_Fav}" CanUserSort="True" SortMemberPath="StationFav">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxList_Click" />
+                                <CheckBox Style="{DynamicResource CheckBoxDataGrid}" Name="CheckBoxFav" IsChecked="{Binding Path=StationFav, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="CheckBoxList_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
