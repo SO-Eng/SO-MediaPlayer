@@ -25,6 +25,9 @@
     <sys:String x:Key="Menu_Sett-English">_Inglés</sys:String>
     <sys:String x:Key="Menu_Sett-German">_Alemán</sys:String>
     <sys:String x:Key="Menu_Sett-Spanish">_Español</sys:String>
+    <sys:String x:Key="Menu_Sett-Style">_Antecedentes</sys:String>
+    <sys:String x:Key="Menu_Sett-Light">_Luminoso</sys:String>
+    <sys:String x:Key="Menu_Sett-Dark">_Oscuro</sys:String>
     <!-- Menu Playback -->
     <sys:String x:Key="Menu_Playback">_Reproducción</sys:String>
     <sys:String x:Key="Menu_Pb-Play">_Reproducir</sys:String>
@@ -90,7 +93,46 @@
 
 
     <!--About Window-->
-    <sys:String x:Key="AboutHeader">Info about SoftwOrt-Mediaplayer</sys:String>
-    <sys:String x:Key="AboutTextInfo">Hier kommt Text über den Player sowie\nLinks und Haftung... (spanisch)</sys:String>
+    <sys:String x:Key="AboutWindow_Title">SoftwOrt-Mediaplayer: About</sys:String>
+    <sys:String x:Key="AboutHeader">Info über SoftwOrt-Mediaplayer</sys:String>
+    <sys:String x:Key="AboutTextInfo1">Dieser Mediaplayer baut auf eine Übung aus meinem Studium zum geprüften Programmierer in C# an der Fernuniversität Hamburg (ILS) auf.
+        In dieser Übung handelt es sich um die Erstellung eines Mediaplayers zum öffnen einzelner Mediendateien (Audio &amp; Video), das abspielen, pausieren und anhalten Dieser.
+        Eine Erweiterung bestand darin, Vor- und Zurückspulen zu können (10 sek.).
+    </sys:String>
+    <sys:String x:Key="AboutTextInfo2">Basierend auf dieser Übung des Mediaplayers habe ich Diesen unter anderem mit folgenden Funktionen erweitert:</sys:String>
+
+    <sys:String x:Key="AboutLabel1">- Öffnen von Mediensammlungen (Ordnern)</sys:String>
+    <sys:String x:Key="AboutLabel2">- Anzeigen in einer Liste</sys:String>
+    <sys:String x:Key="AboutLabel3">- Das springen von Titeln in dieser Liste (Skip Funktion)</sys:String>
+    <sys:String x:Key="AboutLabel4">- Aktuelle Titelzeit und –dauer</sys:String>
+    <sys:String x:Key="AboutLabel5">- Titelstatusleiste</sys:String>
+    <sys:String x:Key="AboutLabel6">- Erweiterung und Einbindung für Internetradio*</sys:String>
+    <sys:String x:Key="AboutLabel7">- Radiosenderliste</sys:String>
+    <sys:String x:Key="AboutLabel8">- Favoritenliste</sys:String>
+    <sys:String x:Key="AboutLabel9">- Suchfunktion</sys:String>
+    <sys:String x:Key="AboutLabel10">- Hinzufügen von Radiosendern</sys:String>
+    <sys:String x:Key="AboutLabel11">- Speichern der Listen</sys:String>
+    <sys:String x:Key="AboutLabel12">- Ansichtsmenü</sys:String>
+    <sys:String x:Key="AboutLabel13">- Sprachauswahl</sys:String>
+    <sys:String x:Key="AboutLabel14">- Hell- und Dunkelmodus</sys:String>
+    <sys:String x:Key="AboutLabel15">- Wiederholungsfunktion und Zufällige Titelauswahl</sys:String>
+
+    <sys:String x:Key="AboutTextInfo3">Ich freue mich, wenn Sie gefallen an dem Mediaplayer finden und ihn vielleicht sogar in Ihren Alltag einbinden. 
+        Gerne können Sie mir Anregungen schreiben oder auch Fehler melden auf:
+    </sys:String>
+    <sys:String x:Key="AboutTextInfo4">Quellenangabe zu den verwendeten Icons (kostenlose Icon-Bibliothek):</sys:String>
+    <sys:String x:Key="AboutTextInfo5">Quellenangabe zu verwendeten Bildern (Audio / Webradio):</sys:String>
+    <sys:String x:Key="AboutTextInfo6">Audio-Background: Photo by Israel Palacio</sys:String>
+    <sys:String x:Key="AboutTextInfo7">Internetradio-Background: Photo by Marcela Laskoski</sys:String>
+    <sys:String x:Key="AboutTextInfo8">Beide Bilder zu finden auf Unsplash</sys:String>
+    <sys:String x:Key="AboutTextInfo9">Quellenangabe zu Programm-Icon (Headphones):</sys:String>
+    <sys:String x:Key="AboutTextInfo10">Icon graphic is free comercial use of license and has to be announced:
+        "Icon made by UI Super Basic perfect from www.flaticon.com"
+    </sys:String>
+    <sys:String x:Key="AboutTextInfo11">*Achtung, der Ersteller des Programms weist auf folgendes hin:
+        Internetradio ist ein Streamingdienst der auch von diesem Programm (SoftwOrt-Mediaplayer) genutzt werden kann. 
+        Die Nutzung dieses kostenlosen Dienstes kann zu hohem Datenvolumen / Datenverbrauch führen! Bitte beachten Sie dies 
+        bei der Nutzung. Es wird dafür eine Internetflatrate empfohlen um unerwünschte und ggf. hohe Kosten zu vermeiden!
+        Der Ersteller des Programms übernimmt keinerlei Haftung.</sys:String>
 
 </ResourceDictionary>

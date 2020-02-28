@@ -75,9 +75,9 @@
                         <MenuItem Tag="de-DE" Header="{DynamicResource ResourceKey=Menu_Sett-German}" Click="MenuItem_Lang_Click" />
                         <MenuItem Tag="es-ES" Header="{DynamicResource ResourceKey=Menu_Sett-Spanish}" Click="MenuItem_Lang_Click" />
                     </MenuItem>
-                    <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Name="MenuItemStyle" Header="_Styles">
-                        <MenuItem Name="LightStyle" Header="_Light" Click="MenuItem_Style_Click" />
-                        <MenuItem Name="DarkStyle" Header="_Dark" Click="MenuItem_Style_Click" />
+                    <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Name="MenuItemStyle" Header="{DynamicResource ResourceKey=Menu_Sett-Style}">
+                        <MenuItem Name="LightStyle" Header="{DynamicResource ResourceKey=Menu_Sett-Light}" Click="MenuItem_Style_Click" />
+                        <MenuItem Name="DarkStyle" Header="{DynamicResource ResourceKey=Menu_Sett-Dark}" Click="MenuItem_Style_Click" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Playback}">

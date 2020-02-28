@@ -417,6 +417,10 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="LightGray"/>
     </Style>
+    <Style x:Key="AboutLabelInfo" TargetType="Label">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+    </Style>
 
 
     <!--ControllButtons (Upper DockPanel)-->
