@@ -91,7 +91,16 @@ namespace SO_Mediaplayer
         readonly List<WebStations> webStationList = new List<WebStations>();
 
         private SetLanguages Sl;
+        private string thumbButton;
+        public BitmapImage ButtonSkipBackwardGraphic { get; set; }
+        public BitmapImage ButtonSkipForwardGraphic { get; set; }
+        public BitmapImage ButtonStopGraphic { get; set; }
+        public BitmapImage ButtonPlayGraphic { get; set; }
+        public BitmapImage ButtonPauseGraphic { get; set; }
+        public BitmapImage ButtonBackwardGraphic { get; set; }
+        public BitmapImage ButtonForwardGraphic { get; set; }
 
+        private Buttons buttons = new Buttons();
         #endregion
 
 
@@ -113,7 +122,11 @@ namespace SO_Mediaplayer
 
             SetLanguageStartUp();
 
+            // Light-/Darkmode
             LightStyle.IsChecked = true;
+            // Buttonstyle
+            Buttons3.IsChecked = true;
+            SetButtonsStartUp();
         }
 
         private void SetLanguageStartUp()
@@ -141,6 +154,18 @@ namespace SO_Mediaplayer
             DgcStationName.Header = Sl.WebListStationName;
             DgcBitrate.Header = Sl.WebListBitrate;
             DgcWebUrl.Header = Sl.WebListWebUrl;
+        }
+
+        private void SetButtonsStartUp()
+        {
+            foreach (MenuItem item in MenuItemButtons.Items)
+            {
+                if (item.IsChecked)
+                {
+                    thumbButton = item.Name;
+                    MenuItem_Buttons_Click(item, new RoutedEventArgs());
+                }
+            }
         }
 
         private void ElliTimePos()
@@ -384,7 +409,6 @@ namespace SO_Mediaplayer
             PlayMenu.IsEnabled = true;
             StopMenu.IsEnabled = true;
             NextMenu.IsEnabled = true;
-
             PreviousMenu.IsEnabled = true;
             ButtonPlayPause.IsEnabled = true;
             ThumbButtonPlay.IsEnabled = true;
@@ -397,6 +421,14 @@ namespace SO_Mediaplayer
             ButtonSkipForward.IsEnabled = true;
             ImageSkipForwardPic.Opacity = 0.85;
             ForwardMenu.IsEnabled = true;
+
+            ButtonBackwards.IsEnabled = false;
+            ButtonForwards.IsEnabled = false;
+            ImageForwardPic.Opacity = 0.5;
+            ImageBackwardPic.Opacity = 0.5;
+            ForwardMenu.IsEnabled = false;
+            BackwardMenu.IsEnabled = false;
+
 
             fileLoaded = true;
             startTime = DateTime.Now;
@@ -571,16 +603,16 @@ namespace SO_Mediaplayer
                 PreviousMenu.IsEnabled = true;
                 timerWeb.Stop();
             }
-            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/stop.png"));
+            //TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/Buttons1/stop.png"));
         }
 
 
         // Bilder tauschen (Play || Pause)
         void ImagePlay()
         {
-            ImagePlayPic.Source = new BitmapImage(new Uri("icons/play.png", UriKind.Relative));
-            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
-            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/play.png"));
+            ImagePlayPic.Source = ButtonPlayGraphic;
+            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/play.png"));
+            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/play.png"));
             ThumbButtonPlay.Description = Sl.Play;
             ButtonPlayPause.ToolTip = Sl.Play;
             PlayMenu.Header = Sl.MenuPlay;
@@ -589,9 +621,9 @@ namespace SO_Mediaplayer
 
         void ImagePause()
         {
-            ImagePlayPic.Source = new BitmapImage(new Uri("icons/pause.png", UriKind.Relative));
-            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
-            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/pause.png"));
+            ImagePlayPic.Source = ButtonPauseGraphic;
+            TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/pause.png"));
+            ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/pause.png"));
             ThumbButtonPlay.Description = Sl.Pause;
             ButtonPlayPause.ToolTip = Sl.Pause;
             PlayMenu.Header = Sl.MenuPause;
@@ -1379,7 +1411,7 @@ namespace SO_Mediaplayer
             MenuItem miStyle = sender as MenuItem;
             miStyle.IsChecked = true;
             string stylefile = Path.Combine(App.Directory, "Styles", miStyle.Name + ".xaml");
-            App.Instance.LoadStyleDictionaryFromFile(stylefile);
+            App.Instance.LoadButtonsDictionaryFromFile(stylefile);
 
             // Load language again!
             foreach (MenuItem item in MenuItemLanguages.Items)
@@ -1391,6 +1423,55 @@ namespace SO_Mediaplayer
             }
 
         }
+        private void MenuItem_Buttons_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (MenuItem item in MenuItemButtons.Items)
+            {
+                item.IsChecked = false;
+            }
+
+            MenuItem miButton = sender as MenuItem;
+            miButton.IsChecked = true;
+            thumbButton = miButton.Name;
+
+            ButtonSkipBackwardGraphic = new BitmapImage(buttons.SetButtonSkipBackward(miButton.Name));
+            ButtonSkipForwardGraphic = new BitmapImage(buttons.SetButtonSkipForward(miButton.Name));
+            ButtonStopGraphic = new BitmapImage(buttons.SetButtonStop(miButton.Name));
+            ButtonPlayGraphic = new BitmapImage(buttons.SetButtonPlay(miButton.Name));
+            ButtonPauseGraphic = new BitmapImage(buttons.SetButtonPause(miButton.Name));
+            ButtonBackwardGraphic = new BitmapImage(buttons.SetButtonBackward(miButton.Name));
+            ButtonForwardGraphic = new BitmapImage(buttons.SetButtonForward(miButton.Name));
+            
+            SetGraphicButtons(sender, e);
+        }
+
+        private void SetGraphicButtons(object sender, RoutedEventArgs e)
+        {
+            ImageSkipBackwardPic.Source = ButtonSkipBackwardGraphic;
+            ImageSkipForwardPic.Source = ButtonSkipForwardGraphic;
+            ImageStopPic.Source = ButtonStopGraphic;
+            ImagePlayPic.Source = ButtonPlayGraphic;
+            ImageBackwardPic.Source = ButtonBackwardGraphic;
+            ImageForwardPic.Source = ButtonForwardGraphic;
+
+            ThumbButtonPrevious.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/skip-backward.png"));
+            ThumbButtonNext.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/skip-forward.png"));
+
+            if (playing)
+            {
+                ImagePlayPic.Source = ButtonPauseGraphic;
+                TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/pause.png"));
+                ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/pause.png"));
+            }
+            else
+            {
+                ImagePlayPic.Source = ButtonPlayGraphic;
+                TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/play.png"));
+                ThumbButtonPlay.ImageSource = new BitmapImage(new Uri("pack://application:,,,/icons/" + thumbButton + "/play.png"));
+            }
+
+        }
+
         private void AboutMenu_OnClick(object sender, RoutedEventArgs e)
         {
             About about = new About();

@@ -29,6 +29,10 @@
     <sys:String x:Key="Menu_Sett-Style">_Hintergrund</sys:String>
     <sys:String x:Key="Menu_Sett-Light">_Hell</sys:String>
     <sys:String x:Key="Menu_Sett-Dark">_Dunkel</sys:String>
+    <sys:String x:Key="Menu_Sett-Buttons">Schalt_flächen</sys:String>
+    <sys:String x:Key="Menu_Sett-Buttons1">Schaltfläche  _1</sys:String>
+    <sys:String x:Key="Menu_Sett-Buttons2">Schaltfläche  _2</sys:String>
+    <sys:String x:Key="Menu_Sett-Buttons3">Schaltfläche  _3</sys:String>
     <!-- Menu Playback -->
     <sys:String x:Key="Menu_Playback">_Wiedergabe</sys:String>
     <sys:String x:Key="Menu_Pb-Play">_Abspielen</sys:String>

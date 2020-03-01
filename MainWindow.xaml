@@ -11,9 +11,9 @@
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskbarItemInfo">
             <TaskbarItemInfo.ThumbButtonInfos>
-                <ThumbButtonInfo x:Name="ThumbButtonPrevious" ImageSource="icons/skip-backward.png" Description="{DynamicResource ResourceKey=ThumbNail_Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click"/>
-                <ThumbButtonInfo x:Name="ThumbButtonPlay" ImageSource="icons/play.png" Description="{DynamicResource ResourceKey=ThumbNail_Play}" Click="ButtonPlayPause_Click" IsEnabled="False"/>
-                <ThumbButtonInfo x:Name="ThumbButtonNext" ImageSource="icons/skip-forward.png" Description="{DynamicResource ResourceKey=ThumbNail_Next}" IsEnabled="False" Click="ButtonSkipForward_Click"/>
+                <ThumbButtonInfo x:Name="ThumbButtonPrevious" Description="{DynamicResource ResourceKey=ThumbNail_Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click"/>
+                <ThumbButtonInfo x:Name="ThumbButtonPlay" Description="{DynamicResource ResourceKey=ThumbNail_Play}" Click="ButtonPlayPause_Click" IsEnabled="False"/>
+                <ThumbButtonInfo x:Name="ThumbButtonNext" Description="{DynamicResource ResourceKey=ThumbNail_Next}" IsEnabled="False" Click="ButtonSkipForward_Click"/>
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
     </Window.TaskbarItemInfo>
@@ -78,6 +78,11 @@
                     <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Name="MenuItemStyle" Header="{DynamicResource ResourceKey=Menu_Sett-Style}">
                         <MenuItem Name="LightStyle" Header="{DynamicResource ResourceKey=Menu_Sett-Light}" Click="MenuItem_Style_Click" />
                         <MenuItem Name="DarkStyle" Header="{DynamicResource ResourceKey=Menu_Sett-Dark}" Click="MenuItem_Style_Click" />
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Name="MenuItemButtons" Header="{DynamicResource ResourceKey=Menu_Sett-Buttons}">
+                        <MenuItem Name="Buttons1" Header="{DynamicResource ResourceKey=Menu_Sett-Buttons1}" Click="MenuItem_Buttons_Click" />
+                        <MenuItem Name="Buttons2" Header="{DynamicResource ResourceKey=Menu_Sett-Buttons2}" Click="MenuItem_Buttons_Click" />
+                        <MenuItem Name="Buttons3" Header="{DynamicResource ResourceKey=Menu_Sett-Buttons3}" Click="MenuItem_Buttons_Click" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Style="{DynamicResource MenuItemBaseStyle}" Header="{DynamicResource ResourceKey=Menu_Playback}">
@@ -149,22 +154,22 @@
                 </Separator>
                 <DockPanel >
                     <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
-                        <Image x:Name="ImageSkipBackwardPic" Source="icons/skip-backward.png" Opacity="0.5"/>
+                        <Image x:Name="ImageSkipBackwardPic" Opacity="0.5"/>
                     </Button>
                     <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Next}" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
-                        <Image x:Name="ImageSkipForwardPic" Source="icons/skip-forward.png" Opacity="0.5"/>
+                        <Image x:Name="ImageSkipForwardPic" Opacity="0.5"/>
                     </Button>
                     <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonStop" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Stop}" IsEnabled="False" Click="ButtonStop_Click" Background="{x:Null}" BorderBrush="{x:Null}">
-                        <Image x:Name="ImageStopPic" Source="icons/stop.png" Opacity="0.5"/>
+                        <Image x:Name="ImageStopPic" Opacity="0.5"/>
                     </Button>
                     <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Play}" IsEnabled="False" Click="ButtonPlayPause_Click" Background="{x:Null}" BorderBrush="{x:Null}">
-                        <Image x:Name="ImagePlayPic" Source="icons/play.png" Opacity="0.5"/>
+                        <Image x:Name="ImagePlayPic" Opacity="0.5"/>
                     </Button>
                     <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Backward}" IsEnabled="False" Click="ButtonBackwards_Click" Background="{x:Null}" BorderBrush="{x:Null}">
-                        <Image x:Name="ImageBackwardPic" Source="icons/backward.png" Opacity="0.5"/>
+                        <Image x:Name="ImageBackwardPic" Opacity="0.5"/>
                     </Button>
                     <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonForwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Forward}" IsEnabled="False" Click="ButtonForwards_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
-                        <Image x:Name="ImageForwardPic" Source="icons/forward.png" Opacity="0.5"/>
+                        <Image x:Name="ImageForwardPic" Opacity="0.5"/>
                     </Button>
                 </DockPanel>
             </DockPanel>

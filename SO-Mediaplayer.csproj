@@ -81,6 +81,7 @@
     <Compile Include="AddRadiostation.xaml.cs">
       <DependentUpon>AddRadiostation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Buttons.cs" />
     <Compile Include="Models\FolderPick.cs" />
     <Compile Include="Models\WebStations.cs" />
     <Compile Include="SetLanguages.cs" />
@@ -93,6 +94,48 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Content Include="icons\Buttons3\backward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons3\forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons3\pause.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons3\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons3\skip-backward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons3\skip-forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons3\stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons2\backward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons2\forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons2\pause.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons2\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons2\skip-backward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons2\skip-forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons2\stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Languages\en-US\Dict.en-US.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -162,13 +205,23 @@
     <Resource Include="ico\headphones.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\pause.png" />
-    <Resource Include="icons\play.png" />
-    <Resource Include="icons\stop.png" />
-    <Resource Include="icons\backward.png" />
+    <Content Include="icons\Buttons1\pause.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons1\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons1\stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons1\backward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\forward.png" />
+    <Content Include="icons\Buttons1\forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="musicBackground\radio.jpg" />
@@ -194,8 +247,12 @@
     <Resource Include="icons\menu\menu-skip-forward.png" />
     <Resource Include="icons\menu\close.png" />
     <Resource Include="icons\menu\addWeb.png" />
-    <Resource Include="icons\skip-backward.png" />
-    <Resource Include="icons\skip-forward.png" />
+    <Content Include="icons\Buttons1\skip-backward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Buttons1\skip-forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icons\openFile.png" />
     <Resource Include="icons\openFolder.png" />
     <Resource Include="icons\openWeb.png" />
@@ -212,5 +269,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
