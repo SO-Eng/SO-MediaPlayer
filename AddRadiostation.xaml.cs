@@ -28,14 +28,26 @@ namespace SO_Mediaplayer
 
 
         #region Methods
-        public AddRadiostation(string lang)
+        public AddRadiostation(string lang, double top, double left)
         {
             InitializeComponent();
             Sl = new SetLanguages(lang);
 
+            this.Top = top - Height / 2;
+            this.Left = left - Width / 2;
+
             LabelDescrContent();
 
             TextBoxStationName.Focus();
+
+            FillComboBoxBitrate();
+        }
+
+        private void FillComboBoxBitrate()
+        {
+            string[] bitrates = new string[7] {"0", "48", "96", "128", "196", "256", "392"};
+            ComboBoxBitrate.ItemsSource = bitrates;
+            ComboBoxBitrate.SelectedIndex = 0;
         }
 
         private void LabelDescrContent()
@@ -83,14 +95,7 @@ namespace SO_Mediaplayer
             StationName = TextBoxStationName.Text;
             StationUrl = TextBoxUrl.Text;
 
-            if (TextBoxBitrate.Text != string.Empty)
-            {
-                BitRate = TextBoxBitrate.Text;
-            }
-            else
-            {
-                BitRate = "0";
-            }
+            BitRate = ComboBoxBitrate.Text;
 
             if (CheckBoxFav.IsChecked == true)
             {
@@ -102,13 +107,6 @@ namespace SO_Mediaplayer
             }
 
             DialogResult = true;
-        }
-
-        // Nur Zahlen in Textbox fuer Bitrate zulassen
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
 
         #endregion

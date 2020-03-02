@@ -28,6 +28,11 @@
     <sys:String x:Key="Menu_Sett-Style">_Antecedentes</sys:String>
     <sys:String x:Key="Menu_Sett-Light">_Luminoso</sys:String>
     <sys:String x:Key="Menu_Sett-Dark">_Oscuro</sys:String>
+    <sys:String x:Key="Menu_Sett-Buttons">_Paneles de control</sys:String>
+    <sys:String x:Key="Menu_Sett-Buttons1">Bottones  _1</sys:String>
+    <sys:String x:Key="Menu_Sett-Buttons2">Bottones  _2</sys:String>
+    <sys:String x:Key="Menu_Sett-Buttons3">Bottones  _3</sys:String>
+
     <!-- Menu Playback -->
     <sys:String x:Key="Menu_Playback">_Reproducción</sys:String>
     <sys:String x:Key="Menu_Pb-Play">_Reproducir</sys:String>

@@ -172,6 +172,20 @@
                         <Image x:Name="ImageForwardPic" Opacity="0.5"/>
                     </Button>
                 </DockPanel>
+                <Separator Margin="0,0,0,0" BorderThickness="3" BorderBrush="SlateGray" RenderTransformOrigin="0.5,0.5" Width="40" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <DockPanel>
+                    <ToggleButton x:Name="ButtonLoop" Height="38" Width="38" HorizontalAlignment="Left" Content="Loop" Click="ButtonLoop_OnClick"/>
+                    <ToggleButton x:Name="ButtonRandom" Height="38" Width="38" HorizontalAlignment="Left" Content="Random" Click="ButtonRandom_OnClick" />
+                </DockPanel>
             </DockPanel>
 
             <!--Mediabereich-->
@@ -409,7 +423,7 @@
             <!-- Start ProgrssBar Volume -->
             <Grid x:Name="VolumeBarGrid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Column="1" Row="2">
                 <ProgressBar x:Name="ProgressVolume" HorizontalAlignment="Left" Height="18" VerticalAlignment="Center"
-                             Width="200" Value="0.5" MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" Maximum="1" 
+                             Width="200" Value="0.5" MouseLeftButtonDown="ProgressVolume_MouseLeftButtonDown" MouseMove="ProgressVolume_MouseMove" Maximum="1" 
                              Background="#FF60AEDA" Style="{DynamicResource ProgressBarStyle_SO-Volume}" >
                     <ProgressBar.Resources>
                         <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FF06B025"/>
@@ -487,7 +501,7 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" UseLayoutRounding="False" />
             </Grid>
             <Grid Column="0" Row="2">
-                <Image x:Name="SoundBoxPic" Source="soundVol/audio-volume-medium.png" Margin="3,0,3,0" VerticalAlignment="Bottom" Height="20"/>
+                <Image x:Name="SoundBoxPic" Source="soundVol/audio-volume-medium.png" Margin="3,0,3,0" VerticalAlignment="Bottom" Height="20" MouseDown="SoundBoxPic_OnMouseDown" />
             </Grid>
             <!--End ProgressBar Volume-->
 
@@ -504,7 +518,7 @@
 
             <!-- Row 3 -->
             <Grid x:Name="FileNameGrid" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="Auto" Margin="0,0,0,-4" Column="0" Row="3" ColumnSpan="4">
-                <Label x:Name="LabelFileName" HorizontalContentAlignment="Center" Opacity="0.6" HorizontalAlignment="Center"/>
+                <Label Style="{DynamicResource LabelStyle}" x:Name="LabelFileName" HorizontalContentAlignment="Center" Opacity="0.8" HorizontalAlignment="Center"/>
             </Grid>
             <Image x:Name="InternetConPic" Grid.Row="3" Grid.Column="4" Source="internetCon/network-disconnect-3.png" MouseDown="WindowMediaPLayer_Loaded"/>
 

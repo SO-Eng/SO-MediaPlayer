@@ -20,9 +20,12 @@ namespace SO_Mediaplayer
     /// </summary>
     public partial class About : Window
     {
-        public About()
+        public About(double top, double left)
         {
             InitializeComponent();
+
+            this.Top = top - Height / 2;
+            this.Left = left - Width / 2;
         }
 
         private void Hyperlink_GitHub(object sender, RequestNavigateEventArgs e)

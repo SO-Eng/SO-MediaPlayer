@@ -45,6 +45,7 @@ namespace SO_Mediaplayer
         private string webStationFile = String.Empty;
         // Order oder Datei geoeffnet, wenn false dann WebListe
         private bool folderSelection = true;
+        private bool fileSelection = true;
         // zwischenspeichern (Stop/Play)
         private string tempSelectionWeb;
         // Maximale Spielzeit der geladenen Dateien ----noch offen
@@ -54,6 +55,8 @@ namespace SO_Mediaplayer
 
         // Progressbar Steuerung
         private bool sliderMoving;
+        // Schalter fuers muten
+        private bool isMuted = false;
 
         // Hilfsattribute fuer die Listenauswahl (click)
         private dynamic selectedItemWeb;
@@ -65,7 +68,10 @@ namespace SO_Mediaplayer
         private bool webListSelected = true;
         private bool firstLoad;
 
-        private bool loop = true;
+        // Loop and Random play
+        private bool loop = false;
+        private bool playRandom = false;
+
         //private double columnListMinWidth;
         private double favListMinHeight;
         private GridLength columnList;
@@ -101,6 +107,7 @@ namespace SO_Mediaplayer
         public BitmapImage ButtonForwardGraphic { get; set; }
 
         private Buttons buttons = new Buttons();
+
         #endregion
 
 
@@ -127,6 +134,7 @@ namespace SO_Mediaplayer
             // Buttonstyle
             Buttons3.IsChecked = true;
             SetButtonsStartUp();
+            ButtonLoop.IsChecked = true;
         }
 
         private void SetLanguageStartUp()
@@ -221,6 +229,10 @@ namespace SO_Mediaplayer
                 TextBlockFavListHeader.Visibility = Visibility.Collapsed;
                 ListSelectionFolder.Visibility = Visibility.Visible;
                 FolderListMenu_Click(sender, e);
+                ListSelectionFolder.Items.Clear();
+                string playtime = "00:00:00";
+                ListSelectionFolder.Items.Add(new FolderPick { Number = 1.ToString(), FileName = openDialog.FileName, PlayTime = playtime });
+                fileSelection = true;
                 MediaPlayer.Source = new Uri(openDialog.FileName);
                 ImagePlay();
                 folderSelection = true;
@@ -266,6 +278,7 @@ namespace SO_Mediaplayer
                     webStationFile = openWebDialog.FileName;
                     ListSelectionWeb.Items.Clear();
                     folderSelection = false;
+                    fileSelection = false;
                     WebStationsStorage();
                     AddWebStationMenu.IsEnabled = true;
                     ViewSettings();
@@ -291,6 +304,7 @@ namespace SO_Mediaplayer
                 ListSelectionWeb.Items.Clear();
                 ListSelectionWebFav.Items.Clear();
                 folderSelection = false;
+                fileSelection = false;
                 WebStationsStorage();
                 AddWebStationMenu.IsEnabled = true;
                 ViewSettings();
@@ -357,6 +371,7 @@ namespace SO_Mediaplayer
                 //GridView vorbereiten
                 //this.ListSelection.View = gridView;
                 folderSelection = true;
+                fileSelection = false;
                 ChkBoxSaveOnExit.IsEnabled = false;
                 ChkBoxSaveOnExit.IsChecked = false;
                 AddWebStationMenu.IsEnabled = false;
@@ -662,12 +677,20 @@ namespace SO_Mediaplayer
                 // Nach vorne erhöhen wir die Lautstärke
                 ProgressVolume.Value += 0.05;
                 SoundBoxVolume();
+                if (!isMuted)
+                {
+                    MediaPlayer.Volume = ProgressVolume.Value;
+                }
             }
             else
             {
                 // Nach hinten reduziert
                 ProgressVolume.Value -= 0.05;
                 SoundBoxVolume();
+                if (!isMuted)
+                {
+                    MediaPlayer.Volume = ProgressVolume.Value;
+                }
             }
         }
 
@@ -733,6 +756,8 @@ namespace SO_Mediaplayer
         {
             double mousePosition = e.GetPosition(ProgressVolume).X;
             ProgressVolume.Value = SetProgressBarValue(mousePosition);
+            MediaPlayer.Volume = ProgressVolume.Value;
+            isMuted = false;
             SoundBoxVolume();
         }
 
@@ -742,6 +767,32 @@ namespace SO_Mediaplayer
             double progressBarValue = ratio * ProgressVolume.Maximum;
             return progressBarValue;
         }
+
+
+        private void ProgressVolume_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
+            {
+                sliderMoving = true;
+                double mousePosition = e.GetPosition(ProgressVolume).X;
+                ProgressVolume.Value = SetProgressBarValue(mousePosition);
+                MediaPlayer.Volume = ProgressVolume.Value;
+
+                SoundBoxVolume();
+            }
+        }
+
+        //private void ProgressVolume_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (!playing)
+        //    {
+        //        return;
+        //    }
+        //    sliderMoving = false;
+        //    double mousePosition = e.GetPosition(ProgressPlayed).X;
+        //    MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
+        //}
+
 
         // Check ob Internetconnection vorhanden
         private bool CheckForInternetConnection()
@@ -790,12 +841,16 @@ namespace SO_Mediaplayer
             }
             else
             {
+                if (fileSelection)
+                {
+                    return;
+                }
                 if (folderSelection)
                 {
                     dynamic selectedItemFolder = ListSelectionFolder.SelectedItems[0];
                     var selectionFolder = selectedItemFolder.FileName;
 
-                    StringBuilder sB = new StringBuilder(sPath);
+                    var sB = new StringBuilder(sPath);
                     sB.Append(@"\");
                     sB.Append(selectionFolder);
                     MediaPlayer.Source = new Uri(sB.ToString());
@@ -974,7 +1029,7 @@ namespace SO_Mediaplayer
             string bitRate;
             bool fav;
 
-            AddRadiostation openDialog = new AddRadiostation(langSelection);
+            AddRadiostation openDialog = new AddRadiostation(langSelection, Top + Height / 2, Left + Width / 2);
             openDialog.ShowDialog();
             openDialog.Owner = this;
 
@@ -1034,27 +1089,6 @@ namespace SO_Mediaplayer
             double progressBarValue = ratio * ProgressPlayed.Maximum;
             return progressBarValue;
         }
-
-        //private void ProgressPlayed_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
-        //    {
-        //        sliderMoving = true;
-        //        double mousePosition = e.GetPosition(ProgressPlayed).X;
-        //        ProgressPlayed.Value = SetProgressBarValuePlayed(mousePosition);
-        //    }
-        //}
-
-        //private void ProgressPlayed_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (!playing)
-        //    {
-        //        return;
-        //    }
-        //    sliderMoving = false;
-        //    double mousePosition = e.GetPosition(ProgressPlayed).X;
-        //    MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
-        //}
 
 
         // Close Window
@@ -1474,13 +1508,42 @@ namespace SO_Mediaplayer
 
         private void AboutMenu_OnClick(object sender, RoutedEventArgs e)
         {
-            About about = new About();
+            About about = new About(Top + Height / 2, Left + Width / 2);
             about.Show();
             about.Owner = this;
         }
 
-        #endregion
+        // Mute-Method when SoundIcon is clicked
+        private void SoundBoxPic_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //double tempVol = MediaPlayer.Volume;
+            if (!isMuted)
+            {
+                SoundBoxPic.Source = new BitmapImage(new Uri("soundVol/audio-volume-muted.png", UriKind.Relative));
+                MediaPlayer.Volume = 0;
+                isMuted = true;
+            }
+            else
+            {
+                MediaPlayer.Volume = ProgressVolume.Value;
+                SoundBoxVolume();
+                isMuted = false;
+            }
+        }
 
+        // Loop Method activate || deactivate
+        private void ButtonLoop_OnClick(object sender, RoutedEventArgs e)
+        {
+            loop = ButtonLoop.IsChecked == true;
+        }
+
+        // Random Method activate || deactivate
+        private void ButtonRandom_OnClick(object sender, RoutedEventArgs e)
+        {
+            playRandom = ButtonRandom.IsChecked == true;
+        }
+
+        #endregion
     }
 }
 
