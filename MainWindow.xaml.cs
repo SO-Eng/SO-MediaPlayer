@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,8 +70,9 @@ namespace SO_Mediaplayer
         private bool firstLoad;
 
         // Loop and Random play
-        private bool loop = false;
-        private bool playRandom = false;
+        private bool loop = true;
+        private bool loopOne = true;
+        private bool playRandom = true;
 
         //private double columnListMinWidth;
         private double favListMinHeight;
@@ -106,7 +108,7 @@ namespace SO_Mediaplayer
         public BitmapImage ButtonBackwardGraphic { get; set; }
         public BitmapImage ButtonForwardGraphic { get; set; }
 
-        private Buttons buttons = new Buttons();
+        private readonly Buttons buttons = new Buttons();
 
         #endregion
 
@@ -134,7 +136,8 @@ namespace SO_Mediaplayer
             // Buttonstyle
             Buttons3.IsChecked = true;
             SetButtonsStartUp();
-            ButtonLoop.IsChecked = true;
+            ButtonLoop_OnClick(new object(), new RoutedEventArgs());
+            ButtonShuffle_OnClick(new object(), new RoutedEventArgs());
         }
 
         private void SetLanguageStartUp()
@@ -392,11 +395,15 @@ namespace SO_Mediaplayer
                 ButtonForwards.IsEnabled = true;
                 ImageForwardPic.Opacity = 0.85;
 
+                ButtonLoop.IsEnabled = true;
+                ImageLoop.Opacity = 0.65;
+                ButtonShuffle.IsEnabled = true;
+                ImageShuffle.Opacity = 0.65;
+
                 // Timer (Ticker) starten
                 timer.Tick += TimerTick;
                 timer.Start();
                 ProgressPlayed.IsHitTestVisible = true;
-
             }
             else // web
             {
@@ -407,6 +414,11 @@ namespace SO_Mediaplayer
                 ImageBackwardPic.Opacity = 0.5;
                 ButtonForwards.IsEnabled = false;
                 ImageForwardPic.Opacity = 0.5;
+
+                ButtonLoop.IsEnabled = false;
+                ImageLoop.Opacity = 0.3;
+                ButtonShuffle.IsEnabled = false;
+                ImageShuffle.Opacity = 0.3;
 
                 startTime = DateTime.Now;
                 LabelMaxTime.Content = "--:--:--";
@@ -478,9 +490,19 @@ namespace SO_Mediaplayer
 
                     if (MediaPlayer.Position == MediaPlayer.NaturalDuration.TimeSpan)
                     {
+                        if (loopOne)
+                        {
+                            MediaPlayer.Position = new TimeSpan(0);
+                            return;
+                        }
                         if (loop)
                         {
                             ButtonSkipForward_Click(sender, e);
+                        }
+                        else
+                        {
+                            MediaPlayer.Position = new TimeSpan(0);
+                            ButtonStop_Click(sender, new RoutedEventArgs());
                         }
                     }
                 }
@@ -1483,13 +1505,52 @@ namespace SO_Mediaplayer
         // Loop Method activate || deactivate
         private void ButtonLoop_OnClick(object sender, RoutedEventArgs e)
         {
-            loop = ButtonLoop.IsChecked == true;
+            if (loop && loopOne)
+            {
+                loop = false;
+                loopOne = false;
+                ButtonLoop.ToolTip = Sl.Repeat;
+                ImageLoop.Source = !DarkStyle.IsChecked 
+                    ? new BitmapImage(new Uri("icons/loop.png", UriKind.Relative)) 
+                    : new BitmapImage(new Uri("icons/loopLight.png", UriKind.Relative));
+            }
+            else if (!loop && !loopOne)
+            {
+                loop = true;
+                ButtonLoop.ToolTip = Sl.RepeatAll;
+                ImageLoop.Source = !DarkStyle.IsChecked
+                    ? new BitmapImage(new Uri("icons/loopActive.png", UriKind.Relative))
+                    : new BitmapImage(new Uri("icons/loopLightActive.png", UriKind.Relative));
+            }
+            else if (loop && !loopOne)
+            {
+                loopOne = true;
+                ButtonLoop.ToolTip = Sl.RepeatOne;
+                ImageLoop.Source = !DarkStyle.IsChecked
+                    ? new BitmapImage(new Uri("icons/loopActiveOne.png", UriKind.Relative))
+                    : new BitmapImage(new Uri("icons/loopLightActiveOne.png", UriKind.Relative));
+            }
         }
 
         // Random Method activate || deactivate
-        private void ButtonRandom_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonShuffle_OnClick(object sender, RoutedEventArgs e)
         {
-            playRandom = ButtonRandom.IsChecked == true;
+            if (playRandom)
+            {
+                playRandom = false;
+                ButtonShuffle.ToolTip = Sl.ShuffleOff;
+                ImageShuffle.Source = !DarkStyle.IsChecked
+                    ? new BitmapImage(new Uri("icons/shuffle.png", UriKind.Relative))
+                    : new BitmapImage(new Uri("icons/shuffleLight.png", UriKind.Relative));
+            }
+            else
+            {
+                playRandom = true;
+                ButtonShuffle.ToolTip = Sl.ShuffleOn;
+                ImageShuffle.Source = !DarkStyle.IsChecked
+                    ? new BitmapImage(new Uri("icons/shuffleActive.png", UriKind.Relative))
+                    : new BitmapImage(new Uri("icons/shuffleLightActive.png", UriKind.Relative));
+            }
         }
 
         #endregion

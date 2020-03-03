@@ -19,6 +19,11 @@
         public string WebListStationName { get; set; }
         public string WebListBitrate { get; set; }
         public string WebListWebUrl { get; set; }
+        public string Repeat { get; set; }
+        public string RepeatAll { get; set; }
+        public string RepeatOne { get; set; }
+        public string ShuffleOff { get; set; }
+        public string ShuffleOn { get; set; }
 
         #endregion
 
@@ -66,6 +71,11 @@
             WebListStationName = "Station Name";
             WebListBitrate = "Bitrate";
             WebListWebUrl = "Web-URL";
+            Repeat = "Repeat off";
+            RepeatAll = "Repeat all";
+            RepeatOne = "Repeat one";
+            ShuffleOff = "Shuffle off";
+            ShuffleOn = "Shuffle on";
         }
 
 
@@ -87,6 +97,11 @@
             WebListStationName = "Stations Name";
             WebListBitrate = "Bitrate";
             WebListWebUrl = "Web-URL";
+            Repeat = "Wiederholen aus";
+            RepeatAll = "Alle wiederholen";
+            RepeatOne = "Einzelstück wiederholen";
+            ShuffleOff = "Zufällig aus";
+            ShuffleOn = "Zufällig an";
         }
 
         private void SetSpanish()
@@ -107,6 +122,11 @@
             WebListStationName = "Nombre de la estación";
             WebListBitrate = "Bitrate";
             WebListWebUrl = "URL de la web";
+            Repeat = "Repetir apagar";
+            RepeatAll = "Repita todo";
+            RepeatOne = "Repita la pieza única";
+            ShuffleOff = "Al azar de";
+            ShuffleOn = "Al azar en";
         }
 
         #endregion

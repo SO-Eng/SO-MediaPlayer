@@ -183,8 +183,12 @@
                     </Separator.RenderTransform>
                 </Separator>
                 <DockPanel>
-                    <ToggleButton x:Name="ButtonLoop" Height="38" Width="38" HorizontalAlignment="Left" Content="Loop" Click="ButtonLoop_OnClick"/>
-                    <ToggleButton x:Name="ButtonRandom" Height="38" Width="38" HorizontalAlignment="Left" Content="Random" Click="ButtonRandom_OnClick" />
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonLoop" Height="30" Width="30" IsEnabled="False" HorizontalAlignment="Left" Click="ButtonLoop_OnClick" BorderBrush="{x:Null}">
+                        <Image x:Name="ImageLoop" Opacity="0.3"/>
+                    </Button>
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonShuffle" Height="30" Width="30" IsEnabled="False" HorizontalAlignment="Left" Click="ButtonShuffle_OnClick" BorderBrush="{x:Null}" >
+                        <Image x:Name="ImageShuffle" Opacity="0.3"/>
+                    </Button>
                 </DockPanel>
             </DockPanel>
 

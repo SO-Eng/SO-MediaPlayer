@@ -136,6 +136,16 @@
     <Content Include="icons\Buttons2\stop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="icons\loop.png" />
+    <Resource Include="icons\loopActive.png" />
+    <Resource Include="icons\loopActiveOne.png" />
+    <Resource Include="icons\shuffle.png" />
+    <Resource Include="icons\shuffleActive.png" />
+    <Resource Include="icons\loopLight.png" />
+    <Resource Include="icons\loopLightActive.png" />
+    <Resource Include="icons\loopLightActiveOne.png" />
+    <Resource Include="icons\shuffleLight.png" />
+    <Resource Include="icons\shuffleLightActive.png" />
     <Content Include="Languages\en-US\Dict.en-US.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

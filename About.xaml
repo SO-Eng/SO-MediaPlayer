@@ -48,36 +48,43 @@
 
                 <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo5}" TextWrapping="Wrap" TextAlignment="Justify" 
                            FontWeight="Bold" Margin="0,10,0,0"/>
-                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo6}" TextWrapping="Wrap" TextAlignment="Justify"/>
+
+                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" x:Name="TextBlockHyperlinkIconsShuffle">
+                    <Hyperlink NavigateUri="https://www.iconfinder.com/amoghdesign" RequestNavigate="Hyperlink_IconLoopAndShuffle" >https://www.iconfinder.com/amoghdesign</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo6}" TextWrapping="Wrap" TextAlignment="Justify" 
+                           FontWeight="Bold" Margin="0,10,0,0"/>
+                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo7}" TextWrapping="Wrap" TextAlignment="Justify"/>
 
                 <TextBlock Style="{DynamicResource AboutTextBlockInfo}" x:Name="TextBlockHyperlinkAudioBg">
                     <Hyperlink NavigateUri="https://unsplash.com/@othentikisra" 
                         RequestNavigate="Hyperlink_AudioBg">https://unsplash.com/@othentikisra</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo7}" TextWrapping="Wrap" TextAlignment="Justify"/>
+                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo8}" TextWrapping="Wrap" TextAlignment="Justify"/>
 
                 <TextBlock Style="{DynamicResource AboutTextBlockInfo}" x:Name="TextBlockHyperlinkRadioBg">
                     <Hyperlink NavigateUri="https://unsplash.com/@marcelalaskoski" 
                                RequestNavigate="Hyperlink_RadioBg">https://unsplash.com/@marcelalaskoski</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo8}" TextWrapping="Wrap" TextAlignment="Justify"/>
+                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo9}" TextWrapping="Wrap" TextAlignment="Justify"/>
 
                 <TextBlock Style="{DynamicResource AboutTextBlockInfo}" TextWrapping="Wrap" TextAlignment="Justify">
                     <Hyperlink NavigateUri="https://unsplash.com" RequestNavigate="Hyperlink_Unsplash">https://unsplash.com</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo9}" TextWrapping="Wrap" TextAlignment="Justify" 
+                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo10}" TextWrapping="Wrap" TextAlignment="Justify" 
                            FontWeight="Bold" Margin="0,10,0,0"/>
-                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo10}" TextWrapping="Wrap" TextAlignment="Justify"/>
+                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo11}" TextWrapping="Wrap" TextAlignment="Justify"/>
 
                 <TextBlock Style="{DynamicResource AboutTextBlockInfo}" TextWrapping="Wrap" TextAlignment="Justify">
                     <Hyperlink NavigateUri="https://www.flaticon.com/free-icon/headphone_1053254?term=headphones" 
                                RequestNavigate="Hyperlink_HeadphonesIcon">https://www.flaticon.com/free-icon/headphone_1053254?term=headphones</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo11}" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,20,0,0"/>
+                <TextBlock Style="{DynamicResource AboutTextBlockInfo}" Text="{DynamicResource ResourceKey=AboutTextInfo12}" TextWrapping="Wrap" TextAlignment="Justify" Margin="0,20,0,0"/>
             </StackPanel>
         </StackPanel>
         </ScrollViewer>

@@ -57,5 +57,10 @@ namespace SO_Mediaplayer
         {
             System.Diagnostics.Process.Start(e.Uri.ToString());
         }
+
+        private void Hyperlink_IconLoopAndShuffle(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Uri.ToString());
+        }
     }
 }

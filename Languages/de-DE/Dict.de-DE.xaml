@@ -125,15 +125,16 @@
         Gerne können Sie mir Anregungen schreiben oder auch Fehler melden auf:
     </sys:String>
     <sys:String x:Key="AboutTextInfo4">Quellenangabe zu den verwendeten Icons (kostenlose Icon-Bibliothek):</sys:String>
-    <sys:String x:Key="AboutTextInfo5">Quellenangabe zu verwendeten Bildern (Audio / Webradio):</sys:String>
-    <sys:String x:Key="AboutTextInfo6">Audio-Background: Photo by Israel Palacio</sys:String>
-    <sys:String x:Key="AboutTextInfo7">Internetradio-Background: Photo by Marcela Laskoski</sys:String>
-    <sys:String x:Key="AboutTextInfo8">Beide Bilder zu finden auf Unsplash</sys:String>
-    <sys:String x:Key="AboutTextInfo9">Quellenangabe zu Programm-Icon (Headphones):</sys:String>
-    <sys:String x:Key="AboutTextInfo10">Icon graphic is free comercial use of license and has to be announced:
+    <sys:String x:Key="AboutTextInfo5">Quellenangabe für das "Loop" und "Shuffle" Icon (Beide für jeweilige Funktionen grafisch angepasst):</sys:String>
+    <sys:String x:Key="AboutTextInfo6">Quellenangabe zu verwendeten Bildern (Audio / Webradio):</sys:String>
+    <sys:String x:Key="AboutTextInfo7">Audio-Background: Photo by Israel Palacio</sys:String>
+    <sys:String x:Key="AboutTextInfo8">Internetradio-Background: Photo by Marcela Laskoski</sys:String>
+    <sys:String x:Key="AboutTextInfo9">Beide Bilder zu finden auf Unsplash</sys:String>
+    <sys:String x:Key="AboutTextInfo10">Quellenangabe zu Programm-Icon (Headphones):</sys:String>
+    <sys:String x:Key="AboutTextInfo11">Icon graphic is free comercial use of license and has to be announced:
         "Icon made by UI Super Basic perfect from www.flaticon.com"
     </sys:String>
-    <sys:String x:Key="AboutTextInfo11">*Achtung, der Ersteller des Programms weist auf folgendes hin:
+    <sys:String x:Key="AboutTextInfo12">*Achtung, der Ersteller des Programms weist auf folgendes hin:
         Internetradio ist ein Streamingdienst der auch von diesem Programm (SoftwOrt-Mediaplayer) genutzt werden kann. 
         Die Nutzung dieses kostenlosen Dienstes kann zu hohem Datenvolumen / Datenverbrauch führen! Bitte beachten Sie dies 
         bei der Nutzung. Es wird dafür eine Internetflatrate empfohlen um unerwünschte und ggf. hohe Kosten zu vermeiden!
