@@ -255,66 +255,33 @@ namespace SO_Mediaplayer
                 webStationList.Clear();
             }
 
-            if (!checkBox)
-            {
-                OpenFileDialog openWebDialog = new OpenFileDialog();
-                openWebDialog.FileName = String.Empty;
-                openWebDialog.Multiselect = false;
-                //openWebDialog.Filter = "";
-                if (openWebDialog.ShowDialog() == true)
-                {
-                    ListSelectionFolder.Visibility = Visibility.Collapsed;
-                    ListSelectionWeb.Visibility = Visibility.Visible;
-                    ListSelectionWebFav.Visibility = Visibility.Visible;
-                    GridSplitterWebLists.Visibility = Visibility.Visible;
-                    StackPanelSearch.Visibility = Visibility.Visible;
-                    TextBlockFavListHeader.Visibility = Visibility.Visible;
-                    if (!FolderListMenu.IsChecked)
-                    {
-                        CheckWebListsOn();
-                    }
-                    CheckListSwitch(sender, e);
+			ListSelectionWebFav.Items.Clear();
+			ListSelectionWeb.Items.Clear();
+			ListSelectionFolder.Visibility = Visibility.Collapsed;
+			ListSelectionWeb.Visibility = Visibility.Visible;
+			ListSelectionWebFav.Visibility = Visibility.Visible;
+			GridSplitterWebLists.Visibility = Visibility.Visible;
+			StackPanelSearch.Visibility = Visibility.Visible;
+			TextBlockFavListHeader.Visibility = Visibility.Visible;
+			if (!FolderListMenu.IsChecked)
+			{
+				CheckWebListsOn();
+			}
+			CheckListSwitch(sender, e);
 
-                    webStationFile = openWebDialog.FileName;
-                    ListSelectionWeb.Items.Clear();
-                    folderSelection = false;
-                    fileSelection = false;
-                    WebStationsStorage();
-                    AddWebStationMenu.IsEnabled = true;
-                    ViewSettings();
-                }
-            }
-            else
-            {
-                ListSelectionWebFav.Items.Clear();
-                ListSelectionWeb.Items.Clear();
-                ListSelectionFolder.Visibility = Visibility.Collapsed;
-                ListSelectionWeb.Visibility = Visibility.Visible;
-                ListSelectionWebFav.Visibility = Visibility.Visible;
-                GridSplitterWebLists.Visibility = Visibility.Visible;
-                StackPanelSearch.Visibility = Visibility.Visible;
-                TextBlockFavListHeader.Visibility = Visibility.Visible;
-                if (!FolderListMenu.IsChecked)
-                {
-                    CheckWebListsOn();
-                }
-                CheckListSwitch(sender, e);
-
-                webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
-                ListSelectionWeb.Items.Clear();
-                ListSelectionWebFav.Items.Clear();
-                folderSelection = false;
-                fileSelection = false;
-                WebStationsStorage();
-                AddWebStationMenu.IsEnabled = true;
-                ViewSettings();
-            }
+			webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
+			ListSelectionWeb.Items.Clear();
+			ListSelectionWebFav.Items.Clear();
+			folderSelection = false;
+			fileSelection = false;
+			WebStationsStorage();
+			AddWebStationMenu.IsEnabled = true;
+			ViewSettings();
         }
 
         // Ausgewaehlte lokale Datei (Liste) in das Datagrid uebertragen
         private void WebStationsStorage()
         {
-
             var newWebStations = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebStations>(webStationFile);
             //var newWebStationsesFav = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebFavs>(webStationFile);
 
@@ -335,8 +302,6 @@ namespace SO_Mediaplayer
             }
             ChkBoxSaveOnExit.IsEnabled = true;
             ChkBoxSaveOnExit.IsChecked = true;
-
-            
         }
 
         // Liste aus Datagrid in Datei speichern, wenn gewuenscht
@@ -399,61 +364,58 @@ namespace SO_Mediaplayer
         {
             PlayMenu.IsEnabled = true;
             StopMenu.IsEnabled = true;
-            ForwardMenu.IsEnabled = true;
-            BackwardMenu.IsEnabled = true;
             NextMenu.IsEnabled = true;
             PreviousMenu.IsEnabled = true;
-            ButtonPlayPause.IsEnabled = true;
-            ButtonBackwards.IsEnabled = true;
-            ButtonForwards.IsEnabled = true;
-            ImagePlayPic.Opacity = 0.85;
-            ImageBackwardPic.Opacity = 0.85;
-            ImageForwardPic.Opacity = 0.85;
-            ThumbButtonPlay.IsEnabled = true;
-            ThumbButtonNext.IsEnabled = true;
-            ThumbButtonPrevious.IsEnabled = true;
-            fileLoaded = true;
-            // Timer (Ticker) starten
-            timer.Tick += TimerTick;
-            timer.Start();
-            ProgressPlayed.IsHitTestVisible = true;
-        }
 
-        private void PlayRoutineWeb()
-        {
-            PlayMenu.IsEnabled = true;
-            StopMenu.IsEnabled = true;
-            NextMenu.IsEnabled = true;
-            PreviousMenu.IsEnabled = true;
             ButtonPlayPause.IsEnabled = true;
-            ThumbButtonPlay.IsEnabled = true;
-            ThumbButtonNext.IsEnabled = true;
-            ThumbButtonPrevious.IsEnabled = true;
             ImagePlayPic.Opacity = 0.85;
+
             ButtonSkipBackward.IsEnabled = true;
             ImageSkipBackwardPic.Opacity = 0.85;
-            BackwardMenu.IsEnabled = true;
+
             ButtonSkipForward.IsEnabled = true;
             ImageSkipForwardPic.Opacity = 0.85;
-            ForwardMenu.IsEnabled = true;
 
-            ButtonBackwards.IsEnabled = false;
-            ButtonForwards.IsEnabled = false;
-            ImageForwardPic.Opacity = 0.5;
-            ImageBackwardPic.Opacity = 0.5;
-            ForwardMenu.IsEnabled = false;
-            BackwardMenu.IsEnabled = false;
-
+            ThumbButtonPlay.IsEnabled = true;
+            ThumbButtonNext.IsEnabled = true;
+            ThumbButtonPrevious.IsEnabled = true;
 
             fileLoaded = true;
-            startTime = DateTime.Now;
-            LabelMaxTime.Content = "--:--:--";
-            // Timer (Ticker) starten
-            timerWeb.Tick += TimerWebTick;
-            timerWeb.Start();
-            ProgressTimeWeb();
-        }
 
+            if (folderSelection)
+            {
+                ForwardMenu.IsEnabled = true;
+                BackwardMenu.IsEnabled = true;
+
+                ButtonBackwards.IsEnabled = true;
+                ImageBackwardPic.Opacity = 0.85;
+                ButtonForwards.IsEnabled = true;
+                ImageForwardPic.Opacity = 0.85;
+
+                // Timer (Ticker) starten
+                timer.Tick += TimerTick;
+                timer.Start();
+                ProgressPlayed.IsHitTestVisible = true;
+
+            }
+            else // web
+            {
+                ForwardMenu.IsEnabled = false;
+                BackwardMenu.IsEnabled = false;
+
+                ButtonBackwards.IsEnabled = false;
+                ImageBackwardPic.Opacity = 0.5;
+                ButtonForwards.IsEnabled = false;
+                ImageForwardPic.Opacity = 0.5;
+
+                startTime = DateTime.Now;
+                LabelMaxTime.Content = "--:--:--";
+                // Timer (Ticker) starten
+                timerWeb.Tick += TimerWebTick;
+                timerWeb.Start();
+                ProgressTimeWeb();
+            }
+        }
 
 
         // Wenn MediaFile geladen, Gesamtzeit anzeigen
@@ -547,6 +509,12 @@ namespace SO_Mediaplayer
                     MediaPlayer.Play();
                     ImagePause();
                     playing = true;
+                    ForwardMenu.IsEnabled = true;
+                    BackwardMenu.IsEnabled = true;
+                    ButtonBackwards.IsEnabled = true;
+                    ImageBackwardPic.Opacity = 0.85;
+                    ButtonForwards.IsEnabled = true;
+                    ImageForwardPic.Opacity = 0.85;
                 }
                 else // Webradio
                 {
@@ -573,52 +541,34 @@ namespace SO_Mediaplayer
                     timerWeb.Stop();
                 }
             }
-            // Button Stoppen aktivieren
             ButtonStop.IsEnabled = true;
             ImageStopPic.Opacity = 0.85;
             StopMenu.IsEnabled = true;
-            ButtonSkipBackward.IsEnabled = true;
-            ImageSkipBackwardPic.Opacity = 0.85;
-            BackwardMenu.IsEnabled = true;
-            ButtonSkipForward.IsEnabled = true;
-            ImageSkipForwardPic.Opacity = 0.85;
-            ForwardMenu.IsEnabled = true;
-
         }
 
         // Mediendatei stoppen
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
-            if (folderSelection)
-            {
-                ImagePlay();
-                MediaPlayer.Stop();
-                ImageStopPic.Opacity = 0.5;
-                ButtonStop.IsEnabled = false;
-                playing = false;
-                PlayMenu.IsEnabled = true;
-                StopMenu.IsEnabled = true;
-                ForwardMenu.IsEnabled = true;
-                BackwardMenu.IsEnabled = true;
-                NextMenu.IsEnabled = true;
-                PreviousMenu.IsEnabled = true;
-            }
+            ImagePlay();
+            MediaPlayer.Stop();
+            ButtonStop.IsEnabled = false;
+            ImageStopPic.Opacity = 0.5;
+            ButtonBackwards.IsEnabled = false;
+            ImageBackwardPic.Opacity = 0.5;
+            ButtonForwards.IsEnabled = false;
+            ImageForwardPic.Opacity = 0.5;
+            StopMenu.IsEnabled = false;
+            ForwardMenu.IsEnabled = false;
+            BackwardMenu.IsEnabled = false;
+            NextMenu.IsEnabled = true;
+            PreviousMenu.IsEnabled = true;
+            playing = false;
             // WebRadio has to deload Source
-            else
+            if (!folderSelection)
             {
-                ImagePlay();
-                MediaPlayer.Stop();
                 MediaPlayer.Source = null;
-                ImageStopPic.Opacity = 0.5;
-                ButtonStop.IsEnabled = false;
-                playing = false;
-                PlayMenu.IsEnabled = true;
-                StopMenu.IsEnabled = true;
-                NextMenu.IsEnabled = true;
-                PreviousMenu.IsEnabled = true;
                 timerWeb.Stop();
             }
-            //TaskbarItemInfo.Overlay = new BitmapImage(new Uri("pack://application:,,,/icons/Buttons1/stop.png"));
         }
 
 
@@ -773,7 +723,6 @@ namespace SO_Mediaplayer
         {
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
             {
-                sliderMoving = true;
                 double mousePosition = e.GetPosition(ProgressVolume).X;
                 ProgressVolume.Value = SetProgressBarValue(mousePosition);
                 MediaPlayer.Volume = ProgressVolume.Value;
@@ -885,7 +834,7 @@ namespace SO_Mediaplayer
                         MessageBox.Show(Sl.ErrorLoad, Sl.MsgBoxInfo, MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
-                    PlayRoutineWeb();
+                    PlayRoutine();
                     playing = false;
                     ButtonPlayPause_Click(sender, e);
                     LabelFileName.Content = selectionWeb.ToString();
