@@ -119,7 +119,7 @@
     <sys:String x:Key="AboutLabel12">- Ansichtsmenü</sys:String>
     <sys:String x:Key="AboutLabel13">- Sprachauswahl</sys:String>
     <sys:String x:Key="AboutLabel14">- Hell- und Dunkelmodus</sys:String>
-    <sys:String x:Key="AboutLabel15">- Wiederholungsfunktion und Zufällige Titelauswahl</sys:String>
+    <sys:String x:Key="AboutLabel15">- Wiederholungsfunktionen und zufällige Titelauswahl</sys:String>
 
     <sys:String x:Key="AboutTextInfo3">Ich freue mich, wenn Sie gefallen an dem Mediaplayer finden und ihn vielleicht sogar in Ihren Alltag einbinden. 
         Gerne können Sie mir Anregungen schreiben oder auch Fehler melden auf:
@@ -129,9 +129,9 @@
     <sys:String x:Key="AboutTextInfo6">Quellenangabe zu verwendeten Bildern (Audio / Webradio):</sys:String>
     <sys:String x:Key="AboutTextInfo7">Audio-Background: Photo by Israel Palacio</sys:String>
     <sys:String x:Key="AboutTextInfo8">Internetradio-Background: Photo by Marcela Laskoski</sys:String>
-    <sys:String x:Key="AboutTextInfo9">Beide Bilder zu finden auf Unsplash</sys:String>
+    <sys:String x:Key="AboutTextInfo9">Beide Bilder sind zu finden auf Unsplash</sys:String>
     <sys:String x:Key="AboutTextInfo10">Quellenangabe zu Programm-Icon (Headphones):</sys:String>
-    <sys:String x:Key="AboutTextInfo11">Icon graphic is free comercial use of license and has to be announced:
+    <sys:String x:Key="AboutTextInfo11">Die Icon-Grafik ist für kostenlosen kommerziellen Gebrauch der Lizenz und muss angegeben werden:
         "Icon made by UI Super Basic perfect from www.flaticon.com"
     </sys:String>
     <sys:String x:Key="AboutTextInfo12">*Achtung, der Ersteller des Programms weist auf folgendes hin:

@@ -98,46 +98,47 @@
 
 
     <!--About Window-->
-    <sys:String x:Key="AboutWindow_Title">SoftwOrt-Mediaplayer: About</sys:String>
-    <sys:String x:Key="AboutHeader">Info über SoftwOrt-Mediaplayer</sys:String>
-    <sys:String x:Key="AboutTextInfo1">Dieser Mediaplayer baut auf eine Übung aus meinem Studium zum geprüften Programmierer in C# an der Fernuniversität Hamburg (ILS) auf.
-        In dieser Übung handelt es sich um die Erstellung eines Mediaplayers zum öffnen einzelner Mediendateien (Audio &amp; Video), das abspielen, pausieren und anhalten Dieser.
-        Eine Erweiterung bestand darin, Vor- und Zurückspulen zu können (10 sek.).
+    <sys:String x:Key="AboutWindow_Title">SoftwOrt-Mediaplayer: Über</sys:String>
+    <sys:String x:Key="AboutHeader">Información sobre el "SoftwOrt-Mediaplayer"</sys:String>
+    <sys:String x:Key="AboutTextInfo1">Este reproductor multimedia está basado en un ejercicio de mis estudios como programador certificado en C# en la Fernuniversität Hamburg (ILS).
+        Este ejercicio consiste en crear un reproductor de medios para abrir archivos de medios individuales (audio y video), reproducirlos, pausarlos y detenerlos.
+        Una extensión era poder avanzar y retroceder rápidamente (10 seg.).
     </sys:String>
-    <sys:String x:Key="AboutTextInfo2">Basierend auf dieser Übung des Mediaplayers habe ich Diesen unter anderem mit folgenden Funktionen erweitert:</sys:String>
+    <sys:String x:Key="AboutTextInfo2">Basándome en este ejercicio del reproductor de medios lo he ampliado con las siguientes funciones:</sys:String>
 
-    <sys:String x:Key="AboutLabel1">- Öffnen von Mediensammlungen (Ordnern)</sys:String>
-    <sys:String x:Key="AboutLabel2">- Anzeigen in einer Liste</sys:String>
-    <sys:String x:Key="AboutLabel3">- Das springen von Titeln in dieser Liste (Skip Funktion)</sys:String>
-    <sys:String x:Key="AboutLabel4">- Aktuelle Titelzeit und –dauer</sys:String>
-    <sys:String x:Key="AboutLabel5">- Titelstatusleiste</sys:String>
-    <sys:String x:Key="AboutLabel6">- Erweiterung und Einbindung für Internetradio*</sys:String>
-    <sys:String x:Key="AboutLabel7">- Radiosenderliste</sys:String>
-    <sys:String x:Key="AboutLabel8">- Favoritenliste</sys:String>
-    <sys:String x:Key="AboutLabel9">- Suchfunktion</sys:String>
-    <sys:String x:Key="AboutLabel10">- Hinzufügen von Radiosendern</sys:String>
-    <sys:String x:Key="AboutLabel11">- Speichern der Listen</sys:String>
-    <sys:String x:Key="AboutLabel12">- Ansichtsmenü</sys:String>
-    <sys:String x:Key="AboutLabel13">- Sprachauswahl</sys:String>
-    <sys:String x:Key="AboutLabel14">- Hell- und Dunkelmodus</sys:String>
-    <sys:String x:Key="AboutLabel15">- Wiederholungsfunktion und Zufällige Titelauswahl</sys:String>
+    <sys:String x:Key="AboutLabel1">- Apertura de colecciones de medios de comunicación (carpetas)</sys:String>
+    <sys:String x:Key="AboutLabel2">- Mostrar en una lista</sys:String>
+    <sys:String x:Key="AboutLabel3">- Saltar desde los títulos de esta lista (función de salto)</sys:String>
+    <sys:String x:Key="AboutLabel4">- Tiempo y duración del título actual</sys:String>
+    <sys:String x:Key="AboutLabel5">- Barra de estado del título</sys:String>
+    <sys:String x:Key="AboutLabel6">- Extensión e integración para la radio en Internet*</sys:String>
+    <sys:String x:Key="AboutLabel7">- Lista de estaciones de radio</sys:String>
+    <sys:String x:Key="AboutLabel8">- Lista de favoritos</sys:String>
+    <sys:String x:Key="AboutLabel9">- Función de búsqueda</sys:String>
+    <sys:String x:Key="AboutLabel10">- Añadiendo estaciones de radio</sys:String>
+    <sys:String x:Key="AboutLabel11">- Guardar las listas</sys:String>
+    <sys:String x:Key="AboutLabel12">- Menú "Ver".</sys:String>
+    <sys:String x:Key="AboutLabel13">- Selección de idioma</sys:String>
+    <sys:String x:Key="AboutLabel14">- Modo luz y oscuridad</sys:String>
+    <sys:String x:Key="AboutLabel15">- Funciones de repetición y selección de pistas aleatorias</sys:String>
 
-    <sys:String x:Key="AboutTextInfo3">Ich freue mich, wenn Sie gefallen an dem Mediaplayer finden und ihn vielleicht sogar in Ihren Alltag einbinden. 
-        Gerne können Sie mir Anregungen schreiben oder auch Fehler melden auf:
+    <sys:String x:Key="AboutTextInfo3">Me gustaría que te gustara el reproductor de medios y tal vez incluso integrarlo en tu vida cotidiana. 
+		Puede escribirme sugerencias o informar de errores:
     </sys:String>
-    <sys:String x:Key="AboutTextInfo4">Quellenangabe zu den verwendeten Icons (kostenlose Icon-Bibliothek):</sys:String>
-    <sys:String x:Key="AboutTextInfo5">Quellenangabe zu verwendeten Bildern (Audio / Webradio):</sys:String>
-    <sys:String x:Key="AboutTextInfo6">Audio-Background: Photo by Israel Palacio</sys:String>
-    <sys:String x:Key="AboutTextInfo7">Internetradio-Background: Photo by Marcela Laskoski</sys:String>
-    <sys:String x:Key="AboutTextInfo8">Beide Bilder zu finden auf Unsplash</sys:String>
-    <sys:String x:Key="AboutTextInfo9">Quellenangabe zu Programm-Icon (Headphones):</sys:String>
-    <sys:String x:Key="AboutTextInfo10">Icon graphic is free comercial use of license and has to be announced:
+    <sys:String x:Key="AboutTextInfo4">Referencia a los iconos utilizados (biblioteca de iconos gratuita):</sys:String>
+    <sys:String x:Key="AboutTextInfo5">Referencia para los iconos "Loop" y "Shuffle" (ambos adaptados gráficamente para las respectivas funciones):</sys:String>
+    <sys:String x:Key="AboutTextInfo6">Referencia de la fuente a las imágenes utilizadas (audio / web radio):</sys:String>
+    <sys:String x:Key="AboutTextInfo7">Fondo de audio: Foto de Israel Palacio</sys:String>
+    <sys:String x:Key="AboutTextInfo8">Internetradio-Antecedentes: Foto de Marcela Laskoski</sys:String>
+    <sys:String x:Key="AboutTextInfo9">Ambas imágenes se pueden encontrar en Unsplash</sys:String>
+    <sys:String x:Key="AboutTextInfo10">Referencia al icono del programa (auriculares):</sys:String>
+    <sys:String x:Key="AboutTextInfo11">El icono gráfico es de uso comercial libre de licencia y tiene que ser anunciado:
         "Icon made by UI Super Basic perfect from www.flaticon.com"
     </sys:String>
-    <sys:String x:Key="AboutTextInfo11">*Achtung, der Ersteller des Programms weist auf folgendes hin:
-        Internetradio ist ein Streamingdienst der auch von diesem Programm (SoftwOrt-Mediaplayer) genutzt werden kann. 
-        Die Nutzung dieses kostenlosen Dienstes kann zu hohem Datenvolumen / Datenverbrauch führen! Bitte beachten Sie dies 
-        bei der Nutzung. Es wird dafür eine Internetflatrate empfohlen um unerwünschte und ggf. hohe Kosten zu vermeiden!
-        Der Ersteller des Programms übernimmt keinerlei Haftung.</sys:String>
+    <sys:String x:Key="AboutTextInfo12">*Atención, el creador del programa señala lo siguiente:
+        La radio por Internet es un servicio de streaming que también puede ser utilizado por este programa (SoftwOrt-Mediaplayer) 
+        El uso de este servicio gratuito puede llevar a un alto volumen de datos / consumo de datos! Por favor, tenga en cuenta esto 
+        durante el uso. ¡Se recomienda una tarifa plana de Internet para evitar costos indeseados y posiblemente altos!
+        El creador del programa no asume ninguna responsabilidad.</sys:String>
 
 </ResourceDictionary>

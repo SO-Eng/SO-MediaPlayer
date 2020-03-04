@@ -82,9 +82,11 @@
       <DependentUpon>AddRadiostation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Buttons.cs" />
+    <Compile Include="LoopIcon.cs" />
     <Compile Include="Models\FolderPick.cs" />
     <Compile Include="Models\WebStations.cs" />
     <Compile Include="SetLanguages.cs" />
+    <Compile Include="ShuffleIcon.cs" />
     <Compile Include="WebFileProcessor\WebFileProcessor.cs" />
     <Page Include="About.xaml">
       <SubType>Designer</SubType>

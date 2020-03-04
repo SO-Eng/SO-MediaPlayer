@@ -109,6 +109,8 @@ namespace SO_Mediaplayer
         public BitmapImage ButtonForwardGraphic { get; set; }
 
         private readonly Buttons buttons = new Buttons();
+        private readonly LoopIcon Li = new LoopIcon();
+        private readonly ShuffleIcon Si = new ShuffleIcon();
 
         #endregion
 
@@ -637,6 +639,14 @@ namespace SO_Mediaplayer
             {
                 ButtonBackwards_Click(sender, e);
             }
+            else if (e.Key == Key.Up)
+            {
+                ButtonSkipBackward_Click(sender, e);
+            }
+            else if (e.Key == Key.Down)
+            {
+                ButtonSkipForward_Click(sender, e);
+            }
         }
 
 
@@ -866,22 +876,22 @@ namespace SO_Mediaplayer
 
         private void ListSelection_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            HotkeysForword(sender, e);
+            HotkeysForward(sender, e);
         }
 
         private void GridSplitter_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            HotkeysForword(sender, e);
+            HotkeysForward(sender, e);
         }
 
-        private void HotkeysForword(object sender, KeyEventArgs e)
+        private void HotkeysForward(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
                 case Key.Left:
                 case Key.Right:
-                //case Key.Up:
-                //case Key.Down:
+                case Key.Up:
+                case Key.Down:
                 case Key.Space:
                     e.Handled = true;
                     WindowMediaPLayer_KeyDown(sender, e);
@@ -1408,6 +1418,8 @@ namespace SO_Mediaplayer
 
         private void MenuItem_Style_Click(object sender, RoutedEventArgs e)
         {
+            string currentStyle = LightStyle.IsChecked ? LightStyle.ToString() : DarkStyle.ToString();
+
             foreach (MenuItem item in MenuItemStyle.Items)
             {
                 item.IsChecked = false;
@@ -1427,6 +1439,17 @@ namespace SO_Mediaplayer
                 }
             }
 
+            if (miStyle.ToString() == currentStyle)
+            {
+                return;
+            }
+            var uriSourceLoopAbsolute = ImageLoop.Source.ToString();
+            string uriSourceLoop = uriSourceLoopAbsolute.Replace("pack://application:,,,/SoftwOrt-Mediaplayer;component/", "");
+            ImageLoop.Source = new BitmapImage(Li.SwitchLoopIcon(uriSourceLoop));
+
+            var uriSourceShuffleAbsolute = ImageShuffle.Source.ToString();
+            string uriSourceShuffle = uriSourceShuffleAbsolute.Replace("pack://application:,,,/SoftwOrt-Mediaplayer;component/", "");
+            ImageShuffle.Source = new BitmapImage(Si.SwitchShuffleIcon(uriSourceShuffle));
         }
         private void MenuItem_Buttons_Click(object sender, RoutedEventArgs e)
         {
