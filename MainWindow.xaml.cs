@@ -112,6 +112,10 @@ namespace SO_Mediaplayer
         private readonly LoopIcon Li = new LoopIcon();
         private readonly ShuffleIcon Si = new ShuffleIcon();
 
+        // Shuffle
+        List<int> allreadyPlayed = new List<int>();
+        Random rnd = new Random();
+
         #endregion
 
 
@@ -1291,6 +1295,12 @@ namespace SO_Mediaplayer
         {
             if (folderSelection)
             {
+                if (playRandom)
+                {
+                    ShuffleTrackList();
+                    return;
+                }
+
                 var lsf = ListSelectionFolder;
 
                 if (lsf.SelectedIndex >= 0)
@@ -1332,6 +1342,12 @@ namespace SO_Mediaplayer
         {
             if (folderSelection)
             {
+                if (playRandom)
+                {
+                    ShuffleTrackList();
+                    return;
+                }
+
                 var lsf = ListSelectionFolder;
 
                 if (lsf.Items.Count - 1 == lsf.SelectedIndex)
@@ -1360,6 +1376,49 @@ namespace SO_Mediaplayer
                     lsw.ScrollIntoView(lsw.SelectedItem);
                 }
             }
+        }
+
+        private void ShuffleTrackList()
+        {
+            /// checken ob gebraucht!
+            //TimerTick.Stop();
+            bool recursive = false;
+            if (allreadyPlayed.Count + 1 == ListSelectionFolder.Items.Count)
+            {
+                allreadyPlayed.Clear();
+            }
+
+            int trackCount = ListSelectionFolder.Items.Count;
+
+            int rndTrack = rnd.Next(1, trackCount + 1);
+
+            foreach (int item in allreadyPlayed)
+            {
+                if (item == rndTrack)
+                {
+                    recursive = true;
+                }
+            }
+
+
+            if (!recursive)
+            {
+                allreadyPlayed.Add(ListSelectionFolder.SelectedIndex + 1);
+                ListSelectionFolder.SelectedIndex = rndTrack - 1;
+                ListSelectionFolder.ScrollIntoView(ListSelectionFolder.SelectedItem);
+            }
+            /// diese Funktion in 829 einbringen (ListSelection_SelectionChanged())
+            //allreadyPlayed.Add(ListSelectionFolder.SelectedIndex + 1);
+            //allreadyPlayed.Add(rndTrack);
+            if (recursive)
+            {
+                ShuffleTrackList();
+            }
+            //ListSelectionFolder.SelectedIndex = rndTrack - 1;
+            //ListSelectionFolder.ScrollIntoView(ListSelectionFolder.SelectedItem);
+
+            /// checken ob gebraucht!
+            //TimerTick.Start();
         }
 
         // ProgressTime Ellipse hide when scaling Window
