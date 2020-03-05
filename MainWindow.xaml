@@ -132,13 +132,16 @@
             </Menu>
             <DockPanel Style="{DynamicResource DockPanelUpperMenu}" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
                 <DockPanel Margin="10,0,0,0" >
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpen" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_FileOpen}" Click="ButtonOpen_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpen" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_FileOpen}" 
+                            Click="ButtonOpen_Click" Background="{x:Null}" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageOpenPic" Source="icons/folder-music.png"/>
                     </Button>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenFolder}" Click="ButtonOpenFolder_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpenFolder" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenFolder}" 
+                            Click="ButtonOpenFolder_Click" Background="{x:Null}" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageOpenFolderPic" Source="icons/folder-tar.png"/>
                     </Button>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenWebstation}" Click="ButtonOpenWeb_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonOpenWeb" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Toolbar_OpenWebstation}" 
+                            Click="ButtonOpenWeb_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageOpenWebPic" Source="icons/folder-html.png"/>
                     </Button>
                 </DockPanel>
@@ -153,22 +156,28 @@
                     </Separator.RenderTransform>
                 </Separator>
                 <DockPanel >
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Prev}" IsEnabled="False" Click="ButtonSkipBackward_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonSkipBackward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Prev}" 
+                            IsEnabled="False" Click="ButtonSkipBackward_Click" Background="{x:Null}" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageSkipBackwardPic" Opacity="0.5"/>
                     </Button>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Next}" IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonSkipForward" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Next}" 
+                            IsEnabled="False" Margin="0,0,10,0" Click="ButtonSkipForward_Click" Background="{x:Null}" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageSkipForwardPic" Opacity="0.5"/>
                     </Button>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonStop" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Stop}" IsEnabled="False" Click="ButtonStop_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonStop" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Stop}" 
+                            IsEnabled="False" Click="ButtonStop_Click" Background="{x:Null}" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageStopPic" Opacity="0.5"/>
                     </Button>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Play}" IsEnabled="False" Click="ButtonPlayPause_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonPlayPause" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Play}" 
+                            IsEnabled="False" Click="ButtonPlayPause_Click" Background="{x:Null}" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImagePlayPic" Opacity="0.5"/>
                     </Button>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Backward}" IsEnabled="False" Click="ButtonBackwards_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonBackwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Backward}" 
+                            IsEnabled="False" Click="ButtonBackwards_Click" Background="{x:Null}" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageBackwardPic" Opacity="0.5"/>
                     </Button>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonForwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Forward}" IsEnabled="False" Click="ButtonForwards_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonForwards" Height="38" Width="38" ToolTip="{DynamicResource ResourceKey=Button_Forward}" 
+                            IsEnabled="False" Click="ButtonForwards_Click" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageForwardPic" Opacity="0.5"/>
                     </Button>
                 </DockPanel>
@@ -183,10 +192,12 @@
                     </Separator.RenderTransform>
                 </Separator>
                 <DockPanel>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonLoop" Height="30" Width="30" IsEnabled="False" HorizontalAlignment="Left" Click="ButtonLoop_OnClick" BorderBrush="{x:Null}">
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonLoop" Height="30" Width="30" IsEnabled="False" HorizontalAlignment="Left" 
+                            Click="ButtonLoop_OnClick" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown">
                         <Image x:Name="ImageLoop" Opacity="0.3"/>
                     </Button>
-                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonShuffle" Height="30" Width="30" IsEnabled="False" HorizontalAlignment="Left" Click="ButtonShuffle_OnClick" BorderBrush="{x:Null}" >
+                    <Button Style="{DynamicResource ButtonStylePlayer}" x:Name="ButtonShuffle" Height="30" Width="30" IsEnabled="False" HorizontalAlignment="Left" 
+                            Click="ButtonShuffle_OnClick" BorderBrush="{x:Null}" PreviewKeyDown="ButtonClick_OnPreviewKeyDown" >
                         <Image x:Name="ImageShuffle" Opacity="0.3"/>
                     </Button>
                 </DockPanel>
@@ -238,7 +249,8 @@
                     <TextBox Style="{DynamicResource TextBoxSearch}" x:Name="TextBoxSearch" Grid.Column="0" Height="20" Width="150" Margin="5,3,0,0" HorizontalAlignment="Left" 
                              Text="{DynamicResource ResourceKey=TextBox_Search}" GotMouseCapture="TextBoxSearch_GotMouseCapture" 
                               KeyUp="TextBoxSearch_KeyUp" CharacterCasing="Lower" />
-                    <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="{DynamicResource ResourceKey=Button_ClearSearch}" Margin="0,3,5,0" Click="ButtonCancelSearch_Click" />
+                    <Button x:Name="ButtonCancelSearch" Grid.Column="1" Width="80" Height="20" HorizontalAlignment="Right" Content="{DynamicResource ResourceKey=Button_ClearSearch}" 
+                            Margin="0,3,5,0" Click="ButtonCancelSearch_Click" PreviewKeyDown="ButtonClick_OnPreviewKeyDown"/>
                 </Grid>
             </StackPanel>
 

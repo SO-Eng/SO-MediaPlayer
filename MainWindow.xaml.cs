@@ -253,6 +253,8 @@ namespace SO_Mediaplayer
                 ChkBoxSaveOnExit.IsChecked = false;
                 AddWebStationMenu.IsEnabled = false;
                 ViewSettings();
+                allreadyPlayed.Clear();
+                timerWeb.Stop();
             }
         }
 
@@ -320,6 +322,8 @@ namespace SO_Mediaplayer
             {
                 WebFileProcessor.WebFileProcessor.SaveToTextFile(webStationList, webStationFile);
             }
+            timer.Stop();
+            timerWeb.Stop();
         }
 
 
@@ -351,6 +355,8 @@ namespace SO_Mediaplayer
                 AddWebStationMenu.IsEnabled = false;
                 ViewSettings();
 
+                allreadyPlayed.Clear();
+                timerWeb.Stop();
                 // Pfad uebergeben
                 sPath = folderDialog.SelectedPath;
                 DirectoryInfo folder = new DirectoryInfo(sPath);
@@ -496,6 +502,11 @@ namespace SO_Mediaplayer
 
                     if (MediaPlayer.Position == MediaPlayer.NaturalDuration.TimeSpan)
                     {
+                        if (playRandom && ListSelectionFolder.Items.Count > 2)
+                        {
+                            ShuffleTrackList();
+                            return;
+                        }
                         if (loopOne)
                         {
                             MediaPlayer.Position = new TimeSpan(0);
@@ -591,11 +602,11 @@ namespace SO_Mediaplayer
             NextMenu.IsEnabled = true;
             PreviousMenu.IsEnabled = true;
             playing = false;
+            timerWeb.Stop();
             // WebRadio has to deload Source
             if (!folderSelection)
             {
                 MediaPlayer.Source = null;
-                timerWeb.Stop();
             }
         }
 
@@ -662,28 +673,28 @@ namespace SO_Mediaplayer
             {
                 // Nach vorne erhöhen wir die Lautstärke
                 ProgressVolume.Value += 0.05;
-                SoundBoxVolume();
                 if (!isMuted)
                 {
                     MediaPlayer.Volume = ProgressVolume.Value;
                 }
+                SoundBoxVolume();
             }
             else
             {
                 // Nach hinten reduziert
                 ProgressVolume.Value -= 0.05;
-                SoundBoxVolume();
                 if (!isMuted)
                 {
                     MediaPlayer.Volume = ProgressVolume.Value;
                 }
+                SoundBoxVolume();
             }
         }
 
         // Bild der SoundBox der jeweiligen Lautstaerke anpassen
         private void SoundBoxVolume()
         {
-            if (MediaPlayer.Volume <= 0)
+            if (MediaPlayer.Volume <= 0.001)
             {
                 SoundBoxPic.Source = new BitmapImage(new Uri("soundVol/audio-volume-muted.png", UriKind.Relative));
             }
@@ -691,7 +702,7 @@ namespace SO_Mediaplayer
             {
                 SoundBoxPic.Source = new BitmapImage(new Uri("soundVol/audio-volume-low.png", UriKind.Relative));
             }
-            else if (MediaPlayer.Volume > 0.33 && MediaPlayer.Volume <= 0.66)
+            else if (MediaPlayer.Volume > 0.331 && MediaPlayer.Volume < 0.66)
             {
                 SoundBoxPic.Source = new BitmapImage(new Uri("soundVol/audio-volume-medium.png", UriKind.Relative));
             }
@@ -841,6 +852,8 @@ namespace SO_Mediaplayer
                     MediaPlayer.Source = new Uri(sB.ToString());
                     PlayRoutine();
                     playing = false;
+                    // Add in List for allready played
+                    allreadyPlayed.Add(ListSelectionFolder.SelectedIndex + 1);
                     ButtonPlayPause_Click(sender, e);
                     LabelFileName.Content = sB.ToString();
                 }
@@ -878,12 +891,18 @@ namespace SO_Mediaplayer
             }
         }
 
+        // Catch Keyboardentries and forward
         private void ListSelection_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             HotkeysForward(sender, e);
         }
 
         private void GridSplitter_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            HotkeysForward(sender, e);
+        }
+
+        private void ButtonClick_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             HotkeysForward(sender, e);
         }
@@ -1295,7 +1314,7 @@ namespace SO_Mediaplayer
         {
             if (folderSelection)
             {
-                if (playRandom)
+                if (playRandom && ListSelectionFolder.Items.Count > 2)
                 {
                     ShuffleTrackList();
                     return;
@@ -1342,7 +1361,7 @@ namespace SO_Mediaplayer
         {
             if (folderSelection)
             {
-                if (playRandom)
+                if (playRandom && ListSelectionFolder.Items.Count > 2)
                 {
                     ShuffleTrackList();
                     return;
@@ -1380,9 +1399,6 @@ namespace SO_Mediaplayer
 
         private void ShuffleTrackList()
         {
-            /// checken ob gebraucht!
-            //TimerTick.Stop();
-            bool recursive = false;
             if (allreadyPlayed.Count + 1 == ListSelectionFolder.Items.Count)
             {
                 allreadyPlayed.Clear();
@@ -1392,6 +1408,13 @@ namespace SO_Mediaplayer
 
             int rndTrack = rnd.Next(1, trackCount + 1);
 
+            CheckIfAllreadyPlayed(rndTrack);
+        }
+
+        private void CheckIfAllreadyPlayed(int rndTrack)
+        {
+            bool recursive = false;
+
             foreach (int item in allreadyPlayed)
             {
                 if (item == rndTrack)
@@ -1399,26 +1422,15 @@ namespace SO_Mediaplayer
                     recursive = true;
                 }
             }
-
-
-            if (!recursive)
-            {
-                allreadyPlayed.Add(ListSelectionFolder.SelectedIndex + 1);
-                ListSelectionFolder.SelectedIndex = rndTrack - 1;
-                ListSelectionFolder.ScrollIntoView(ListSelectionFolder.SelectedItem);
-            }
-            /// diese Funktion in 829 einbringen (ListSelection_SelectionChanged())
-            //allreadyPlayed.Add(ListSelectionFolder.SelectedIndex + 1);
-            //allreadyPlayed.Add(rndTrack);
             if (recursive)
             {
                 ShuffleTrackList();
             }
-            //ListSelectionFolder.SelectedIndex = rndTrack - 1;
-            //ListSelectionFolder.ScrollIntoView(ListSelectionFolder.SelectedItem);
-
-            /// checken ob gebraucht!
-            //TimerTick.Start();
+            else
+            {
+                ListSelectionFolder.SelectedIndex = rndTrack - 1;
+                ListSelectionFolder.ScrollIntoView(ListSelectionFolder.SelectedItem);
+            }
         }
 
         // ProgressTime Ellipse hide when scaling Window
@@ -1502,12 +1514,15 @@ namespace SO_Mediaplayer
             {
                 return;
             }
-            var uriSourceLoopAbsolute = ImageLoop.Source.ToString();
-            string uriSourceLoop = uriSourceLoopAbsolute.Replace("pack://application:,,,/SoftwOrt-Mediaplayer;component/", "");
+            // String to replace
+            string applicationPlace = "pack://application:,,,/SoftwOrt-Mediaplayer;component/";
+            // Only send UriKind.Relative to Classes
+            string uriSourceLoopAbsolute = ImageLoop.Source.ToString();
+            string uriSourceLoop = uriSourceLoopAbsolute.Replace(applicationPlace, "");
             ImageLoop.Source = new BitmapImage(Li.SwitchLoopIcon(uriSourceLoop));
 
             var uriSourceShuffleAbsolute = ImageShuffle.Source.ToString();
-            string uriSourceShuffle = uriSourceShuffleAbsolute.Replace("pack://application:,,,/SoftwOrt-Mediaplayer;component/", "");
+            string uriSourceShuffle = uriSourceShuffleAbsolute.Replace(applicationPlace, "");
             ImageShuffle.Source = new BitmapImage(Si.SwitchShuffleIcon(uriSourceShuffle));
         }
         private void MenuItem_Buttons_Click(object sender, RoutedEventArgs e)
@@ -1633,6 +1648,7 @@ namespace SO_Mediaplayer
                     ? new BitmapImage(new Uri("icons/shuffleActive.png", UriKind.Relative))
                     : new BitmapImage(new Uri("icons/shuffleLightActive.png", UriKind.Relative));
             }
+            allreadyPlayed.Clear();
         }
 
         #endregion
