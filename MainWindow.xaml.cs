@@ -53,7 +53,9 @@ namespace SO_Mediaplayer
         private string playtime;
         // Spracheselektion uebergeben
         private string langSelection;
-
+        // Windowtilte anpassen
+        private string mediaPlayerTitle;
+        private string webPlayerTitle;
         // Progressbar Steuerung
         private bool sliderMoving;
         // Schalter fuers muten
@@ -129,6 +131,8 @@ namespace SO_Mediaplayer
             timer.Interval = TimeSpan.FromMilliseconds(250);
             timerWeb.Interval = TimeSpan.FromSeconds(1);
 
+            mediaPlayerTitle = "SoftwOrt - Mediaplayer";
+            webPlayerTitle = "SoftwOrt - WebRadioPlayer";
             ViewSettings();
 
             firstLoad = true;
@@ -255,6 +259,7 @@ namespace SO_Mediaplayer
                 ViewSettings();
                 allreadyPlayed.Clear();
                 timerWeb.Stop();
+                this.Title = mediaPlayerTitle;
             }
         }
 
@@ -288,6 +293,7 @@ namespace SO_Mediaplayer
 			WebStationsStorage();
 			AddWebStationMenu.IsEnabled = true;
 			ViewSettings();
+            this.Title = webPlayerTitle;
         }
 
         // Ausgewaehlte lokale Datei (Liste) in das Datagrid uebertragen
@@ -357,6 +363,7 @@ namespace SO_Mediaplayer
 
                 allreadyPlayed.Clear();
                 timerWeb.Stop();
+                this.Title = mediaPlayerTitle;
                 // Pfad uebergeben
                 sPath = folderDialog.SelectedPath;
                 DirectoryInfo folder = new DirectoryInfo(sPath);
