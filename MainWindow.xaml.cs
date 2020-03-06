@@ -23,11 +23,6 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using Path = System.IO.Path;
 using WinForms = System.Windows.Forms;
 
-/// <summary>
-/// Icon graphic is free comercial use of license and has to be announced:
-/// "Icon made by UI Super Basic perfect from www.flaticon.com"
-/// https://www.flaticon.com/free-icon/headphone_1053254?term=headphones&page=2&position=51
-/// </summary>
 namespace SO_Mediaplayer
 {
     /// <summary>
@@ -36,47 +31,47 @@ namespace SO_Mediaplayer
     public partial class MainWindow : Window
     {
         #region Fields
-        // Player spielt
+        // Mediaplayer is playing
         bool playing = false;
-        // fuer HotKey-absicherung
+        // for HotKey-safety
         private bool fileLoaded = false;
-        // Pfad zum Ordner oeffnen
+        // Path to selected folder (Open folder)
         private string sPath = String.Empty;
-        // Datei zum importieren (Pfad)
+        // CSV file to import (Path)
         private string webStationFile = String.Empty;
-        // Order oder Datei geoeffnet, wenn false dann WebListe
+        // Folder or File opened, if flase then Webradio
         private bool folderSelection = true;
         private bool fileSelection = true;
-        // zwischenspeichern (Stop/Play)
+        // Tempsaving (Stop/Play)
         private string tempSelectionWeb;
-        // Maximale Spielzeit der geladenen Dateien ----noch offen
+        // Max. duration of loaded file
         private string playtime;
-        // Spracheselektion uebergeben
+        // Set selected language
         private string langSelection;
-        // Windowtilte anpassen
+        // Windowtilte adjustement
         private string mediaPlayerTitle;
         private string webPlayerTitle;
-        // Progressbar Steuerung
+        // Progressbar controll
         private bool sliderMoving;
-        // Schalter fuers muten
+        // Switch for mute
         private bool isMuted = false;
 
-        // Hilfsattribute fuer die Listenauswahl (click)
+        // Helping attributes for selected Items in Listview/Datagrid (click)
         private dynamic selectedItemWeb;
         private dynamic selectionWeb;
 
-        // Bool fuer Ansichten
+        // Bools for Loop and Random play
+        private bool loop = true;
+        private bool loopOne = true;
+        private bool playRandom = true;
+
+        // Bools for View
         private bool folderSelected = true;
         private bool favListSelected = true;
         private bool webListSelected = true;
         private bool firstLoad;
 
-        // Loop and Random play
-        private bool loop = true;
-        private bool loopOne = true;
-        private bool playRandom = true;
-
-        //private double columnListMinWidth;
+        //Var's for View-Settings
         private double favListMinHeight;
         private GridLength columnList;
         private GridLength columnSplitter;
@@ -99,8 +94,9 @@ namespace SO_Mediaplayer
 
         // Liste fuer die Radiostaionen
         readonly List<WebStations> webStationList = new List<WebStations>();
-
+		// Instanitiate language class
         private SetLanguages Sl;
+		// Var's for Buttonselection
         private string thumbButton;
         public BitmapImage ButtonSkipBackwardGraphic { get; set; }
         public BitmapImage ButtonSkipForwardGraphic { get; set; }
@@ -114,7 +110,7 @@ namespace SO_Mediaplayer
         private readonly LoopIcon Li = new LoopIcon();
         private readonly ShuffleIcon Si = new ShuffleIcon();
 
-        // Shuffle
+        // Shuffle var's
         List<int> allreadyPlayed = new List<int>();
         Random rnd = new Random();
 
@@ -122,7 +118,7 @@ namespace SO_Mediaplayer
 
 
         #region Methods
-
+		// Constructor
         public MainWindow()
         {
             InitializeComponent();
@@ -150,6 +146,7 @@ namespace SO_Mediaplayer
             ButtonShuffle_OnClick(new object(), new RoutedEventArgs());
         }
 
+		// Define correct language at startup
         private void SetLanguageStartUp()
         {
             foreach (MenuItem item in MenuItemLanguages.Items)
@@ -165,6 +162,7 @@ namespace SO_Mediaplayer
             SetDataGridHeadersLang();
         }
 
+		// Define correct Language from SetLanguage class
         private void SetDataGridHeadersLang()
         {
             FavsSort.Header = Sl.WebListFav;
@@ -177,6 +175,7 @@ namespace SO_Mediaplayer
             DgcWebUrl.Header = Sl.WebListWebUrl;
         }
 
+		// Show last selected Buttons at startup
         private void SetButtonsStartUp()
         {
             foreach (MenuItem item in MenuItemButtons.Items)
@@ -189,6 +188,7 @@ namespace SO_Mediaplayer
             }
         }
 
+		// Method for PrograssBar-Duration graphical Ellipse
         private void ElliTimePos()
         {
             GradientBrush filling = new RadialGradientBrush(Colors.LightGray, Color.FromRgb(198, 198, 198));
@@ -207,7 +207,7 @@ namespace SO_Mediaplayer
             //CanvasPbTime.Children.Add(elliTime);
         }
 
-        // Einstellungen fuer Ansichtsmenue
+        // Menu-Settings for View (IsSelectable or not, depending on situation (file or webradio))
         private void ViewSettings()
         {
             if (folderSelection)
@@ -227,10 +227,10 @@ namespace SO_Mediaplayer
         }
 
 
-        // einzelne Datei auswaehlen
+        // Open single file
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
-            // den Dialog erzeugen
+            // create Dialog
             OpenFileDialog openDialog = new OpenFileDialog();
             openDialog.FileName = String.Empty;
             if (openDialog.ShowDialog() == true)
@@ -263,7 +263,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Radiostationen laden
+        // Load Radiostations
         private void ButtonOpenWeb_Click(object sender, RoutedEventArgs e)
         {
             if (webStationList != null)
@@ -296,11 +296,10 @@ namespace SO_Mediaplayer
             this.Title = webPlayerTitle;
         }
 
-        // Ausgewaehlte lokale Datei (Liste) in das Datagrid uebertragen
+        // Selected local file (List) show in Datagrid
         private void WebStationsStorage()
         {
             var newWebStations = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebStations>(webStationFile);
-            //var newWebStationsesFav = WebFileProcessor.WebFileProcessor.LoadFromTextFile<WebFavs>(webStationFile);
 
             foreach (var webStation in newWebStations)
             {
@@ -321,7 +320,7 @@ namespace SO_Mediaplayer
             ChkBoxSaveOnExit.IsChecked = true;
         }
 
-        // Liste aus Datagrid in Datei speichern, wenn gewuenscht
+        // Save List from Datagrid in CSV-File if Checkbox == true && start closing routine
         private void WindowMediaPLayer_Closing(object sender, CancelEventArgs e)
         {
             if (ChkBoxSaveOnExit.IsChecked == true)
@@ -349,11 +348,9 @@ namespace SO_Mediaplayer
                 StackPanelSearch.Visibility = Visibility.Collapsed;
                 TextBlockFavListHeader.Visibility = Visibility.Collapsed;
                 ListSelectionFolder.Visibility = Visibility.Visible;
-                //CheckWebListsOn();
                 FolderListMenu.IsChecked = true;
                 FolderListMenu_Click(sender, e);
-                //GridView vorbereiten
-                //this.ListSelection.View = gridView;
+                // Prepare GridView
                 folderSelection = true;
                 fileSelection = false;
                 ChkBoxSaveOnExit.IsEnabled = false;
@@ -364,7 +361,7 @@ namespace SO_Mediaplayer
                 allreadyPlayed.Clear();
                 timerWeb.Stop();
                 this.Title = mediaPlayerTitle;
-                // Pfad uebergeben
+                // Set path
                 sPath = folderDialog.SelectedPath;
                 DirectoryInfo folder = new DirectoryInfo(sPath);
                 int i = 1;
@@ -381,7 +378,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Abspielroutine nach File oder Folder oeffnen
+        // Playroutine for File or Folder opened
         private void PlayRoutine()
         {
             PlayMenu.IsEnabled = true;
@@ -424,7 +421,7 @@ namespace SO_Mediaplayer
                 timer.Start();
                 ProgressPlayed.IsHitTestVisible = true;
             }
-            else // web
+            else // Webradio
             {
                 ForwardMenu.IsEnabled = false;
                 BackwardMenu.IsEnabled = false;
@@ -449,12 +446,11 @@ namespace SO_Mediaplayer
         }
 
 
-        // Wenn MediaFile geladen, Gesamtzeit anzeigen
+        // Show duration of track if Mediafile is loaded
         private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
         {
             if (!folderSelection)
             {
-                // Photo by israel palacio(https://unsplash.com/@othentikisra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on Unsplash(https://unsplash.com)
                 ImageAudio.Source = new BitmapImage(new Uri("musicBackground/radio.jpg", UriKind.Relative));
                 playing = false;
                 ButtonPlayPause_Click(sender, e);
@@ -473,7 +469,6 @@ namespace SO_Mediaplayer
                 }
                 if (MediaPlayer.HasAudio)
                 {
-                    // Photo by Marcela Laskoski(https://unsplash.com/@marcelalaskoski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on Unsplash(https://unsplash.com)
                     ImageAudio.Source = new BitmapImage(new Uri("musicBackground/audio.jpg", UriKind.Relative));
                     playing = false;
                     ButtonPlayPause_Click(sender, e);
@@ -487,9 +482,11 @@ namespace SO_Mediaplayer
         }
 
 
-        // Aktuelle Spieldauer an Label uebergeben mit Hilfe des Tick Timers
+        // #1 Timer to show current Trackposition, adjust ProgressBar and Ellipse #1
+		// #2 Decide what to do when Track reached end of duration #2
         private void TimerTick(object sender, EventArgs e)
         {
+			// #1
             if (MediaPlayer != null)
             {
                 if (MediaPlayer.NaturalDuration.HasTimeSpan)
@@ -506,7 +503,7 @@ namespace SO_Mediaplayer
                         Canvas.SetLeft(elliTime, (((ProgressPlayed.ActualWidth / MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds) * MediaPlayer.Position.TotalSeconds) - (elliTime.Width / 2)));
                         CanvasPbTime.Children.Add(elliTime);
                     }
-
+					// #2
                     if (MediaPlayer.Position == MediaPlayer.NaturalDuration.TimeSpan)
                     {
                         if (playRandom && ListSelectionFolder.Items.Count > 2)
@@ -537,6 +534,7 @@ namespace SO_Mediaplayer
             }
         }
 
+		// Timer for Webradio-Player ( show played time )
         private void TimerWebTick(object sender, EventArgs e)
         {
             diff = DateTime.Now;
@@ -545,7 +543,7 @@ namespace SO_Mediaplayer
         }
 
 
-        // Mediendatei abspielen || pausieren
+        // Play || Pause Mediaplayer
         private void ButtonPlayPause_Click(object sender, EventArgs e)
         {
             if (!playing)
@@ -592,7 +590,7 @@ namespace SO_Mediaplayer
             StopMenu.IsEnabled = true;
         }
 
-        // Mediendatei stoppen
+        // Stop Mediaplayer
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
             ImagePlay();
@@ -618,7 +616,7 @@ namespace SO_Mediaplayer
         }
 
 
-        // Bilder tauschen (Play || Pause)
+        // Change picture (Play || Pause)
         void ImagePlay()
         {
             ImagePlayPic.Source = ButtonPlayGraphic;
@@ -642,7 +640,7 @@ namespace SO_Mediaplayer
         }
 
 
-        // Mediafile per Spacetaste und Pfeiltasten (abspielen && pausieren) || 10sek springen(vor || zurueck)
+        // Mediafile per Spacekey (plaz || pause) and Arrowkeys 10sec jump or skip for-/backward
         private void WindowMediaPLayer_KeyDown(object sender, KeyEventArgs e)
         {
             if (!fileLoaded)
@@ -672,13 +670,13 @@ namespace SO_Mediaplayer
         }
 
 
-        // Lautstaerke per Mausrad aendern
+        // Adjust volume per per MouseWheel
         private void WindowMediaPLayer_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            // In welche Richtung wurde das Mausrad gedreht?
+            // In which direction MouseWheel is tourned
             if (e.Delta > 0)
             {
-                // Nach vorne erhöhen wir die Lautstärke
+                // Forward? More louder
                 ProgressVolume.Value += 0.05;
                 if (!isMuted)
                 {
@@ -688,7 +686,7 @@ namespace SO_Mediaplayer
             }
             else
             {
-                // Nach hinten reduziert
+                // Backward? More quiet
                 ProgressVolume.Value -= 0.05;
                 if (!isMuted)
                 {
@@ -698,7 +696,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Bild der SoundBox der jeweiligen Lautstaerke anpassen
+        // Adjust picture of SoundBox to Volume-Value
         private void SoundBoxVolume()
         {
             if (MediaPlayer.Volume <= 0.001)
@@ -719,7 +717,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // 10 Sekunden vorwaerts springen
+        // Jump 10sec. forward
         private void ButtonForwards_Click(object sender, RoutedEventArgs e)
         {
             if (!playing || !folderSelection)
@@ -737,7 +735,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // 10 sekunden zurueck springen
+        // Jump 10sec. back
         private void ButtonBackwards_Click(object sender, RoutedEventArgs e)
         {
             if (!playing || !folderSelection)
@@ -755,7 +753,8 @@ namespace SO_Mediaplayer
         }
 
 
-        // ProgressBar auf MousLeftButtonDown reagieren lassen und an geklickte stelle den Value setzen.
+		// ProgressBar-Volume
+        // ProgressBar react to MousLeftButtonDown and bring Value to clicked position
         private void ProgressVolume_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             double mousePosition = e.GetPosition(ProgressVolume).X;
@@ -772,7 +771,6 @@ namespace SO_Mediaplayer
             return progressBarValue;
         }
 
-
         private void ProgressVolume_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
@@ -785,19 +783,8 @@ namespace SO_Mediaplayer
             }
         }
 
-        //private void ProgressVolume_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (!playing)
-        //    {
-        //        return;
-        //    }
-        //    sliderMoving = false;
-        //    double mousePosition = e.GetPosition(ProgressPlayed).X;
-        //    MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
-        //}
 
-
-        // Check ob Internetconnection vorhanden
+        // Check if Internetconnection is available
         private bool CheckForInternetConnection()
         {
             try
@@ -812,7 +799,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Wenn Internetverbindung vorhanden, Bild anpassen
+        // If internetconnection == true, adjust picture 
         private void WindowMediaPLayer_Loaded(object sender, RoutedEventArgs e)
         {
             if (CheckForInternetConnection() == true)
@@ -821,8 +808,8 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Je nach Liste in die geklickt wurde die korrekte Adresse laden
-        // Ueberpruefung per Mouseover auf welcher Liste sich die Maus befindet
+        // Specify clicked List (DataGrid) and load correct webaddress
+        // check per Mouseover over which Datagrid mouse is hoovered
         private void ListIdentifier(object sender, SelectionChangedEventArgs e)
         {
             if (ListSelectionWebFav.IsMouseOver)
@@ -835,7 +822,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Auswahl aus der Liste in den Mediaplayer laden
+        // Selection from Lists load to Mediaplayer
         private void ListSelection_SelectionChanged(object sender, SelectionChangedEventArgs e, int identifier)
         {
             if (((ListSelectionWeb.Visibility == Visibility.Visible && ListSelectionWeb.SelectedItem == null) && (ListSelectionWebFav.Visibility == Visibility.Visible && ListSelectionWebFav.SelectedItem == null)) || (ListSelectionFolder.Visibility == Visibility.Visible && ListSelectionFolder.SelectedItem == null))
@@ -844,10 +831,12 @@ namespace SO_Mediaplayer
             }
             else
             {
+				// only one file? go out!
                 if (fileSelection)
                 {
                     return;
                 }
+				// ListSelectionFolder
                 if (folderSelection)
                 {
                     dynamic selectedItemFolder = ListSelectionFolder.SelectedItems[0];
@@ -864,6 +853,7 @@ namespace SO_Mediaplayer
                     ButtonPlayPause_Click(sender, e);
                     LabelFileName.Content = sB.ToString();
                 }
+				// ListSelectionWeb || ListSelectionWebFav
                 else if (!folderSelection && TextBoxSearch.Text != string.Empty)
                 {
                     if (ListSelectionWebFav.SelectedItem == null)
@@ -914,6 +904,7 @@ namespace SO_Mediaplayer
             HotkeysForward(sender, e);
         }
 
+		// Get catch of Keyboardentries and specialize
         private void HotkeysForward(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -931,8 +922,8 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Wenn Favorit an- oder abgewaehlt wurde, Listen aktualisieren und neu laden in GUI
-        // Normale WebStationen Liste
+        // If Favorite is selected || deselected, update List and load in GUI
+        // Normal WebStationen List
         private void CheckBoxList_Click(object sender, RoutedEventArgs e)
         {
             dynamic selectedItemWeb = ListSelectionWeb.SelectedItems[0];
@@ -966,8 +957,8 @@ namespace SO_Mediaplayer
             RowFavListHeight.Height = new GridLength((ListSelectionWebFav.Items.Count * 24) + 45);
 
         }
-        // Wenn Favorit an- oder abgewaehlt wurde, Listen aktualisieren und neu laden in GUI
-        // Favoriten Liste
+        // If Favorite is selected || deselected, update List and load in GUI
+        // List of Favorites
         private void CheckBoxFav_Click(object sender, RoutedEventArgs e)
         {
             dynamic selectedItemWeb = ListSelectionWebFav.SelectedItems[0];
@@ -1003,11 +994,7 @@ namespace SO_Mediaplayer
             TextBoxSearch.Text = string.Empty;
         }
 
-        //private void TextBoxSearch_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    TextBoxSearch.Text = "Search";
-        //}
-
+		// Method to clear TextBoxSearch and get ListSelectionWeb fully showed again
         private void ButtonCancelSearch_Click(object sender, RoutedEventArgs e)
         {
             if (TextBoxSearch.Text == Sl.Search || TextBoxSearch.Text == string.Empty)
@@ -1022,7 +1009,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Liste durchsuchen per TextBox
+        // Search through List per Textbox
         private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
         {
             var filter = webStationList.Where(webStationList => webStationList.StationName.ToLower().Contains(TextBoxSearch.Text));
@@ -1033,6 +1020,7 @@ namespace SO_Mediaplayer
             }
         }
 
+		// Method to open "Add Radiostation"-Window
         private void AddWebStation_Click(object sender, RoutedEventArgs e)
         {
             string stationName;
@@ -1050,18 +1038,19 @@ namespace SO_Mediaplayer
                 stationUrl = openDialog.StationUrl;
                 bitRate = openDialog.BitRate;
                 fav = openDialog.Favorite;
+				// forward to Method
                 AddStationToList(stationName, bitRate, stationUrl, fav);
             }
         }
 
-        // Webradio Station hinzufuegen
+        // Add Webradio-Station to List
         private void AddStationToList(string stationName, string bitRate, string stationUrl, bool fav)
         {
-            // Radiostaion hinzu
+            // Add Radiostaion
             webStationList.Add(new WebStations { StationName = stationName, BitRate = bitRate, StationUrl = stationUrl, StationFav = fav });
-            // Liste sortieren
+            // sort List
             var orderedStationList = webStationList.OrderBy(x => x.StationName).ToList();
-            // GUI und List<T> updaten
+            // update GUI and List<T>
             ListSelectionWeb.Items.Clear();
             webStationList.Clear();
             foreach (var station in orderedStationList)
@@ -1069,7 +1058,7 @@ namespace SO_Mediaplayer
                 webStationList.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
                 ListSelectionWeb.Items.Add(new WebStations { StationName = station.StationName, BitRate = station.BitRate, StationUrl = station.StationUrl, StationFav = station.StationFav });
             }
-            // wenn direkt als Favorit speichern, Favoritenliste updaten
+            // if "Save as favorite" is checked, update list of favorites
             if (fav)
             {
                 ListSelectionWebFav.Items.Clear();
@@ -1083,7 +1072,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Track-/ Videoposition per Progressbar steuern
+        // Track-/ Videoposition controll per Progressbar
         private void ProgressPlayed_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (!playing && !folderSelection)
@@ -1101,6 +1090,18 @@ namespace SO_Mediaplayer
             return progressBarValue;
         }
 
+        //private void ProgressVolume_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (!playing)
+        //    {
+        //        return;
+        //    }
+        //    sliderMoving = false;
+        //    double mousePosition = e.GetPosition(ProgressPlayed).X;
+        //    MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
+        //}
+
+
 
         // Close Window
         private void CloseMenu_Click(object sender, RoutedEventArgs e)
@@ -1109,9 +1110,9 @@ namespace SO_Mediaplayer
         }
 
 
-
+		#region ViewOptions
         /// <summary>
-        /// Ab hier "View" Bereich fuer Listen an/aus
+        /// Ab hier "View" area for switching Lists on/off
         /// </summary>
         private void FolderListMenu_Click(object sender, RoutedEventArgs e)
         {
@@ -1316,11 +1317,15 @@ namespace SO_Mediaplayer
                 SearchboxMenu_Click(sender, e);
             }
         }
+		#endregion
 
+
+		// Method for Button skip backward
         private void ButtonSkipBackward_Click(object sender, EventArgs e)
         {
             if (folderSelection)
             {
+                // Shuffle Button active?
                 if (playRandom && ListSelectionFolder.Items.Count > 2)
                 {
                     ShuffleTrackList();
@@ -1364,10 +1369,12 @@ namespace SO_Mediaplayer
             }
         }
 
+		// Method for Button skip forward
         private void ButtonSkipForward_Click(object sender, EventArgs e)
         {
             if (folderSelection)
             {
+				// Shuffle-Button active?
                 if (playRandom && ListSelectionFolder.Items.Count > 2)
                 {
                     ShuffleTrackList();
@@ -1404,11 +1411,30 @@ namespace SO_Mediaplayer
             }
         }
 
+		// Methods for Shuffling when active
         private void ShuffleTrackList()
         {
-            if (allreadyPlayed.Count + 1 == ListSelectionFolder.Items.Count)
+            if (loopOne)
             {
-                allreadyPlayed.Clear();
+                MediaPlayer.Position = new TimeSpan(0);
+                return;
+            }
+
+            if (loop)
+            {
+                if (allreadyPlayed.Count + 1 == ListSelectionFolder.Items.Count)
+                {
+                    allreadyPlayed.Clear();
+                }
+            }
+            else
+            {
+                if (allreadyPlayed.Count + 1 == ListSelectionFolder.Items.Count)
+                {
+                    ButtonStop_Click(new object(), new RoutedEventArgs());
+                    allreadyPlayed.Clear();
+                    return;
+                }
             }
 
             int trackCount = ListSelectionFolder.Items.Count;
@@ -1417,7 +1443,8 @@ namespace SO_Mediaplayer
 
             CheckIfAllreadyPlayed(rndTrack);
         }
-
+		// If rndTrack is allready in List<allreadyPlayed> then ShuffleTrackList() is called again,
+		// else new Track will be selected over ListSelectionFolder
         private void CheckIfAllreadyPlayed(int rndTrack)
         {
             bool recursive = false;
@@ -1462,7 +1489,8 @@ namespace SO_Mediaplayer
             ProgressPlayed.Value = 1;
             ProgressPlayed.IsHitTestVisible = false;
         }
-
+		
+		// Method for Language-selection over menu
         private void MenuItem_Lang_Click(object sender, RoutedEventArgs e)
         {
             // Uncheck each item
@@ -1483,6 +1511,7 @@ namespace SO_Mediaplayer
             langSelection = miLang.Tag.ToString();
             TextBlockFavListHeader.Text = Sl.FavListHeader;
             SetDataGridHeadersLang();
+            SetLoopShuffleLanguage();
 
             if (playing)
             {
@@ -1494,6 +1523,27 @@ namespace SO_Mediaplayer
             }
         }
 
+        // Set corect language to Loop && Shuffle button
+        private void SetLoopShuffleLanguage()
+        {
+            if (loop && loopOne)
+            {
+                ButtonLoop.ToolTip = Sl.RepeatOne;
+            }
+            else if (!loop && !loopOne)
+            {
+                ButtonLoop.ToolTip = Sl.Repeat;
+            }
+            else if (loop && !loopOne)
+            {
+                ButtonLoop.ToolTip = Sl.RepeatAll;
+
+            }
+
+            ButtonShuffle.ToolTip = playRandom ? Sl.ShuffleOn : Sl.ShuffleOff;
+        }
+
+        // Method for Style-selection over menu
         private void MenuItem_Style_Click(object sender, RoutedEventArgs e)
         {
             string currentStyle = LightStyle.IsChecked ? LightStyle.ToString() : DarkStyle.ToString();
@@ -1502,7 +1552,7 @@ namespace SO_Mediaplayer
             {
                 item.IsChecked = false;
             }
-
+            
             MenuItem miStyle = sender as MenuItem;
             miStyle.IsChecked = true;
             string stylefile = Path.Combine(App.Directory, "Styles", miStyle.Name + ".xaml");
@@ -1532,6 +1582,7 @@ namespace SO_Mediaplayer
             string uriSourceShuffle = uriSourceShuffleAbsolute.Replace(applicationPlace, "");
             ImageShuffle.Source = new BitmapImage(Si.SwitchShuffleIcon(uriSourceShuffle));
         }
+		// Method for Button-selection over menu
         private void MenuItem_Buttons_Click(object sender, RoutedEventArgs e)
         {
             foreach (MenuItem item in MenuItemButtons.Items)
@@ -1554,6 +1605,7 @@ namespace SO_Mediaplayer
             SetGraphicButtons(sender, e);
         }
 
+		// Method to change Buttongraphic
         private void SetGraphicButtons(object sender, RoutedEventArgs e)
         {
             ImageSkipBackwardPic.Source = ButtonSkipBackwardGraphic;
@@ -1581,6 +1633,7 @@ namespace SO_Mediaplayer
 
         }
 
+		// MEthod to open "About"-Window
         private void AboutMenu_OnClick(object sender, RoutedEventArgs e)
         {
             About about = new About(Top + Height / 2, Left + Width / 2);
@@ -1588,7 +1641,7 @@ namespace SO_Mediaplayer
             about.Owner = this;
         }
 
-        // Mute-Method when SoundIcon is clicked
+        // Mute-Method when SoundBoxIcon is clicked
         private void SoundBoxPic_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             //double tempVol = MediaPlayer.Volume;
@@ -1606,7 +1659,7 @@ namespace SO_Mediaplayer
             }
         }
 
-        // Loop Method activate || deactivate
+        // Loop and Loop1 Method activate || deactivate
         private void ButtonLoop_OnClick(object sender, RoutedEventArgs e)
         {
             if (loop && loopOne)

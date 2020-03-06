@@ -127,8 +127,8 @@
     <sys:String x:Key="AboutTextInfo4">Reference to the icons used (free icon library):</sys:String>
     <sys:String x:Key="AboutTextInfo5">Reference for the "Loop" and "Shuffle" icons (both graphically adapted for respective functions):</sys:String>
     <sys:String x:Key="AboutTextInfo6">References to images used (audio / web radio):</sys:String>
-    <sys:String x:Key="AboutTextInfo7">Audio-Hintergrund: Foto von Israel Palacio</sys:String>
-    <sys:String x:Key="AboutTextInfo8">Internetradio-Hintergrund: Foto von Marcela Laskoski</sys:String>
+    <sys:String x:Key="AboutTextInfo7">Audio-Background: Foto von Israel Palacio</sys:String>
+    <sys:String x:Key="AboutTextInfo8">Internetradio-Background: Foto von Marcela Laskoski</sys:String>
     <sys:String x:Key="AboutTextInfo9">Both pictures can be found on Unsplash</sys:String>
     <sys:String x:Key="AboutTextInfo10">Reference to the program icon (headphones):</sys:String>
     <sys:String x:Key="AboutTextInfo11">Icon graphic is free comercial use of license and has to be announced:
