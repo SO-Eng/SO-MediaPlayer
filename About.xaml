@@ -7,10 +7,17 @@
         mc:Ignorable="d"
         Title="{DynamicResource ResourceKey=AboutWindow_Title}" Height="400" Width="500"
         Style="{DynamicResource ResourceKey=MainWindowStyle}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
-    <Grid>
-        <ScrollViewer>
-
-<StackPanel>
+    <Grid Style="{DynamicResource GridAboutStyle}">
+        <WrapPanel Style="{DynamicResource WrapPanelHeaderAboutStyle}" Height="70" VerticalAlignment="Top">
+            <Image Source="icons/so_logo.png" Height="40" Width="40" HorizontalAlignment="Left" Margin="45,10"/>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" >
+                <Label Style="{DynamicResource AboutLabelInfo}" VerticalAlignment="Bottom" Content="SoftwOrt-Media- and  Webradioplayer" Height="25"/>
+                <Label Style="{DynamicResource AboutLabelInfo}" VerticalAlignment="Top" Content="Creator: Markus Sczeburek-Ort" Height="25"/>
+            </StackPanel>
+            <Image Source="ico/headphones.ico" Height="40" Width="40" Margin="50,10" HorizontalAlignment="Right"/>
+        </WrapPanel>
+        <ScrollViewer Margin="0,90,0,0">
+            <StackPanel Style="{DynamicResource StackPanelAboutStyle}" Margin="20,0, 3,0" >
             <TextBlock Style="{DynamicResource AboutTextBlockHeader}" Margin="40,10,40,10" Text="{DynamicResource ResourceKey=AboutHeader}"
                        TextAlignment="Center" FontWeight="Bold" FontSize="14"/>
             <StackPanel Margin="40,0,40,10">

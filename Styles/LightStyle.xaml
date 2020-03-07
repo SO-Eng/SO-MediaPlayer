@@ -274,6 +274,16 @@
         <Setter Property="Background" Value="#FFF0F0F0" />
     </Style>
 
+    <!-- About -->
+    <Style x:Key="GridAboutStyle" TargetType="Grid">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style x:Key="WrapPanelHeaderAboutStyle" TargetType="WrapPanel">
+        <Setter Property="Background" Value="Gray"/>
+    </Style>
+    <Style x:Key="StackPanelAboutStyle" TargetType="StackPanel">
+        <Setter Property="Background" Value="LightGray"/>
+    </Style>
 
 
     <!--Scrollbar Thumbs-->

@@ -148,6 +148,7 @@
     <Resource Include="icons\loopLightActiveOne.png" />
     <Resource Include="icons\shuffleLight.png" />
     <Resource Include="icons\shuffleLightActive.png" />
+    <Resource Include="icons\so_logo.png" />
     <Content Include="Languages\en-US\Dict.en-US.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

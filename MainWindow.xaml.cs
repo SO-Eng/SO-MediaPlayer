@@ -181,6 +181,7 @@ namespace SO_Mediaplayer
             }
         }
 
+        // Load last settings from registry
         private void LoadSettings(RegistryKey _regKey)
         {
             // MainWindow
@@ -263,6 +264,7 @@ namespace SO_Mediaplayer
             }
         }
 
+        // Save settings to registry
         private void SaveSettings()
         {
             using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(regPath))
@@ -302,7 +304,6 @@ namespace SO_Mediaplayer
                 regKey.SetValue("ListViewFavorites", FavListMenu.IsChecked ? "True" : "False");
                 regKey.SetValue("ListViewSearch", SearchboxMenu.IsChecked ? "True" : "False");
                 regKey.SetValue("ListViewWebradio", WebListMenu.IsChecked ? "True" : "False");
-
             }
         }
 
