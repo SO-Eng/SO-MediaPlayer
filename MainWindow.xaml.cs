@@ -5,9 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.Remoting.Channels;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -66,12 +64,18 @@ namespace SO_Mediaplayer
         private bool loop;
         private bool loopOne;
         private bool playRandom;
+        private bool onStart;
 
         // Bools for View
         private bool folderSelected = true;
         private bool favListSelected = true;
         private bool webListSelected = true;
         private bool firstLoad;
+
+        private bool folderSelectedLast;
+        private bool favListSelectedLast;
+        private bool searchListSelectedLast;
+        private bool webListSelectedLast;
 
         //Var's for View-Settings
         private double favListMinHeight;
@@ -161,6 +165,7 @@ namespace SO_Mediaplayer
                     Buttons1.IsChecked = true;
                     SetButtonsStartUp();
                     // Turn off Loop and Shuffle
+                    onStart = false;
                     loop = true;
                     loopOne = true;
                     playRandom = true;
@@ -168,26 +173,30 @@ namespace SO_Mediaplayer
                     ButtonShuffle_OnClick(new object(), new RoutedEventArgs());
                     // Lightmode
                     MenuItem_Style_Click(LightStyle, new RoutedEventArgs());
+                    folderSelectedLast = true;
+                    favListSelectedLast = true;
+                    searchListSelectedLast = true;
+                    webListSelectedLast = true;
                 }
             }
         }
 
-        private void LoadSettings(RegistryKey _regkey)
+        private void LoadSettings(RegistryKey _regKey)
         {
             // MainWindow
-            this.Top = Convert.ToDouble(_regkey.GetValue("Top"));
-            this.Left = Convert.ToDouble(_regkey.GetValue("Left"));
-            this.Width = Convert.ToDouble(_regkey.GetValue("Width"));
-            this.Height = Convert.ToDouble(_regkey.GetValue("Height"));
+            this.Top = Convert.ToDouble(_regKey.GetValue("Top"));
+            this.Left = Convert.ToDouble(_regKey.GetValue("Left"));
+            this.Width = Convert.ToDouble(_regKey.GetValue("Width"));
+            this.Height = Convert.ToDouble(_regKey.GetValue("Height"));
             // Buttons
-            if (_regkey.GetValue("Buttons") == null)
+            if (_regKey.GetValue("Buttons") == null)
             {
                 Buttons1.IsChecked = true;
                 SetButtonsStartUp();
             }
             else
             {
-                string buttons = _regkey.GetValue("Buttons").ToString();
+                string buttons = _regKey.GetValue("Buttons").ToString();
                 foreach (MenuItem item in MenuItemButtons.Items)
                 {
                     if (item.Name.Equals(buttons))
@@ -198,13 +207,13 @@ namespace SO_Mediaplayer
                 }
             }
             // Language
-            if (_regkey.GetValue("Language") == null)
+            if (_regKey.GetValue("Language") == null)
             {
                 SetLanguageStartUp();
             }
             else
             {
-                langSelection = _regkey.GetValue("Language").ToString();
+                langSelection = _regKey.GetValue("Language").ToString();
                 foreach (MenuItem item in MenuItemLanguages.Items)
                 {
                     if (item.Tag.ToString().Equals(langSelection))
@@ -216,7 +225,7 @@ namespace SO_Mediaplayer
                 }
             }
             // Style
-            string lastStyle = _regkey.GetValue("Style").ToString();
+            string lastStyle = _regKey.GetValue("Style").ToString();
             foreach (MenuItem item in MenuItemStyle.Items)
             {
                 if (item.Name.Equals(lastStyle))
@@ -226,18 +235,29 @@ namespace SO_Mediaplayer
                 }
             }
             // Loop && ShuffleButton
-            // ******* ABSICHERUNG ***********
-            loop = true;
-            loopOne = true;
-            playRandom = true;
+            onStart = true;
+            loop = Convert.ToBoolean(_regKey.GetValue("Loop"));
+            loopOne = Convert.ToBoolean(_regKey.GetValue("LoopOne"));
+            playRandom = Convert.ToBoolean(_regKey.GetValue("Shuffle"));
             ButtonLoop_OnClick(new object(), new RoutedEventArgs());
             ButtonShuffle_OnClick(new object(), new RoutedEventArgs());
 
             // Volume
-            ProgressVolume.Value = Convert.ToDouble(_regkey.GetValue("Volume"));
+            ProgressVolume.Value = Convert.ToDouble(_regKey.GetValue("Volume"));
             MediaPlayer.Volume = ProgressVolume.Value;
+            // View Folder/File
+            folderSelectedLast = Convert.ToBoolean(_regKey.GetValue("ListViewFolder"));
+            FolderListMenu.IsChecked = folderSelectedLast;
+            FolderListMenu_Click(new object(), new RoutedEventArgs());
+            // View Webradio
+            favListSelectedLast = Convert.ToBoolean(_regKey.GetValue("ListViewFavorites"));
+            searchListSelectedLast = Convert.ToBoolean(_regKey.GetValue("ListViewSearch"));
+            webListSelectedLast = Convert.ToBoolean(_regKey.GetValue("ListViewWebradio"));
+            FavListMenu.IsChecked = favListSelectedLast;
+            SearchboxMenu.IsChecked = searchListSelectedLast;
+            WebListMenu.IsChecked = webListSelectedLast;
             // Webradio was active?
-            if (!Convert.ToBoolean(_regkey.GetValue("WebradioActive")))
+            if (!Convert.ToBoolean(_regKey.GetValue("WebradioActive")))
             {
                 ButtonOpenWeb_Click(new object(), new RoutedEventArgs());
             }
@@ -260,6 +280,9 @@ namespace SO_Mediaplayer
                         regKey.SetValue("Buttons", item.Name);
                     }
                 }
+                regKey.SetValue("Loop", loop);
+                regKey.SetValue("LoopOne", loopOne);
+                regKey.SetValue("Shuffle", playRandom);
                 // Language
                 regKey.SetValue("Language", langSelection);
                 // Style
@@ -274,6 +297,12 @@ namespace SO_Mediaplayer
                 regKey.SetValue("Volume", MediaPlayer.Volume);
                 // Webbradio
                 regKey.SetValue("WebradioActive", folderSelection);
+                // View (Lists of Foler/File && Webradio
+                regKey.SetValue("ListViewFolder", FolderListMenu.IsChecked ? "True" : "False");
+                regKey.SetValue("ListViewFavorites", FavListMenu.IsChecked ? "True" : "False");
+                regKey.SetValue("ListViewSearch", SearchboxMenu.IsChecked ? "True" : "False");
+                regKey.SetValue("ListViewWebradio", WebListMenu.IsChecked ? "True" : "False");
+
             }
         }
 
@@ -1796,28 +1825,58 @@ namespace SO_Mediaplayer
         {
             if (loop && loopOne)
             {
-                loop = false;
-                loopOne = false;
-                ButtonLoop.ToolTip = Sl.Repeat;
-                ImageLoop.Source = !DarkStyle.IsChecked 
-                    ? new BitmapImage(new Uri("icons/loop.png", UriKind.Relative)) 
-                    : new BitmapImage(new Uri("icons/loopLight.png", UriKind.Relative));
+                if (onStart)
+                {
+                    ButtonLoop.ToolTip = Sl.RepeatOne;
+                    ImageLoop.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/loopActiveOne.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/loopLightActiveOne.png", UriKind.Relative));
+                }
+                else
+                {
+                    loop = false;
+                    loopOne = false;
+                    ButtonLoop.ToolTip = Sl.Repeat;
+                    ImageLoop.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/loop.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/loopLight.png", UriKind.Relative));
+                }
             }
             else if (!loop && !loopOne)
             {
-                loop = true;
-                ButtonLoop.ToolTip = Sl.RepeatAll;
-                ImageLoop.Source = !DarkStyle.IsChecked
-                    ? new BitmapImage(new Uri("icons/loopActive.png", UriKind.Relative))
-                    : new BitmapImage(new Uri("icons/loopLightActive.png", UriKind.Relative));
+                if (onStart)
+                {
+                    ButtonLoop.ToolTip = Sl.Repeat;
+                    ImageLoop.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/loop.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/loopLight.png", UriKind.Relative));
+                }
+                else
+                {
+                    loop = true;
+                    ButtonLoop.ToolTip = Sl.RepeatAll;
+                    ImageLoop.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/loopActive.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/loopLightActive.png", UriKind.Relative));
+                }
             }
             else if (loop && !loopOne)
             {
-                loopOne = true;
-                ButtonLoop.ToolTip = Sl.RepeatOne;
-                ImageLoop.Source = !DarkStyle.IsChecked
-                    ? new BitmapImage(new Uri("icons/loopActiveOne.png", UriKind.Relative))
-                    : new BitmapImage(new Uri("icons/loopLightActiveOne.png", UriKind.Relative));
+                if (onStart)
+                {
+                    ButtonLoop.ToolTip = Sl.RepeatAll;
+                    ImageLoop.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/loopActive.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/loopLightActive.png", UriKind.Relative));
+                }
+                else
+                {
+                    loopOne = true;
+                    ButtonLoop.ToolTip = Sl.RepeatOne;
+                    ImageLoop.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/loopActiveOne.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/loopLightActiveOne.png", UriKind.Relative));
+                }
             }
         }
 
@@ -1826,21 +1885,42 @@ namespace SO_Mediaplayer
         {
             if (playRandom)
             {
-                playRandom = false;
-                ButtonShuffle.ToolTip = Sl.ShuffleOff;
-                ImageShuffle.Source = !DarkStyle.IsChecked
-                    ? new BitmapImage(new Uri("icons/shuffle.png", UriKind.Relative))
-                    : new BitmapImage(new Uri("icons/shuffleLight.png", UriKind.Relative));
+                if (onStart)
+                {
+                    ButtonShuffle.ToolTip = Sl.ShuffleOn;
+                    ImageShuffle.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/shuffleActive.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/shuffleLightActive.png", UriKind.Relative));
+                }
+                else
+                {
+                    playRandom = false;
+                    ButtonShuffle.ToolTip = Sl.ShuffleOff;
+                    ImageShuffle.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/shuffle.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/shuffleLight.png", UriKind.Relative));
+                }
             }
             else
             {
-                playRandom = true;
-                ButtonShuffle.ToolTip = Sl.ShuffleOn;
-                ImageShuffle.Source = !DarkStyle.IsChecked
-                    ? new BitmapImage(new Uri("icons/shuffleActive.png", UriKind.Relative))
-                    : new BitmapImage(new Uri("icons/shuffleLightActive.png", UriKind.Relative));
+                if (onStart)
+                {
+                    ButtonShuffle.ToolTip = Sl.ShuffleOff;
+                    ImageShuffle.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/shuffle.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/shuffleLight.png", UriKind.Relative));
+                }
+                else
+                {
+                    playRandom = true;
+                    ButtonShuffle.ToolTip = Sl.ShuffleOn;
+                    ImageShuffle.Source = !DarkStyle.IsChecked
+                        ? new BitmapImage(new Uri("icons/shuffleActive.png", UriKind.Relative))
+                        : new BitmapImage(new Uri("icons/shuffleLightActive.png", UriKind.Relative));
+                }
             }
             allreadyPlayed.Clear();
+            onStart = false;
         }
 
         #endregion
