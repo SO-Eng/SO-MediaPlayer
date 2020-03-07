@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Channels;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Microsoft.Win32;
 using SO_Mediaplayer.Models;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
@@ -61,9 +63,9 @@ namespace SO_Mediaplayer
         private dynamic selectionWeb;
 
         // Bools for Loop and Random play
-        private bool loop = true;
-        private bool loopOne = true;
-        private bool playRandom = true;
+        private bool loop;
+        private bool loopOne;
+        private bool playRandom;
 
         // Bools for View
         private bool folderSelected = true;
@@ -113,12 +115,14 @@ namespace SO_Mediaplayer
         // Shuffle var's
         List<int> allreadyPlayed = new List<int>();
         Random rnd = new Random();
+        // Path for Registry
+        private static string regPath = @"Software\SoftwOrt\SO-Mediaplayer";
 
         #endregion
 
 
         #region Methods
-		// Constructor
+        // Constructor
         public MainWindow()
         {
             InitializeComponent();
@@ -131,22 +135,149 @@ namespace SO_Mediaplayer
             webPlayerTitle = "SoftwOrt - WebRadioPlayer";
             ViewSettings();
 
+            folderSelection = true;
             firstLoad = true;
 
             ElliTimePos();
 
-            SetLanguageStartUp();
-
-            // Light-/Darkmode
-            LightStyle.IsChecked = true;
-            // Buttonstyle
-            Buttons3.IsChecked = true;
-            SetButtonsStartUp();
-            ButtonLoop_OnClick(new object(), new RoutedEventArgs());
-            ButtonShuffle_OnClick(new object(), new RoutedEventArgs());
+            // Load last Settings and WPF-Props
+            LoadRegToStart();
         }
 
-		// Define correct language at startup
+        // Load settings Methods
+        private void LoadRegToStart()
+        {
+            using (RegistryKey regkey = Registry.CurrentUser.OpenSubKey(regPath))
+            {
+                if (regkey != null)
+                {
+                    LoadSettings(regkey);
+                }
+                else
+                {
+                    // Language to Systemlanguage
+                    SetLanguageStartUp();
+                    // Buttonstyle
+                    Buttons1.IsChecked = true;
+                    SetButtonsStartUp();
+                    // Turn off Loop and Shuffle
+                    loop = true;
+                    loopOne = true;
+                    playRandom = true;
+                    ButtonLoop_OnClick(new object(), new RoutedEventArgs());
+                    ButtonShuffle_OnClick(new object(), new RoutedEventArgs());
+                    // Lightmode
+                    MenuItem_Style_Click(LightStyle, new RoutedEventArgs());
+                }
+            }
+        }
+
+        private void LoadSettings(RegistryKey _regkey)
+        {
+            // MainWindow
+            this.Top = Convert.ToDouble(_regkey.GetValue("Top"));
+            this.Left = Convert.ToDouble(_regkey.GetValue("Left"));
+            this.Width = Convert.ToDouble(_regkey.GetValue("Width"));
+            this.Height = Convert.ToDouble(_regkey.GetValue("Height"));
+            // Buttons
+            if (_regkey.GetValue("Buttons") == null)
+            {
+                Buttons1.IsChecked = true;
+                SetButtonsStartUp();
+            }
+            else
+            {
+                string buttons = _regkey.GetValue("Buttons").ToString();
+                foreach (MenuItem item in MenuItemButtons.Items)
+                {
+                    if (item.Name.Equals(buttons))
+                    {
+                        item.IsChecked = true;
+                        MenuItem_Buttons_Click(item, new RoutedEventArgs());
+                    }
+                }
+            }
+            // Language
+            if (_regkey.GetValue("Language") == null)
+            {
+                SetLanguageStartUp();
+            }
+            else
+            {
+                langSelection = _regkey.GetValue("Language").ToString();
+                foreach (MenuItem item in MenuItemLanguages.Items)
+                {
+                    if (item.Tag.ToString().Equals(langSelection))
+                    {
+                        item.IsChecked = true;
+                        Sl = new SetLanguages(item.Tag.ToString());
+                        MenuItem_Lang_Click(item, new RoutedEventArgs());
+                    }
+                }
+            }
+            // Style
+            string lastStyle = _regkey.GetValue("Style").ToString();
+            foreach (MenuItem item in MenuItemStyle.Items)
+            {
+                if (item.Name.Equals(lastStyle))
+                {
+                    item.IsChecked = true;
+                    MenuItem_Style_Click(item, new RoutedEventArgs());
+                }
+            }
+            // Loop && ShuffleButton
+            // ******* ABSICHERUNG ***********
+            loop = true;
+            loopOne = true;
+            playRandom = true;
+            ButtonLoop_OnClick(new object(), new RoutedEventArgs());
+            ButtonShuffle_OnClick(new object(), new RoutedEventArgs());
+
+            // Volume
+            ProgressVolume.Value = Convert.ToDouble(_regkey.GetValue("Volume"));
+            MediaPlayer.Volume = ProgressVolume.Value;
+            // Webradio was active?
+            if (!Convert.ToBoolean(_regkey.GetValue("WebradioActive")))
+            {
+                ButtonOpenWeb_Click(new object(), new RoutedEventArgs());
+            }
+        }
+
+        private void SaveSettings()
+        {
+            using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(regPath))
+            {
+                // MainWindow
+                regKey.SetValue("Top", this.Top);
+                regKey.SetValue("Left", this.Left);
+                regKey.SetValue("Width", this.Width);
+                regKey.SetValue("Height", this.Height);
+                // Buttons
+                foreach (MenuItem item in MenuItemButtons.Items)
+                {
+                    if (item.IsChecked)
+                    {
+                        regKey.SetValue("Buttons", item.Name);
+                    }
+                }
+                // Language
+                regKey.SetValue("Language", langSelection);
+                // Style
+                foreach (MenuItem item in MenuItemStyle.Items)
+                {
+                    if (item.IsChecked)
+                    {
+                        regKey.SetValue("Style", item.Name);
+                    }
+                }
+                // Volume
+                regKey.SetValue("Volume", MediaPlayer.Volume);
+                // Webbradio
+                regKey.SetValue("WebradioActive", folderSelection);
+            }
+        }
+
+        // Define correct language at startup
         private void SetLanguageStartUp()
         {
             foreach (MenuItem item in MenuItemLanguages.Items)
@@ -329,6 +460,7 @@ namespace SO_Mediaplayer
             }
             timer.Stop();
             timerWeb.Stop();
+            SaveSettings();
         }
 
 
@@ -1501,10 +1633,10 @@ namespace SO_Mediaplayer
 
             MenuItem miLang = sender as MenuItem;
             miLang.IsChecked = true;
-            if (CultureInfo.CurrentCulture.Name.Equals(miLang.Tag.ToString()))
-            {
-                return;
-            }
+            //if (CultureInfo.CurrentCulture.Name.Equals(miLang.Tag.ToString()))
+            //{
+            //    return;
+            //}
             App.Instance.SwitchLanguage(miLang.Tag.ToString());
 
             Sl = new SetLanguages(miLang.Tag.ToString());
