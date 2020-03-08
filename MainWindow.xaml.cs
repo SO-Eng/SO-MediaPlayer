@@ -172,6 +172,7 @@ namespace SO_Mediaplayer
                     Buttons1.IsChecked = true;
                     SetButtonsStartUp();
                     // Turn off Loop and Shuffle
+                    LightStyle.IsChecked = true;
                     onStart = false;
                     loop = true;
                     loopOne = true;
@@ -180,6 +181,7 @@ namespace SO_Mediaplayer
                     ButtonShuffle_OnClick(new object(), new RoutedEventArgs());
                     // Lightmode
                     MenuItem_Style_Click(LightStyle, new RoutedEventArgs());
+
                     folderSelectedLast = true;
                     favListSelectedLast = true;
                     searchListSelectedLast = true;
