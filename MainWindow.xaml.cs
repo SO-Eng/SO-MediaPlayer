@@ -55,6 +55,8 @@ namespace SO_Mediaplayer
         private bool sliderMoving;
         // Switch for mute
         private bool isMuted = false;
+        // Drop files
+        int dropCount = 1;
 
         // Helping attributes for selected Items in Listview/Datagrid (click)
         private dynamic selectedItemWeb;
@@ -425,6 +427,7 @@ namespace SO_Mediaplayer
                 allreadyPlayed.Clear();
                 timerWeb.Stop();
                 this.Title = mediaPlayerTitle;
+                dropCount++;
             }
         }
 
@@ -494,6 +497,7 @@ namespace SO_Mediaplayer
             }
             timer.Stop();
             timerWeb.Stop();
+            timerProgressBar.Stop();
             SaveSettings();
         }
 
@@ -529,6 +533,7 @@ namespace SO_Mediaplayer
                 this.Title = mediaPlayerTitle;
                 // Set path
                 sPath = folderDialog.SelectedPath;
+                sPath = sPath + "\\";
                 DirectoryInfo folder = new DirectoryInfo(sPath);
                 int i = 1;
                 if (folder.Exists)
@@ -539,6 +544,7 @@ namespace SO_Mediaplayer
                         playtime = "00:00:00";
                         ListSelectionFolder.Items.Add(new FolderPick { Number = i.ToString(), FileName = fileInfo.ToString(), PlayTime = playtime });
                         i++;
+                        dropCount++;
                     }
                 }
             }
@@ -1308,7 +1314,6 @@ namespace SO_Mediaplayer
                     Canvas.SetLeft(elliTime, MediaPlayer.Position.TotalSeconds / MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds * CanvasPbTime.ActualWidth - elliTime.Width / 2);
                 }
             }
-
         }
 
         // Stop update Timer (TimerPrograssBarMoving) and start normal timer again
@@ -1981,6 +1986,67 @@ namespace SO_Mediaplayer
             }
             allreadyPlayed.Clear();
             onStart = false;
+        }
+
+        // If files droped in Player show in ListView
+        private void MainWindow_OnDrop(object sender, DragEventArgs e)
+        {
+            if (!folderSelection)
+            {
+                if (MessageBox.Show("Wechseln?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    ListSelectionWeb.Visibility = Visibility.Collapsed;
+                    ListSelectionWebFav.Visibility = Visibility.Collapsed;
+                    GridSplitterWebLists.Visibility = Visibility.Collapsed;
+                    StackPanelSearch.Visibility = Visibility.Collapsed;
+                    TextBlockFavListHeader.Visibility = Visibility.Collapsed;
+                    ListSelectionFolder.Visibility = Visibility.Visible;
+                    FolderListMenu.IsChecked = true;
+                    FolderListMenu_Click(sender, e);
+                    // Prepare GridView
+                    folderSelection = true;
+                    fileSelection = false;
+                    ChkBoxSaveOnExit.IsEnabled = false;
+                    ChkBoxSaveOnExit.IsChecked = false;
+                    AddWebStationMenu.IsEnabled = false;
+                    ViewSettings();
+                    MediaPlayer.Source = null;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                int i = 0;
+                // store in Array for multidrop
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                string checkPath = files[i].Split('\\').Last();
+                string sPathDrop = files[i].Replace(checkPath, "");
+
+                if (!sPath.Equals(sPathDrop))
+                {
+                    ListSelectionFolder.Items.Clear();
+                    dropCount = 1;
+                }
+
+                foreach (var fileInfo in files)
+                {
+                    string tempFileInfo = fileInfo.Split('\\').Last();
+                    sPath = fileInfo.Replace(tempFileInfo, "");
+                    playtime = "00:00:00";
+                    ListSelectionFolder.Items.Add(new FolderPick { Number = dropCount.ToString(), FileName = tempFileInfo, PlayTime = playtime });
+                    dropCount++;
+                }
+
+                fileSelection = false;
+                folderSelection = true;
+                allreadyPlayed.Clear();
+                timerWeb.Stop();
+                this.Title = mediaPlayerTitle;
+            }
         }
 
         #endregion
