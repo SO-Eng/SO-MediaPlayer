@@ -90,13 +90,15 @@ namespace SO_Mediaplayer
         // Ellipse fuer Time-Progressbar
         Ellipse elliTime = new Ellipse();
         public Point ElliPos { get; set; }
+        private bool progressMoving = false;
+        private bool dragging = false;
 
         // StandardListe laden oder oeffnen
         private bool checkBox = true;
-
         // Timer (Ticker) um aktuelle Zeit wiederzuegeben an Label
         readonly DispatcherTimer timer = new DispatcherTimer();
         readonly DispatcherTimer timerWeb = new DispatcherTimer();
+        readonly DispatcherTimer timerProgressBar = new DispatcherTimer();
 
         // Liste fuer die Radiostaionen
         readonly List<WebStations> webStationList = new List<WebStations>();
@@ -134,6 +136,7 @@ namespace SO_Mediaplayer
             // Timerintervall setzen
             timer.Interval = TimeSpan.FromMilliseconds(250);
             timerWeb.Interval = TimeSpan.FromSeconds(1);
+            timerWeb.Interval = TimeSpan.FromMilliseconds(1);
 
             mediaPlayerTitle = "SoftwOrt - Mediaplayer";
             webPlayerTitle = "SoftwOrt - WebRadioPlayer";
@@ -363,6 +366,7 @@ namespace SO_Mediaplayer
             effBlur.Direction = -75;
             effBlur.Color = Colors.Gray;
             elliTime.Effect = effBlur;
+            elliTime.IsHitTestVisible = false;
 
             Canvas.SetTop(elliTime, ProgressPlayed.Height / 3 - 1);
             //CanvasPbTime.Children.Add(elliTime);
@@ -974,14 +978,7 @@ namespace SO_Mediaplayer
         // check per Mouseover over which Datagrid mouse is hoovered
         private void ListIdentifier(object sender, SelectionChangedEventArgs e)
         {
-            if (ListSelectionWebFav.IsMouseOver)
-            {
-                ListSelection_SelectionChanged(sender, e, 1);
-            }
-            else
-            {
-                ListSelection_SelectionChanged(sender, e, 0);
-            }
+            ListSelection_SelectionChanged(sender, e, ListSelectionWebFav.IsMouseOver ? 1 : 0);
         }
 
         // Selection from Lists load to Mediaplayer
@@ -1252,17 +1249,79 @@ namespace SO_Mediaplayer
             return progressBarValue;
         }
 
-        //private void ProgressVolume_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (!playing)
-        //    {
-        //        return;
-        //    }
-        //    sliderMoving = false;
-        //    double mousePosition = e.GetPosition(ProgressPlayed).X;
-        //    MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
-        //}
 
+        // Set Ellipseposition correct on ProgressBar Duration (drag&drop)
+        private void ProgressPlayed_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
+            {
+                if (!folderSelection)
+                {
+                    return;
+                }
+                if (MediaPlayer.HasVideo)
+                {
+                    if (MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds <= 30)
+                    {
+                        return;
+                    }
+                }
+
+                timer.Stop();
+                if (!progressMoving)
+                {
+                    timerProgressBar.Tick += TimerPrograssBarMoving;
+                    timerProgressBar.Start();
+                }
+
+                if (Mouse.GetPosition(CanvasPbTime).X >= CanvasPbTime.ActualWidth - elliTime.Width / 2)
+                {
+                    Canvas.SetLeft(elliTime, CanvasPbTime.ActualWidth - elliTime.Width / 2);
+                }
+
+                else if (Mouse.GetPosition(CanvasPbTime).X <= 0)
+                {
+                    Canvas.SetLeft(elliTime, 0 - elliTime.Width / 2);
+                }
+                else
+                {
+                    Canvas.SetLeft(elliTime, Mouse.GetPosition(CanvasPbTime).X - elliTime.Width / 2);
+                }
+                progressMoving = true;
+            }
+        }
+
+        // Update ProgressBar Duration to Ellipse-Position
+        private void TimerPrograssBarMoving(object sender, EventArgs e)
+        {
+            LabelCurrentTime.Content = MediaPlayer.Position.ToString(@"hh\:mm\:ss");
+            // update Progressbar gespielte Zeit
+            if (MediaPlayer.NaturalDuration.HasTimeSpan && !sliderMoving)
+            {
+                ProgressPlayed.Minimum = 0;
+                ProgressPlayed.Maximum = MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+                ProgressPlayed.Value = (Mouse.GetPosition(CanvasPbTime).X / CanvasPbTime.ActualWidth * MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds - elliTime.Width / 2);
+                MediaPlayer.Position = TimeSpan.FromSeconds(ProgressPlayed.Value);
+
+                if (Mouse.GetPosition(CanvasPbTime).Y >=20 || Mouse.GetPosition(CanvasPbTime).Y <= 4)
+                {
+                    Canvas.SetLeft(elliTime, MediaPlayer.Position.TotalSeconds / MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds * CanvasPbTime.ActualWidth - elliTime.Width / 2);
+                }
+            }
+
+        }
+
+        // Stop update Timer (TimerPrograssBarMoving) and start normal timer again
+        private void ProgressPlayed_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!playing)
+            {
+                return;
+            }
+            timerProgressBar.Stop();
+            timer.Start();
+            progressMoving = false;
+        }
 
 
         // Close Window
@@ -1925,6 +1984,7 @@ namespace SO_Mediaplayer
         }
 
         #endregion
+
     }
 }
 

@@ -7,7 +7,7 @@
         Title="{DynamicResource ResourceKey=MainWindow_Title}" Height="600" Width="970" KeyDown="WindowMediaPLayer_KeyDown" 
         MouseWheel="WindowMediaPLayer_MouseWheel" MinWidth="750" MinHeight="175" Icon="ico/headphones.ico" 
         Loaded="WindowMediaPLayer_Loaded" Closing="WindowMediaPLayer_Closing" SizeChanged="SOMediaPlayer_SizeChanged"
-        Style="{DynamicResource ResourceKey=MainWindowStyle}">
+        Style="{DynamicResource ResourceKey=MainWindowStyle}" MouseLeftButtonUp="ProgressPlayed_MouseLeftButtonUp">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskbarItemInfo">
             <TaskbarItemInfo.ThumbButtonInfos>
@@ -29,7 +29,7 @@
                 <!-- Menueleiste -->
                 <RowDefinition Height="45"/>
                 <!-- Toolbar -->
-                <RowDefinition x:Name="RowFavListHeight" Height="125" MinHeight="69" MaxHeight="260"/>
+                <RowDefinition x:Name="RowFavListHeight" Height="125" MinHeight="69" MaxHeight="260" />
                 <!-- Listen (Folder oder Favoriten) -->
                 <RowDefinition x:Name="RowFavGridSplitter" Height="3" />
                 <!-- GridSplitter -->
@@ -331,14 +331,14 @@
 
             <!--Der Mediaplayer-->
             <MediaElement x:Name="MediaPlayer" Source="C:\Users\iPhr3ak\Desktop\SoftwOrt\Logo\Final\final\1500x1500_logo_bildschirm.jpg" 
-                          MediaOpened="MediaPlayer_MediaOpened" LoadedBehavior="Manual" 
+                          MediaOpened="MediaPlayer_MediaOpened" LoadedBehavior="Manual" MouseLeftButtonUp="ProgressPlayed_MouseLeftButtonUp"
                           Volume="{Binding ElementName=ProgressVolume, Path=Value}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="4"/>
             <!-- If Audiofile is loaded, show music picture -->
-            <Image x:Name="ImageAudio" Grid.Row="2" Grid.Column="2" Grid.RowSpan="4" />
+            <Image x:Name="ImageAudio" Grid.Row="2" Grid.Column="2" Grid.RowSpan="4" IsHitTestVisible="False" />
         </Grid>
 
         <!--Statusleiste unten-->
-            <Grid Style="{DynamicResource GridBottomStyle}" VerticalAlignment="Bottom" >
+        <Grid Style="{DynamicResource GridBottomStyle}" VerticalAlignment="Bottom" MouseLeftButtonUp="ProgressPlayed_MouseLeftButtonUp" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"/>
                 <ColumnDefinition Width="205"/>
@@ -361,7 +361,8 @@
             <TextBlock Style="{DynamicResource TextBlockStyleBottom}" x:Name="TextBlockSaveOnExit" Text="{DynamicResource ResourceKey=ChkBox_SaveList}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
 
             <ProgressBar x:Name="ProgressPlayed" Grid.Row="1" Grid.Column="2" Height="12" Margin="20,0,20,0" VerticalAlignment="Center" 
-                         Value="{Binding ElementName=MediaPlayer, Path=Position}" MouseLeftButtonDown="ProgressPlayed_MouseLeftButtonDown" Style="{DynamicResource ProgressBarStyle_SO1}" >
+                         Value="{Binding ElementName=MediaPlayer, Path=Position}" MouseLeftButtonDown="ProgressPlayed_MouseLeftButtonDown" Style="{DynamicResource ProgressBarStyle_SO1}" 
+                         MouseMove="ProgressPlayed_MouseMove" MouseLeftButtonUp="ProgressPlayed_MouseLeftButtonUp">
                 <ProgressBar.Foreground>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF36AA00" Offset="1"/>
@@ -432,7 +433,7 @@
                     </Style>
                 </ProgressBar.Resources>
             </ProgressBar>
-            <Canvas x:Name="CanvasPbTime" Grid.Row="1" Grid.Column="2" Height="24" Margin="20,0,20,0" VerticalAlignment="Center" />
+            <Canvas x:Name="CanvasPbTime" Grid.Row="1" Grid.Column="2"  Margin="20,0,20,0" />
             <!--<TextBlock x:Name="TextBlockHitTest" Grid.Row="1" Grid.Column="2"/>-->
 
             <!-- Reihe 2 -->
