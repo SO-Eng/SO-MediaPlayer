@@ -24,6 +24,8 @@
         public string RepeatOne { get; set; }
         public string ShuffleOff { get; set; }
         public string ShuffleOn { get; set; }
+        public string DragDropWeb { get; set; }
+        public string DragDropWebTitle { get; set; }
 
         #endregion
 
@@ -76,6 +78,8 @@
             RepeatOne = "Repeat one";
             ShuffleOff = "Shuffle off";
             ShuffleOn = "Shuffle on";
+            DragDropWeb = "Do you want to load these files? This will switch from radio player to media playback!";
+            DragDropWebTitle = "Attention";
         }
 
 
@@ -102,6 +106,8 @@
             RepeatOne = "Einzelstück wiederholen";
             ShuffleOff = "Zufällig aus";
             ShuffleOn = "Zufällig an";
+            DragDropWeb = "Möchten Sie diese Dateien laden? Dadurch wird vom Radioplayer in den Mediamodus gewechselt!";
+            DragDropWebTitle = "Attention";
         }
 
         private void SetSpanish()
@@ -127,6 +133,8 @@
             RepeatOne = "Repita la pieza única";
             ShuffleOff = "Al azar de";
             ShuffleOn = "Al azar en";
+            DragDropWeb = "¿Quieres descargar estos archivos? ¡Esto cambiará del reproductor de radio al modo de medios!";
+            DragDropWebTitle = "Atención";
         }
 
         #endregion

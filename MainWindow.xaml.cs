@@ -1993,7 +1993,7 @@ namespace SO_Mediaplayer
         {
             if (!folderSelection)
             {
-                if (MessageBox.Show("Wechseln?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                if (MessageBox.Show(Sl.DragDropWeb, Sl.DragDropWebTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     ListSelectionWeb.Visibility = Visibility.Collapsed;
                     ListSelectionWebFav.Visibility = Visibility.Collapsed;
