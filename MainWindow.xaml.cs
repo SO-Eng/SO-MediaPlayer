@@ -91,7 +91,9 @@ namespace SO_Mediaplayer
 
         // Ellipse fuer Time-Progressbar
         Ellipse elliTime = new Ellipse();
-        public Point ElliPos { get; set; }
+        GradientBrush filling;
+        GradientBrush fillingPressed;
+
         private bool progressMoving = false;
         private bool dragging = false;
 
@@ -136,9 +138,9 @@ namespace SO_Mediaplayer
             InitializeComponent();
 
             // Timerintervall setzen
-            timer.Interval = TimeSpan.FromMilliseconds(250);
+            timer.Interval = TimeSpan.FromMilliseconds(50);
             timerWeb.Interval = TimeSpan.FromSeconds(1);
-            timerWeb.Interval = TimeSpan.FromMilliseconds(1);
+            timerWeb.Interval = TimeSpan.FromMilliseconds(10);
 
             mediaPlayerTitle = "SoftwOrt - Mediaplayer";
             webPlayerTitle = "SoftwOrt - WebRadioPlayer";
@@ -357,7 +359,8 @@ namespace SO_Mediaplayer
 		// Method for PrograssBar-Duration graphical Ellipse
         private void ElliTimePos()
         {
-            GradientBrush filling = new RadialGradientBrush(Colors.LightGray, Color.FromRgb(198, 198, 198));
+            filling = new RadialGradientBrush(Colors.LightGray, Color.FromRgb(198, 198, 198));
+            fillingPressed = new RadialGradientBrush(Colors.DarkGray, Color.FromRgb(198, 198, 198));
             elliTime.Fill = filling;
             elliTime.Height = 16;
             elliTime.Width = 16;
@@ -1244,6 +1247,12 @@ namespace SO_Mediaplayer
             {
                 return;
             }
+            // Change Color from Ellipse when pressed
+            CanvasPbTime.Children.Clear();
+            fillingPressed = new RadialGradientBrush(Color.FromRgb(77, 166, 174), Color.FromRgb(62, 62, 62));
+            elliTime.Fill = fillingPressed;
+            CanvasPbTime.Children.Add(elliTime);
+
             double mousePosition = e.GetPosition(ProgressPlayed).X;
             MediaPlayer.Position = TimeSpan.FromSeconds(SetProgressBarValuePlayed(mousePosition));
         }
@@ -1323,6 +1332,10 @@ namespace SO_Mediaplayer
             {
                 return;
             }
+            CanvasPbTime.Children.Clear();
+            filling = new RadialGradientBrush(Colors.LightGray, Color.FromRgb(198, 198, 198));
+            elliTime.Fill = filling;
+
             timerProgressBar.Stop();
             timer.Start();
             progressMoving = false;
@@ -2050,7 +2063,6 @@ namespace SO_Mediaplayer
         }
 
         #endregion
-
     }
 }
 
