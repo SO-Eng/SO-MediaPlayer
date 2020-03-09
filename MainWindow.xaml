@@ -304,7 +304,7 @@
                     <GridView>
                         <GridViewColumn Header="{DynamicResource ResourceKey=FileList_Number}" Width="25" DisplayMemberBinding="{Binding Number}" />
                         <GridViewColumn Header="{DynamicResource ResourceKey=FileList_FileName}" DisplayMemberBinding="{Binding FileName}"/>
-                        <GridViewColumn Header="{DynamicResource ResourceKey=FileList_Playtime}" Width="auto" DisplayMemberBinding="{Binding PlayTime}"/>
+                        <!--<GridViewColumn Header="{DynamicResource ResourceKey=FileList_Playtime}" Width="auto" DisplayMemberBinding="{Binding PlayTime}"/>-->
                     </GridView>
                 </ListView.View>
             </ListView>
