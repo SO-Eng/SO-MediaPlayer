@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.Win32;
+using NAudio.Wave;
 using SO_Mediaplayer.Models;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
@@ -422,7 +423,8 @@ namespace SO_Mediaplayer
                 sPath = openDialog.FileName.Replace(fileInfo, "");
 
                 ListSelectionFolder.Items.Clear();
-                string playtime = "00:00:00";
+                //string playtime = "00:00:00";
+                string playtime = GetFileDuration(openDialog.FileName).ToString((@"hh\:mm\:ss"));
                 ListSelectionFolder.Items.Add(new FolderPick { Number = 1.ToString(), FileName = fileInfo, PlayTime = playtime });
                 fileSelection = true;
                 MediaPlayer.Source = new Uri(openDialog.FileName);
@@ -442,6 +444,25 @@ namespace SO_Mediaplayer
                 onStart = false;
                 dropCount = 2;
             }
+        }
+
+        public static TimeSpan GetFileDuration(string fileName)
+        {
+            string mediaFile = fileName.Split('.').Last();
+
+            if (mediaFile.Equals("mp3"))
+            {
+                Mp3FileReader mp3 = new Mp3FileReader(fileName);
+                return mp3.TotalTime;
+            }
+
+            if (mediaFile.Equals("wav"))
+            {
+                WaveFileReader wf = new WaveFileReader(fileName);
+                return wf.TotalTime;
+            }
+
+            return TimeSpan.Zero;
         }
 
         // Load Radiostations
@@ -555,7 +576,7 @@ namespace SO_Mediaplayer
                     ListSelectionFolder.Items.Clear();
                     foreach (var fileInfo in folder.GetFiles())
                     {
-                        playtime = "00:00:00";
+                        string playtime = GetFileDuration(sPath + fileInfo.ToString()).ToString((@"hh\:mm\:ss"));
                         ListSelectionFolder.Items.Add(new FolderPick { Number = i.ToString(), FileName = fileInfo.ToString(), PlayTime = playtime });
                         i++;
                     }
@@ -2064,7 +2085,7 @@ namespace SO_Mediaplayer
                 {
                     string tempFileInfo = fileInfo.Split('\\').Last();
                     sPath = fileInfo.Replace(tempFileInfo, "");
-                    playtime = "00:00:00";
+                    string playtime = GetFileDuration(sPath + tempFileInfo).ToString((@"hh\:mm\:ss"));
                     ListSelectionFolder.Items.Add(new FolderPick { Number = dropCount.ToString(), FileName = tempFileInfo, PlayTime = playtime });
                     dropCount++;
                 }
