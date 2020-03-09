@@ -53,6 +53,7 @@ namespace SO_Mediaplayer
         private string webPlayerTitle;
         // Progressbar controll
         private bool sliderMoving;
+        private bool mouseMove;
         // Switch for mute
         private bool isMuted = false;
         // Drop files
@@ -73,7 +74,7 @@ namespace SO_Mediaplayer
         private bool favListSelected = true;
         private bool webListSelected = true;
         private bool firstLoad;
-
+        // Bools for saved Listview for StartUp
         private bool folderSelectedLast;
         private bool favListSelectedLast;
         private bool searchListSelectedLast;
@@ -148,6 +149,7 @@ namespace SO_Mediaplayer
 
             folderSelection = true;
             firstLoad = true;
+            mouseMove = false;
 
             ElliTimePos();
 
@@ -186,6 +188,7 @@ namespace SO_Mediaplayer
                     favListSelectedLast = true;
                     searchListSelectedLast = true;
                     webListSelectedLast = true;
+                    onStart = true;
                 }
             }
         }
@@ -414,9 +417,13 @@ namespace SO_Mediaplayer
                 TextBlockFavListHeader.Visibility = Visibility.Collapsed;
                 ListSelectionFolder.Visibility = Visibility.Visible;
                 FolderListMenu_Click(sender, e);
+                // Split Fileinfo
+                string fileInfo = openDialog.FileName.Split('\\').Last();
+                sPath = openDialog.FileName.Replace(fileInfo, "");
+
                 ListSelectionFolder.Items.Clear();
                 string playtime = "00:00:00";
-                ListSelectionFolder.Items.Add(new FolderPick { Number = 1.ToString(), FileName = openDialog.FileName, PlayTime = playtime });
+                ListSelectionFolder.Items.Add(new FolderPick { Number = 1.ToString(), FileName = fileInfo, PlayTime = playtime });
                 fileSelection = true;
                 MediaPlayer.Source = new Uri(openDialog.FileName);
                 ImagePlay();
@@ -432,7 +439,8 @@ namespace SO_Mediaplayer
                 allreadyPlayed.Clear();
                 timerWeb.Stop();
                 this.Title = mediaPlayerTitle;
-                dropCount++;
+                onStart = false;
+                dropCount = 2;
             }
         }
 
@@ -467,6 +475,7 @@ namespace SO_Mediaplayer
 			AddWebStationMenu.IsEnabled = true;
 			ViewSettings();
             this.Title = webPlayerTitle;
+            onStart = true;
         }
 
         // Selected local file (List) show in Datagrid
@@ -534,11 +543,11 @@ namespace SO_Mediaplayer
                 ViewSettings();
 
                 allreadyPlayed.Clear();
-                timerWeb.Stop();
+                //timerWeb.Stop();
                 this.Title = mediaPlayerTitle;
                 // Set path
                 sPath = folderDialog.SelectedPath;
-                sPath = sPath + "\\";
+                sPath += "\\";
                 DirectoryInfo folder = new DirectoryInfo(sPath);
                 int i = 1;
                 if (folder.Exists)
@@ -549,9 +558,9 @@ namespace SO_Mediaplayer
                         playtime = "00:00:00";
                         ListSelectionFolder.Items.Add(new FolderPick { Number = i.ToString(), FileName = fileInfo.ToString(), PlayTime = playtime });
                         i++;
-                        dropCount++;
                     }
                 }
+                dropCount = i;
             }
         }
 
@@ -1016,12 +1025,14 @@ namespace SO_Mediaplayer
                     sB.Append(@"\");
                     sB.Append(selectionFolder);
                     MediaPlayer.Source = new Uri(sB.ToString());
+                    timerWeb.Stop();
                     PlayRoutine();
                     playing = false;
                     // Add in List for allready played
                     allreadyPlayed.Add(ListSelectionFolder.SelectedIndex + 1);
                     ButtonPlayPause_Click(sender, e);
                     LabelFileName.Content = sB.ToString();
+                    onStart = false;
                 }
 				// ListSelectionWeb || ListSelectionWebFav
                 else if (!folderSelection && TextBoxSearch.Text != string.Empty)
@@ -1272,7 +1283,7 @@ namespace SO_Mediaplayer
         {
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
             {
-                if (!folderSelection)
+                if (!folderSelection || onStart)
                 {
                     return;
                 }
@@ -1283,7 +1294,7 @@ namespace SO_Mediaplayer
                         return;
                     }
                 }
-
+                mouseMove = true;
                 timer.Stop();
                 if (!progressMoving)
                 {
@@ -1330,10 +1341,11 @@ namespace SO_Mediaplayer
         // Stop update Timer (TimerPrograssBarMoving) and start normal timer again
         private void ProgressPlayed_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (!playing)
+            if (!mouseMove)
             {
                 return;
             }
+
             CanvasPbTime.Children.Clear();
             filling = new RadialGradientBrush(Colors.LightGray, Color.FromRgb(198, 198, 198));
             elliTime.Fill = filling;
@@ -1341,6 +1353,7 @@ namespace SO_Mediaplayer
             timerProgressBar.Stop();
             timer.Start();
             progressMoving = false;
+            mouseMove = false;
         }
 
 
