@@ -219,7 +219,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="RadioStations\RadioStation-List.csv" />
+    <Content Include="RadioStations\RadioStation-List.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="SO-Mediaplayer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

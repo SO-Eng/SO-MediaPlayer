@@ -465,8 +465,11 @@ namespace SO_Mediaplayer
 				CheckWebListsOn();
 			}
 			CheckListSwitch(sender, e);
-
-			webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
+            ButtonStop_Click(sender, e);
+            MediaPlayer.Source = null;
+            LabelCurrentTime.Content = "00:00:00";
+            ProgressTimeWeb();
+            webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
 			ListSelectionWeb.Items.Clear();
 			ListSelectionWebFav.Items.Clear();
 			folderSelection = false;
