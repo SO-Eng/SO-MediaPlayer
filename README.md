@@ -62,6 +62,11 @@ You can also editing the list by jump into folder "RadioStations" where applicat
 "RadioStation-List.csv" file.
 Be sure to never delete headerrow and have no empty rows before last row.
 
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Please make sure to update tests as appropriate.
+
 ## License
 
 [GNU](https://choosealicense.com/licenses/gpl-3.0/)
