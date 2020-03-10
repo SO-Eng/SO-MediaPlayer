@@ -6,10 +6,10 @@ SoftwOrt-Mediaplayer is a Media- & Webradioplayer.
 
 Use the exe file to install SoftwOrt-Mediaplayer
 
-'''bash
+'''python
 [setup.exe](https://github.com/SoftwOrt-Engineering/SoftwOrt-Mediaplayer/blob/master/setup.exe)
 '''
-No rights to install on your Computer? Use the [ZIP](https://github.com/SoftwOrt-Engineering/SoftwOrt-Mediaplayer/blob/master/SoftwOrt-Mediaplayer.zip) file
+If you have no rights to install on your Computer? Use the [ZIP](https://github.com/SoftwOrt-Engineering/SoftwOrt-Mediaplayer/blob/master/SoftwOrt-Mediaplayer.zip) file
 and unzip in a folder of your choice.
 
 ## Features
