@@ -48,13 +48,13 @@ Settings:
 ## Information
 
 When adding a radiostation be sure to use directlinks.
-	For example, a link like this won#t work:
+	For example, a link like this won't work:
 	https://www.radio.de/s/hr3
 	
 	Please try to find directlinks like this:
 	http://metafiles.gl-systemhaus.de/hr/hr3_2.m3u
 Because it is smoetimes hard to find correct link, there is a "Prelisten" function implemented.
-Also SSL URLs won´t work properly, mostly you can reach radiostation per URL when trim to http:// instead of https://
+Also SSL URLs won´t work properly, mostly you can reach radiostation per URL when trim to 'http://' instead of 'https://'
 
 Added wrong Radiostaion or you have a typo? You can uncheck "Save Webstation-list at exit" before closing
 the player, your new list won´t be saved!
