@@ -4,7 +4,7 @@ SoftwOrt-Mediaplayer is a Media- & Webradioplayer.
 
 ## Installation
 
-Use the exe file to install SoftwOrt-Mediaplayer
+Use the <i>exe</i> file to install SoftwOrt-Mediaplayer
 
 
 [setup.exe](https://github.com/SoftwOrt-Engineering/SoftwOrt-Mediaplayer/blob/master/setup.exe)
@@ -27,14 +27,14 @@ Besides the normal features you know about a simple mediaplayer like:
 - Thumbbuttons in Taskbar for Play/Pause, skip For- and Backward
 - Loop, Loop 1 and Shuffle
 
-A big feature is the Webradioplayer with following features:
+<b>A big feature is the Webradioplayer with following features:</b>
 
 - Big list of radiostations
 - Create and manage a list of your favorites
 - Add radiostations of your choice
 - Search in internal list
 
-Settings:
+<b>Settings:</b>
 
 - Choose between 3 languages
 	- English, German, Spanish
@@ -54,13 +54,14 @@ When adding a radiostation be sure to use directlinks.
 	Please try to find directlinks like this:
 	http://metafiles.gl-systemhaus.de/hr/hr3_2.m3u
 Because it is smoetimes hard to find correct link, there is a "Prelisten" function implemented.
-Also SSL URLs won´t work properly, mostly you can reach radiostation per URL when trim to 'http://' instead of 'https://'
+Also SSL URLs won´t work properly, mostly you can reach radiostation per URL when trim to <i>http://</i> instead of <i>https://</i>
 
-Added wrong Radiostaion or you have a typo? You can uncheck "Save Webstation-list at exit" before closing
+Added wrong Radiostaion or you have a typo? You can uncheck <b>"Save Webstation-list at exit"</b> before closing
 the player, your new list won´t be saved!
 You can also editing the list by jump into folder "RadioStations" where application is installed and open
 "RadioStation-List.csv" file.
-Be sure to never delete headerrow and have no empty rows before last row.
+
+<b>Be sure to never delete headerrow and have no empty rows before last row.</b>
 
 ## Contributing
 
