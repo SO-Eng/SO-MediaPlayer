@@ -30,7 +30,7 @@ Besides the normal features you know about a simple mediaplayer like:
 <b>A big feature is the Webradioplayer with following features:</b>
 
 - Big list of radiostations
-- Create and manage a list of your favorites
+- Create and manage a list of your favourites
 - Add radiostations of your choice
 - Search in internal list
 
