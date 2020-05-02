@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.Win32;
 using SO_Mediaplayer.Models;
+using SO_Mediaplayer.WebFileProcessor;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -153,8 +154,22 @@ namespace SO_Mediaplayer
 
             ElliTimePos();
 
+            webStationFile = LoadSavePath.SetFilePath(@"RadioStations\RadioStation-List.csv");
+
+            SaveRadioListToUserfolder();
             // Load last Settings and WPF-Props
             LoadRegToStart();
+        }
+
+        private void SaveRadioListToUserfolder()
+        {
+            string path = Path.GetDirectoryName(webStationFile);
+
+            if (!Directory.Exists(Path.GetFullPath(path)))
+            {
+                Directory.CreateDirectory(Path.GetFullPath(path));
+                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv", webStationFile);
+            }
         }
 
         // Load settings Methods
@@ -469,7 +484,8 @@ namespace SO_Mediaplayer
             MediaPlayer.Source = null;
             LabelCurrentTime.Content = "00:00:00";
             ProgressTimeWeb();
-            webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
+            //webStationFile = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
+            //webStationFile = LoadSavePath.SetFilePath(@"RadioStations\RadioStation-List.csv");
 			ListSelectionWeb.Items.Clear();
 			ListSelectionWebFav.Items.Clear();
 			folderSelection = false;

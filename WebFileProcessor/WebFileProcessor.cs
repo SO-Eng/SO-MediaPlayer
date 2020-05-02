@@ -15,6 +15,10 @@ namespace SO_Mediaplayer.WebFileProcessor
         /// <returns> Generic List filled with data from csv file without headline </returns>
         public static List<T> LoadFromTextFile<T>(string filePath) where T : class, new()
         {
+            if (!System.IO.File.Exists(filePath))
+            {
+                filePath = AppDomain.CurrentDomain.BaseDirectory + @"RadioStations\RadioStation-List.csv";
+            }
             var lines = System.IO.File.ReadAllLines(filePath).ToList();
             List<T> output = new List<T>();
             T entry = new T();
